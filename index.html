@@ -785,12 +785,16 @@ function metaIsActive(row){
 }
 function processMetaObjs(objs, sourceLabel){
   if(!objs.length){ return false; }
-  let periodStart = (objs[0]['Início dos relatórios']||'').trim();
-  let periodEnd = (objs[0]['Encerramento dos relatórios']||'').trim();
+  // Cada linha carrega seu próprio período (colunas "Início/Encerramento dos relatórios"),
+  // pra permitir várias exportações/meses diferentes coexistindo na mesma aba/upload.
   let added = 0;
+  let lastPeriodStart = '', lastPeriodEnd = '';
   objs.forEach(row=>{
     const name = metaEntityName(row);
     if(!name) return;
+    const periodStart = (row['Início dos relatórios']||'').trim();
+    const periodEnd = (row['Encerramento dos relatórios']||'').trim();
+    lastPeriodStart = periodStart; lastPeriodEnd = periodEnd;
     const key = `${periodStart}|${periodEnd}|${name}`;
     state.meta.entries[key] = {
       name, active: metaIsActive(row),
@@ -805,7 +809,7 @@ function processMetaObjs(objs, sourceLabel){
     };
     added++;
   });
-  state.meta.uploads.push({fileName:sourceLabel, uploadedAt:new Date().toISOString(), count:added, periodStart, periodEnd});
+  state.meta.uploads.push({fileName:sourceLabel, uploadedAt:new Date().toISOString(), count:added, periodStart:lastPeriodStart, periodEnd:lastPeriodEnd});
   saveState();
   renderAll();
   return true;
@@ -1621,16 +1625,18 @@ document.getElementById('periodResetBtn').addEventListener('click', ()=>{
 
 /* ============================================================
    SINCRONIZAÇÃO COM GOOGLE SHEETS
-   Preencha clientId e spreadsheetId abaixo. Os nomes das abas em
-   "ranges" devem bater com os nomes reais das abas na sua planilha.
+   Preencha clientId e spreadsheetId abaixo. As abas da planilha são
+   descobertas automaticamente pelo PREFIXO do nome — assim, criar uma
+   aba nova "Fechamento_Setembro" (por exemplo) já entra na sincronização
+   sem precisar mexer neste código de novo, mês após mês.
    ============================================================ */
 const GSYNC_CONFIG = {
   clientId: 'COLE_AQUI_O_CLIENT_ID.apps.googleusercontent.com',
   spreadsheetId: 'COLE_AQUI_O_ID_DA_PLANILHA',
-  ranges: {
-    fechamento: 'Fechamento!A1:AA5000',
-    kommo: 'Kommo!A1:Z10000',
-    metaAds: 'Meta Ads!A1:BA1000',
+  tabPrefixes: {
+    fechamento: 'Fechamento',
+    kommo: 'Kommo',
+    metaAds: 'Meta Ads',
   },
 };
 
@@ -1678,15 +1684,31 @@ function gsyncInit(){
   gsyncSetStatus('Não conectado');
 }
 
-async function gsyncFetchRanges(){
-  const ranges = Object.values(GSYNC_CONFIG.ranges).map(r=>`ranges=${encodeURIComponent(r)}`).join('&');
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${GSYNC_CONFIG.spreadsheetId}/values:batchGet?${ranges}`;
+async function gsyncApiGet(url){
   const res = await fetch(url, { headers: { Authorization: `Bearer ${gsyncAccessToken}` } });
   if(!res.ok){
     const errBody = await res.json().catch(()=>({}));
     throw new Error(errBody.error?.message || `HTTP ${res.status}`);
   }
-  const data = await res.json();
+  return res.json();
+}
+
+async function gsyncListTabTitles(){
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${GSYNC_CONFIG.spreadsheetId}?fields=sheets.properties.title`;
+  const data = await gsyncApiGet(url);
+  return (data.sheets||[]).map(s=>s.properties.title);
+}
+
+function gsyncMatchTabs(titles, prefix){
+  const low = prefix.toLowerCase();
+  return titles.filter(t=>t.toLowerCase().startsWith(low));
+}
+
+async function gsyncBatchGet(tabTitles){
+  if(!tabTitles.length) return [];
+  const ranges = tabTitles.map(t=>`ranges=${encodeURIComponent(`'${t}'!A1:BZ20000`)}`).join('&');
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${GSYNC_CONFIG.spreadsheetId}/values:batchGet?${ranges}`;
+  const data = await gsyncApiGet(url);
   return data.valueRanges || [];
 }
 
@@ -1694,11 +1716,22 @@ async function gsyncSyncNow(){
   if(!gsyncAccessToken) return;
   gsyncSetStatus('Sincronizando…');
   try{
-    const [fechVR, kommoVR, metaVR] = await gsyncFetchRanges();
-    if(fechVR && fechVR.values) processFechRows(fechVR.values, 'Google Sheets — Fechamento');
-    if(kommoVR && kommoVR.values) processKommoObjs(rowsToObjects(kommoVR.values), 'Google Sheets — Kommo');
-    if(metaVR && metaVR.values) processMetaObjs(rowsToObjects(metaVR.values), 'Google Sheets — Meta Ads');
-    gsyncSetStatus('Sincronizado às ' + new Date().toLocaleTimeString('pt-BR'));
+    const allTitles = await gsyncListTabTitles();
+    const fechTabs = gsyncMatchTabs(allTitles, GSYNC_CONFIG.tabPrefixes.fechamento);
+    const kommoTabs = gsyncMatchTabs(allTitles, GSYNC_CONFIG.tabPrefixes.kommo);
+    const metaTabs = gsyncMatchTabs(allTitles, GSYNC_CONFIG.tabPrefixes.metaAds);
+
+    const fechRanges = await gsyncBatchGet(fechTabs);
+    fechRanges.forEach((vr,i)=>{ if(vr && vr.values) processFechRows(vr.values, `Google Sheets — ${fechTabs[i]}`); });
+
+    const kommoRanges = await gsyncBatchGet(kommoTabs);
+    kommoRanges.forEach((vr,i)=>{ if(vr && vr.values) processKommoObjs(rowsToObjects(vr.values), `Google Sheets — ${kommoTabs[i]}`); });
+
+    const metaRanges = await gsyncBatchGet(metaTabs);
+    metaRanges.forEach((vr,i)=>{ if(vr && vr.values) processMetaObjs(rowsToObjects(vr.values), `Google Sheets — ${metaTabs[i]}`); });
+
+    const totalTabs = fechTabs.length + kommoTabs.length + metaTabs.length;
+    gsyncSetStatus(`Sincronizado às ${new Date().toLocaleTimeString('pt-BR')} (${totalTabs} abas: ${[...fechTabs,...kommoTabs,...metaTabs].join(', ') || 'nenhuma encontrada'})`);
   }catch(err){
     console.error(err);
     gsyncSetStatus('Erro ao sincronizar: ' + err.message);
