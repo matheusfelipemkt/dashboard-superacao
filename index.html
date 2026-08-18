@@ -1195,10 +1195,11 @@ function renderFileStatus(containerId, uploads, onClear){
 /* ============================================================
    PAGE RENDERERS
    ============================================================ */
-function kpiTile(label, value, sub, dotColor){
+function kpiTile(label, value, sub, dotColor, valueId){
+  const idAttr = valueId ? ` id="${valueId}"` : '';
   return `<div class="card kpi">
     <div class="kpi-top"><span class="dot" style="background:${dotColor||'var(--brand)'}"></span><span class="label">${label}</span></div>
-    <div class="value">${value}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+    <div class="value"${idAttr}>${value}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
 }
 
 function kpiTileRing(label, pct, sub, dotColor){
@@ -1419,8 +1420,60 @@ function renderFechamentoPage(){
   const pctCaidas = sales.length>0 ? aReceber.length/sales.length*100 : null;
   const totalInvest = Object.values(aggregateMeta()).reduce((s,a)=>s+a.spend,0);
   const cac = sales.length>0 ? totalInvest/sales.length : null;
-  const ltvMedio = sales.length>0 ? liquido/sales.length : null;
-  const ltvCac = (ltvMedio!==null && cac) ? ltvMedio/cac : null;
+
+  // ============ AQUISIÇÃO (CAC / LTV) — fonte única de verdade ============
+  // Vendas novas = Pago ou A Receber, excluindo churn/negociação e excluindo
+  // upsell/addon (Avaliação, Dia Adicional, Taxa de Mat., ou fonte contendo "upsell").
+  // Valor = mensalidade, com pós-pago como fallback só se vier vazia/zero.
+  // Usado tanto pelo tile "LTV/CAC" do topo quanto pelo módulo "Aquisição" abaixo —
+  // não deve existir uma segunda lógica de LTV/CAC divergente nesta página.
+  function acqPlanoModalidade(p){
+    const up = (p||'').trim().toUpperCase();
+    if(up.includes('HIDRO')) return 'Hidroginástica';
+    if(up.includes('NATA')) return 'Natação';
+    if(up==='UP') return 'Personal';
+    if(up.includes('SKY')) return 'Sky';
+    return null;
+  }
+  function acqIsAddon(r){
+    const up = (r.plano||'').trim().toUpperCase();
+    if(up==='AVALIAÇÃO' || up==='AVALIACAO') return true;
+    if(up==='DIA ADICIONAL') return true;
+    if(up.startsWith('TAXA DE MAT')) return true;
+    if((r.fonte||'').toUpperCase().includes('UPSELL')) return true;
+    return false;
+  }
+  function acqValor(r){ return r.mensalidade>0 ? r.mensalidade : r.pospago; }
+  function acqCanal(r){
+    const f = (r.fonte||'').toLowerCase();
+    if(f.includes('trafego')||f.includes('tráfego')) return 'trafego';
+    if(f.includes('linkbio')) return 'linkbio';
+    return 'outros';
+  }
+  const vendasNovas = totalEntries.filter(r=> (r.status==='PAGO'||r.status==='A RECEBER') && !acqIsAddon(r));
+  const vendasNovasTrafego = vendasNovas.filter(r=>acqCanal(r)==='trafego');
+  const vendasNovasLinkBio = vendasNovas.filter(r=>acqCanal(r)==='linkbio');
+  const vendasNovasOutros = vendasNovas.filter(r=>acqCanal(r)==='outros');
+  const cacPago = (vendasNovasTrafego.length+vendasNovasLinkBio.length)>0
+    ? totalInvest/(vendasNovasTrafego.length+vendasNovasLinkBio.length) : null;
+  const cacBlended = vendasNovas.length>0 ? totalInvest/vendasNovas.length : null;
+
+  const avgRetention = state.settings.avgRetentionMonths || 7;
+  document.getElementById('acqRetentionInput').value = avgRetention;
+  const ACQ_MODALIDADES = ['Hidroginástica','Natação','Personal','Sky'];
+  const ACQ_COLORS = { 'Hidroginástica':'#c98500', 'Natação':'#199e70', 'Personal':'#d6407a', 'Sky':'#7fb8f2' };
+  const acqPorModalidade = ACQ_MODALIDADES.map(mod=>{
+    const arr = vendasNovas.filter(r=>acqPlanoModalidade(r.plano)===mod);
+    const ticketMedio = arr.length>0 ? arr.reduce((s,r)=>s+acqValor(r),0)/arr.length : null;
+    const ltv = ticketMedio!==null ? ticketMedio*avgRetention : null;
+    const ltvCacMod = (ltv!==null && cacPago) ? ltv/cacPago : null;
+    return { modalidade:mod, count:arr.length, ticketMedio, ltv, ltvCac:ltvCacMod };
+  });
+  // "Geral (blended)": ticket médio de TODAS as vendas novas (todos canais) — só o nome é
+  // "blended", o CAC usado pra razão LTV/CAC continua sendo sempre o CAC pago, nunca o blended.
+  const ticketMedioGeral = vendasNovas.length>0 ? vendasNovas.reduce((s,r)=>s+acqValor(r),0)/vendasNovas.length : null;
+  const ltvGeral = ticketMedioGeral!==null ? ticketMedioGeral*avgRetention : null;
+  const ltvCacGeral = (ltvGeral!==null && cacPago) ? ltvGeral/cacPago : null;
 
   // Canal de fechamento: a ordem das tags na "Fonte/Fechamento do lead" é cronológica —
   // a última tag reconhecida é quem efetivamente fechou a venda. Além de WhatsApp/Ligação/Presencial,
@@ -1499,7 +1552,7 @@ function renderFechamentoPage(){
     kpiTile('Aumento do LTV', fmtCurrency(liquido), 'Vendas ativas (bruto - churn)'),
     kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', null, 'var(--c-trafego)'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento Meta Ads / vendas', 'var(--c-trafego)'),
-    kpiTile('LTV/CAC', ltvCac!==null?ltvCac.toFixed(2)+'x':'—', 'LTV médio (bruto-churn ÷ vendas) sobre CAC', 'var(--c-trafego)'),
+    kpiTile('LTV/CAC', ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—', 'LTV (ticket × tempo médio de permanência) ÷ CAC pago — igual ao "Geral (blended)" da seção Aquisição', 'var(--c-trafego)', 'topLtvCacValue'),
   ].join('');
 
   // Modalidade real do plano (não frequência semanal) — planos sem modalidade
@@ -1601,56 +1654,7 @@ function renderFechamentoPage(){
     <thead><tr><th>Data</th><th>Aluno</th><th>Plano</th><th>Valor</th><th>Status</th></tr></thead>
     <tbody>${pendentes || '<tr><td colspan="5" class="empty-hint">Nenhum registro em negociação ou sem status no período.</td></tr>'}</tbody>`;
 
-  // ============ AQUISIÇÃO (CAC / LTV) ============
-  // Regras próprias desta seção, independentes das KPIs acima: vendas novas = Pago ou A Receber,
-  // excluindo churn/negociação e excluindo upsell/addon (Avaliação, Dia Adicional, Taxa de Mat.,
-  // ou fonte contendo "upsell"). Valor = mensalidade, com pós-pago como fallback só se vier vazia/zero.
-  function acqPlanoModalidade(p){
-    const up = (p||'').trim().toUpperCase();
-    if(up.includes('HIDRO')) return 'Hidroginástica';
-    if(up.includes('NATA')) return 'Natação';
-    if(up==='UP') return 'Personal';
-    if(up.includes('SKY')) return 'Sky';
-    return null;
-  }
-  function acqIsAddon(r){
-    const up = (r.plano||'').trim().toUpperCase();
-    if(up==='AVALIAÇÃO' || up==='AVALIACAO') return true;
-    if(up==='DIA ADICIONAL') return true;
-    if(up.startsWith('TAXA DE MAT')) return true;
-    if((r.fonte||'').toUpperCase().includes('UPSELL')) return true;
-    return false;
-  }
-  function acqValor(r){ return r.mensalidade>0 ? r.mensalidade : r.pospago; }
-  function acqCanal(r){
-    const f = (r.fonte||'').toLowerCase();
-    if(f.includes('trafego')||f.includes('tráfego')) return 'trafego';
-    if(f.includes('linkbio')) return 'linkbio';
-    return 'outros';
-  }
-  const vendasNovas = totalEntries.filter(r=> (r.status==='PAGO'||r.status==='A RECEBER') && !acqIsAddon(r));
-  const vendasNovasTrafego = vendasNovas.filter(r=>acqCanal(r)==='trafego');
-  const vendasNovasLinkBio = vendasNovas.filter(r=>acqCanal(r)==='linkbio');
-  const vendasNovasOutros = vendasNovas.filter(r=>acqCanal(r)==='outros');
-  const cacPago = (vendasNovasTrafego.length+vendasNovasLinkBio.length)>0
-    ? totalInvest/(vendasNovasTrafego.length+vendasNovasLinkBio.length) : null;
-  const cacBlended = vendasNovas.length>0 ? totalInvest/vendasNovas.length : null;
-
-  const avgRetention = state.settings.avgRetentionMonths || 7;
-  document.getElementById('acqRetentionInput').value = avgRetention;
-  const ACQ_MODALIDADES = ['Hidroginástica','Natação','Personal','Sky'];
-  const ACQ_COLORS = { 'Hidroginástica':'#c98500', 'Natação':'#199e70', 'Personal':'#d6407a', 'Sky':'#7fb8f2' };
-  const acqPorModalidade = ACQ_MODALIDADES.map(mod=>{
-    const arr = vendasNovas.filter(r=>acqPlanoModalidade(r.plano)===mod);
-    const ticketMedio = arr.length>0 ? arr.reduce((s,r)=>s+acqValor(r),0)/arr.length : null;
-    const ltv = ticketMedio!==null ? ticketMedio*avgRetention : null;
-    const ltvCacMod = (ltv!==null && cacPago) ? ltv/cacPago : null;
-    return { modalidade:mod, count:arr.length, ticketMedio, ltv, ltvCac:ltvCacMod };
-  });
-  const ticketMedioGeral = vendasNovas.length>0 ? vendasNovas.reduce((s,r)=>s+acqValor(r),0)/vendasNovas.length : null;
-  const ltvGeral = ticketMedioGeral!==null ? ticketMedioGeral*avgRetention : null;
-  const ltvCacGeral = (ltvGeral!==null && cacPago) ? ltvGeral/cacPago : null;
-
+  // ============ Renderização do módulo "Aquisição" (usa os valores computados acima) ============
   document.getElementById('acqKpis').innerHTML = [
     kpiTile('Investimento total (Meta Ads)', fmtCurrency(totalInvest), 'Período selecionado', 'var(--c-trafego)'),
     kpiTile('Vendas novas', fmtInt(vendasNovas.length), 'Exclui churn, negociação e upsell/addon'),
@@ -1677,9 +1681,15 @@ function renderFechamentoPage(){
         <td>${fmtInt(vendasNovas.length)}</td>
         <td>${ticketMedioGeral!==null?fmtCurrency(ticketMedioGeral):'—'}</td>
         <td>${ltvGeral!==null?fmtCurrency(ltvGeral):'—'}</td>
-        <td>${ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—'}</td>
+        <td id="acqGeralLtvCacValue">${ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—'}</td>
       </tr>
     </tbody>`;
+
+  const topLtvCacEl = document.getElementById('topLtvCacValue');
+  const acqGeralLtvCacEl = document.getElementById('acqGeralLtvCacValue');
+  if(topLtvCacEl && acqGeralLtvCacEl && topLtvCacEl.textContent !== acqGeralLtvCacEl.textContent){
+    console.warn('[LTV/CAC] Divergência entre o tile do topo e o "Geral (blended)" da Aquisição:', topLtvCacEl.textContent, 'vs', acqGeralLtvCacEl.textContent);
+  }
 
   const todayIso = isoDate(new Date());
   const partialNoteEl = document.getElementById('acqPartialNote');
