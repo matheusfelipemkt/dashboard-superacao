@@ -581,13 +581,18 @@
 
     <div class="grid two" style="margin-top:16px;">
       <div class="card">
-        <h3>Planos mais vendidos</h3>
+        <h3>Vendas por modalidade</h3>
         <div class="chart-wrap" id="fechChartPlanos"></div>
       </div>
       <div class="card">
         <h3>Origem das vendas</h3>
         <div class="chart-wrap" id="fechChartOrigem"></div>
       </div>
+    </div>
+
+    <div class="section-title">Outros tipos de venda (não são modalidade)</div>
+    <div class="card">
+      <div class="table-scroll"><table class="data" id="fechOutrosVendaTable"></table></div>
     </div>
 
     <div class="section-title">Saúde do caixa</div>
@@ -1453,17 +1458,36 @@ function renderFechamentoPage(){
     kpiTile('LTV/CAC', ltvCac!==null?ltvCac.toFixed(2)+'x':'—', 'LTV médio (bruto-churn ÷ vendas) sobre CAC', 'var(--c-trafego)'),
   ].join('');
 
-  function planoGroup(p){
+  // Modalidade real do plano (não frequência semanal) — planos sem modalidade
+  // (avaliação, dia adicional etc.) não entram aqui, vão pra tabela "Outros tipos de venda".
+  function planoModalidade(p){
     p = (p||'').trim();
     const up = p.toUpperCase();
     if(up.startsWith('NATAÇÃO')||up.startsWith('NATACAO')) return 'Natação';
     if(up.startsWith('HIDRO')) return 'Hidroginástica';
-    return p || '—';
+    if(up==='UP') return 'Personal';
+    if(up==='SKY') return 'TotalPass';
+    return null;
   }
-  const PLANO_COLORS = ['#3987e5','#199e70','#c98500','#d55181','#9085e9','#7C8B96','#e2574c','#2ECC71','#fab219','#8B5CF6'];
-  const planoItems = Object.entries(sales.reduce((agg,s)=>{ const p=planoGroup(s.plano); agg[p]=(agg[p]||0)+1; return agg; },{}))
-    .sort((a,b)=>b[1]-a[1]).map(([label,value],idx)=>({label,value,color:PLANO_COLORS[idx%PLANO_COLORS.length]}));
+  const planoItems = Object.entries(sales.reduce((agg,s)=>{
+      const m = planoModalidade(s.plano);
+      if(!m) return agg;
+      agg[m]=(agg[m]||0)+1; return agg;
+    },{}))
+    .sort((a,b)=>b[1]-a[1]).map(([label,value])=>({label,value,color:colorForModality(label)}));
   renderPieChart('fechChartPlanos', planoItems, {formatter:fmtInt});
+
+  const outrosVendaAgg = sales.reduce((agg,s)=>{
+    if(planoModalidade(s.plano)) return agg;
+    const label = (s.plano||'').trim() || '—';
+    agg[label]=(agg[label]||0)+1; return agg;
+  },{});
+  const outrosVendaItems = Object.entries(outrosVendaAgg).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('fechOutrosVendaTable').innerHTML = `
+    <thead><tr><th>Tipo</th><th>Vendas</th><th>% do total</th></tr></thead>
+    <tbody>${outrosVendaItems.length ? outrosVendaItems.map(([label,count])=>`
+      <tr><td class="strong">${escapeHtml(label)}</td><td>${fmtInt(count)}</td><td>${sales.length>0?fmtPct(count/sales.length*100):'—'}</td></tr>
+    `).join('') : '<tr><td colspan="3" class="empty-hint">Nenhuma venda fora das modalidades no período.</td></tr>'}</tbody>`;
 
   const ORIGEM_COLORS = {
     'Tráfego (Meta Ads)':'#3987e5', 'Indicação':'#199e70', 'Orgânico/Instagram':'#c98500',
