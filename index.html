@@ -600,6 +600,22 @@
       <div class="table-scroll"><table class="data" id="fechOutrosVendaTable"></table></div>
     </div>
 
+    <div class="section-title">Aquisição (CAC / LTV)</div>
+    <div class="card" id="acqPartialNote" style="display:none;margin-bottom:16px;border-color:var(--warning);">
+      <div style="color:var(--warning);font-size:13px;"></div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <label for="acqRetentionInput" style="font-size:12.5px;color:var(--text-secondary);font-weight:700;">Tempo médio de permanência (meses)</label>
+        <input type="number" id="acqRetentionInput" min="1" step="0.5" style="width:90px;background:var(--bg-input);border:1px solid var(--border-strong);color:#fff;padding:8px 10px;border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:15px;">
+      </div>
+      <p class="empty-hint" style="margin-top:8px;text-align:left;padding:0;">Estimativa geral do Studio (não calculada a partir de churn real por modalidade no Kommo ainda) — ajuste aqui conforme o time atualizar essa referência.</p>
+    </div>
+    <div class="grid kpis" id="acqKpis"></div>
+    <div class="card" style="margin-top:16px;">
+      <div class="table-scroll"><table class="data" id="acqModalidadeTable"></table></div>
+    </div>
+
     <div class="section-title">Saúde do caixa</div>
     <div class="card">
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
@@ -661,6 +677,7 @@ function defaultState(){
     meta:{ entries:{}, mapping:{}, uploads:[] },
     kommo:{ entries:{}, uploads:[] },
     fechamento:{ entries:{}, uploads:[] },
+    settings:{ avgRetentionMonths: 7 },
   };
 }
 
@@ -676,6 +693,7 @@ function loadState(){
       meta: Object.assign(d.meta, parsed.meta||{}),
       kommo: Object.assign(d.kommo, parsed.kommo||{}),
       fechamento: Object.assign(d.fechamento, parsed.fechamento||{}),
+      settings: Object.assign(d.settings, parsed.settings||{}),
     };
   }catch(e){ return defaultState(); }
 }
@@ -1561,6 +1579,95 @@ function renderFechamentoPage(){
   document.getElementById('fechPendentesTable').innerHTML = `
     <thead><tr><th>Data</th><th>Aluno</th><th>Plano</th><th>Valor</th><th>Status</th></tr></thead>
     <tbody>${pendentes || '<tr><td colspan="5" class="empty-hint">Nenhum registro em negociação ou sem status no período.</td></tr>'}</tbody>`;
+
+  // ============ AQUISIÇÃO (CAC / LTV) ============
+  // Regras próprias desta seção, independentes das KPIs acima: vendas novas = Pago ou A Receber,
+  // excluindo churn/negociação e excluindo upsell/addon (Avaliação, Dia Adicional, Taxa de Mat.,
+  // ou fonte contendo "upsell"). Valor = mensalidade, com pós-pago como fallback só se vier vazia/zero.
+  function acqPlanoModalidade(p){
+    const up = (p||'').trim().toUpperCase();
+    if(up.includes('HIDRO')) return 'Hidroginástica';
+    if(up.includes('NATA')) return 'Natação';
+    if(up==='UP') return 'Personal';
+    if(up.includes('SKY')) return 'Sky';
+    return null;
+  }
+  function acqIsAddon(r){
+    const up = (r.plano||'').trim().toUpperCase();
+    if(up==='AVALIAÇÃO' || up==='AVALIACAO') return true;
+    if(up==='DIA ADICIONAL') return true;
+    if(up.startsWith('TAXA DE MAT')) return true;
+    if((r.fonte||'').toUpperCase().includes('UPSELL')) return true;
+    return false;
+  }
+  function acqValor(r){ return r.mensalidade>0 ? r.mensalidade : r.pospago; }
+  function acqCanal(r){
+    const f = (r.fonte||'').toLowerCase();
+    if(f.includes('trafego')||f.includes('tráfego')) return 'trafego';
+    if(f.includes('linkbio')) return 'linkbio';
+    return 'outros';
+  }
+  const vendasNovas = totalEntries.filter(r=> (r.status==='PAGO'||r.status==='A RECEBER') && !acqIsAddon(r));
+  const vendasNovasTrafego = vendasNovas.filter(r=>acqCanal(r)==='trafego');
+  const vendasNovasLinkBio = vendasNovas.filter(r=>acqCanal(r)==='linkbio');
+  const vendasNovasOutros = vendasNovas.filter(r=>acqCanal(r)==='outros');
+  const cacPago = (vendasNovasTrafego.length+vendasNovasLinkBio.length)>0
+    ? totalInvest/(vendasNovasTrafego.length+vendasNovasLinkBio.length) : null;
+  const cacBlended = vendasNovas.length>0 ? totalInvest/vendasNovas.length : null;
+
+  const avgRetention = state.settings.avgRetentionMonths || 7;
+  document.getElementById('acqRetentionInput').value = avgRetention;
+  const ACQ_MODALIDADES = ['Hidroginástica','Natação','Personal','Sky'];
+  const ACQ_COLORS = { 'Hidroginástica':'#c98500', 'Natação':'#199e70', 'Personal':'#d6407a', 'Sky':'#7fb8f2' };
+  const acqPorModalidade = ACQ_MODALIDADES.map(mod=>{
+    const arr = vendasNovas.filter(r=>acqPlanoModalidade(r.plano)===mod);
+    const ticketMedio = arr.length>0 ? arr.reduce((s,r)=>s+acqValor(r),0)/arr.length : null;
+    const ltv = ticketMedio!==null ? ticketMedio*avgRetention : null;
+    const ltvCacMod = (ltv!==null && cacPago) ? ltv/cacPago : null;
+    return { modalidade:mod, count:arr.length, ticketMedio, ltv, ltvCac:ltvCacMod };
+  });
+  const ticketMedioGeral = vendasNovas.length>0 ? vendasNovas.reduce((s,r)=>s+acqValor(r),0)/vendasNovas.length : null;
+  const ltvGeral = ticketMedioGeral!==null ? ticketMedioGeral*avgRetention : null;
+  const ltvCacGeral = (ltvGeral!==null && cacPago) ? ltvGeral/cacPago : null;
+
+  document.getElementById('acqKpis').innerHTML = [
+    kpiTile('Investimento total (Meta Ads)', fmtCurrency(totalInvest), 'Período selecionado', 'var(--c-trafego)'),
+    kpiTile('Vendas novas', fmtInt(vendasNovas.length), 'Exclui churn, negociação e upsell/addon'),
+    kpiTile('Vendas novas — Tráfego', fmtInt(vendasNovasTrafego.length), 'Canal pago (Meta Ads)', 'var(--c-trafego)'),
+    kpiTile('Vendas novas — LinkBio', fmtInt(vendasNovasLinkBio.length), 'Canal pago (link da bio)', 'var(--c-trafego)'),
+    kpiTile('Vendas novas — Outros canais', fmtInt(vendasNovasOutros.length), 'Indicação, orgânico, presencial etc.', 'var(--c-outro)'),
+    kpiTile('CAC pago', cacPago!==null?fmtCurrency(cacPago):'—', 'Investimento ÷ (vendas via Tráfego + LinkBio) — use esse pra comparar meses', 'var(--c-trafego)'),
+    kpiTile('CAC blended', cacBlended!==null?fmtCurrency(cacBlended):'—', 'Investimento ÷ todas as vendas novas — infla o resultado, só contexto', 'var(--c-outro)'),
+  ].join('');
+
+  const acqRows = acqPorModalidade.map(m=>`
+    <tr>
+      <td class="strong"><span class="swatch" style="background:${ACQ_COLORS[m.modalidade]}"></span>${m.modalidade}</td>
+      <td>${fmtInt(m.count)}</td>
+      <td>${m.ticketMedio!==null?fmtCurrency(m.ticketMedio):'—'}</td>
+      <td>${m.ltv!==null?fmtCurrency(m.ltv):'—'}</td>
+      <td>${m.ltvCac!==null?m.ltvCac.toFixed(2)+'x':'—'}</td>
+    </tr>`).join('');
+  document.getElementById('acqModalidadeTable').innerHTML = `
+    <thead><tr><th>Modalidade</th><th>Vendas novas</th><th>Ticket médio</th><th>LTV (${fmtNum1(avgRetention)} meses)</th><th>LTV/CAC</th></tr></thead>
+    <tbody>${acqRows}
+      <tr style="border-top:2px solid var(--border-strong);">
+        <td class="strong">Geral (blended)</td>
+        <td>${fmtInt(vendasNovas.length)}</td>
+        <td>${ticketMedioGeral!==null?fmtCurrency(ticketMedioGeral):'—'}</td>
+        <td>${ltvGeral!==null?fmtCurrency(ltvGeral):'—'}</td>
+        <td>${ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—'}</td>
+      </tr>
+    </tbody>`;
+
+  const todayIso = isoDate(new Date());
+  const partialNoteEl = document.getElementById('acqPartialNote');
+  if(todayIso < end){
+    partialNoteEl.style.display = '';
+    partialNoteEl.querySelector('div').textContent = `⚠ Período em andamento — dados até ${fmtDateBR(todayIso)}, mês ainda não fechado.`;
+  } else {
+    partialNoteEl.style.display = 'none';
+  }
 }
 
 function fmtDateBR(iso){ return iso.split('-').reverse().join('/'); }
@@ -1648,6 +1755,13 @@ document.getElementById('periodResetBtn').addEventListener('click', ()=>{
   state.period.start = isoDate(start);
   state.period.end = isoDate(end);
   syncPeriodInputs();
+  saveState();
+  renderAll();
+});
+
+document.getElementById('acqRetentionInput').addEventListener('change', (e)=>{
+  const v = parseFloat(e.target.value);
+  state.settings.avgRetentionMonths = (v>0) ? v : 7;
   saveState();
   renderAll();
 });
