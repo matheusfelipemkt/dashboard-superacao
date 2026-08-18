@@ -453,6 +453,11 @@
     <button class="btn ghost sm" id="gsyncSigninBtn" type="button" disabled>Entrar com Google</button>
     <div class="gsync-status" id="gsyncStatus">Carregando…</div>
   </div>
+  <div class="gsync-panel">
+    <label>Enviar pro Giovane</label>
+    <button class="btn ghost sm" id="downloadSnapshotBtn" type="button">Baixar relatório (HTML)</button>
+    <div class="gsync-status">Baixa um arquivo com os números que estão na tela agora, pronto pra anexar em e-mail/WhatsApp.</div>
+  </div>
 </aside>
 
 <main>
@@ -1761,6 +1766,64 @@ async function gsyncSyncNow(){
     gsyncSetStatus('Erro ao sincronizar: ' + err.message);
   }
 }
+
+/* ============================================================
+   BAIXAR RELATÓRIO (snapshot estático dos dados na tela agora)
+   Clona o HTML já renderizado, tira upload/sync/inputs editáveis e
+   qualquer script de dados — sobra só um arquivo estático com os
+   números atuais, pronto pra mandar pro Giovane sem depender de nada.
+   ============================================================ */
+function buildSnapshotHtml(){
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelectorAll('script').forEach(s=>s.remove());
+
+  const periodPicker = clone.querySelector('.period-picker');
+  if(periodPicker) periodPicker.remove();
+  clone.querySelectorAll('.gsync-panel').forEach(el=>el.remove());
+
+  ['metaUploader','kommoUploader','fechUploader'].forEach(id=>{
+    const uploaderEl = clone.querySelector('#'+id);
+    if(!uploaderEl) return;
+    const sectionTitle = uploaderEl.previousElementSibling;
+    const fileStatus = uploaderEl.nextElementSibling;
+    if(fileStatus && fileStatus.tagName==='DIV' && !fileStatus.className) fileStatus.remove();
+    uploaderEl.remove();
+    if(sectionTitle && sectionTitle.classList.contains('section-title')) sectionTitle.remove();
+  });
+
+  const note = document.createElement('div');
+  note.style.cssText = 'padding:14px 18px;margin:0 0 22px;background:var(--bg-card-alt);border:1px dashed var(--border-strong);border-radius:8px;font-size:12px;color:var(--text-secondary);font-family:var(--font-mono);';
+  note.textContent = `Snapshot gerado em ${new Date().toLocaleString('pt-BR')} — números congelados no momento do download, não atualizam sozinhos.`;
+  const main = clone.querySelector('main');
+  if(main) main.insertBefore(note, main.firstChild);
+
+  const navScript = document.createElement('script');
+  navScript.textContent = `
+document.querySelectorAll('#tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('active', b===btn));
+    document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active', p.id==='page-'+btn.dataset.page));
+  });
+});`;
+  clone.querySelector('body').appendChild(navScript);
+
+  return '<!DOCTYPE html>\n' + clone.outerHTML;
+}
+
+function downloadSnapshot(){
+  const html = buildSnapshotHtml();
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateLabel = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `dashboard-superacao-${dateLabel}.html`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+document.getElementById('downloadSnapshotBtn').addEventListener('click', downloadSnapshot);
 
 /* ============================================================
    INIT
