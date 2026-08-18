@@ -379,6 +379,14 @@
     padding-bottom:8px;border-bottom:1px solid var(--border-strong);margin-bottom:2px;
   }
   .empty-hint{color:var(--text-muted);font-size:13.5px;padding:18px 4px;text-align:center;}
+  .acq-legend summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--brand);list-style:none;}
+  .acq-legend summary::-webkit-details-marker{display:none;}
+  .acq-legend summary::before{content:'▸ ';}
+  .acq-legend[open] summary::before{content:'▾ ';}
+  .acq-legend-body{margin-top:14px;display:flex;flex-direction:column;gap:12px;font-size:13px;color:var(--text-secondary);line-height:1.6;}
+  .acq-legend-body b{color:#fff;}
+  .acq-legend-warn{padding-top:10px;border-top:1px solid var(--border);}
+  .acq-legend-warn b{color:var(--warning);}
 
   /* ---------- Chart ---------- */
   .chart-wrap{width:100%;}
@@ -601,6 +609,19 @@
     </div>
 
     <div class="section-title">Aquisição (CAC / LTV)</div>
+    <details class="card acq-legend" style="margin-bottom:16px;">
+      <summary>Como interpretar essas métricas (clique pra abrir)</summary>
+      <div class="acq-legend-body">
+        <div><b>Investimento total (Meta Ads)</b> — quanto foi gasto em anúncios no período selecionado.</div>
+        <div><b>Vendas novas</b> — vendas que contam como aquisição de cliente novo de verdade: exclui churn (cancelou), negociação em aberto (ainda não fechou) e upsell/complemento de quem já é aluno (avaliação, dia adicional, taxa de matrícula).</div>
+        <div><b>CAC pago</b> — quanto custou, em média, cada venda nova que veio de canal pago (Tráfego/Anúncios ou LinkBio). É o número certo pra decidir se vale investir mais em ads.</div>
+        <div><b>CAC blended</b> — mesma conta, mas dividida por TODAS as vendas novas, incluindo indicação/orgânico que não custaram anúncio. Fica menor que o CAC pago porque "dilui" com vendas gratuitas — é só contexto, não usar pra decisão de investimento.</div>
+        <div><b>Ticket médio</b> — quanto, em média, um aluno novo daquela modalidade paga por mês.</div>
+        <div><b>LTV (Lifetime Value)</b> — quanto um aluno médio deve gerar de receita durante todo o tempo que fica treinando: ticket médio × tempo médio de permanência (hoje uma estimativa do time, ainda não calculada com churn real).</div>
+        <div><b>LTV/CAC</b> — quantas vezes o valor que um aluno gera paga o custo de trazer ele. Acima de 3x costuma ser saudável; abaixo de 1x é prejuízo. Sempre calculado sobre o CAC pago, nunca o blended.</div>
+        <div class="acq-legend-warn"><b>Atenção:</b> o tile "CAC" que aparece mais acima nesta página (fora dessa seção) usa uma conta mais simples — investimento ÷ TODAS as vendas do período (inclusive churn, inclusive orgânicas) — por isso costuma dar um número bem mais baixo. Não é o mesmo cálculo e não deve ser usado pra decisão de investimento em ads; use sempre o CAC pago daqui de cima.</div>
+      </div>
+    </details>
     <div class="card" id="acqPartialNote" style="display:none;margin-bottom:16px;border-color:var(--warning);">
       <div style="color:var(--warning);font-size:13px;"></div>
     </div>
