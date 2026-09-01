@@ -1013,7 +1013,13 @@ function processFechRows(rows, sourceLabel){
         if(prev){
           prev.mensalidade += toFloatBR(mensalidade);
           prev.pospago += toFloatBR(pospago);
-          if((plano||'').trim()) prev.plano += ` + ${(plano||'').trim()}${(opcao||'').trim()?' ('+(opcao||'').trim()+')':''}`;
+          // Não mexe em prev.plano — isso quebraria a classificação de modalidade
+          // (ex.: "UP" vira "UP + HIDRO 1x (TAXA DE MAT.)" e para de bater com
+          // nenhuma modalidade). A informação da linha extra vai só pra observação.
+          if((plano||'').trim()){
+            const extra = `${(plano||'').trim()}${(opcao||'').trim()?' ('+(opcao||'').trim()+')':''}`;
+            prev.obs = (prev.obs ? prev.obs + ' | ' : '') + `Linha adicional: ${extra}`;
+          }
         }
       }
       continue;
@@ -1471,6 +1477,7 @@ function renderFechamentoPage(){
   // não deve existir uma segunda lógica de LTV/CAC divergente nesta página.
   function acqPlanoModalidade(p){
     const up = (p||'').trim().toUpperCase();
+    if(up==='START') return 'Personal'; // Start = treino de 1h, também é Personal (igual UP)
     if(up.includes('HIDRO')) return 'Hidroginástica';
     if(up.includes('NATA')) return 'Natação';
     if(up==='UP') return 'Personal';
@@ -1604,7 +1611,7 @@ function renderFechamentoPage(){
     const up = p.toUpperCase();
     if(up.startsWith('NATAÇÃO')||up.startsWith('NATACAO')) return 'Natação';
     if(up.startsWith('HIDRO')) return 'Hidroginástica';
-    if(up==='UP') return 'Personal';
+    if(up==='UP'||up==='START') return 'Personal'; // Start = treino de 1h, também é Personal
     if(up==='SKY') return 'TotalPass';
     return null;
   }
