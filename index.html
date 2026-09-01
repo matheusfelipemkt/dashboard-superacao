@@ -971,20 +971,44 @@ const FECH_COUNT_STATUSES = new Set(['PAGO','A RECEBER','CHURN']);
 function processFechRows(rows, sourceLabel){
   if(!rows.length){ return false; }
   let added = 0;
+  // Cada bloco (COMERCIAL e VENDAS SUPERAÇÃO) mantém sua própria "última venda" —
+  // uma linha com ALUNO em branco mas com PLANO/valor preenchido é uma continuação
+  // da matrícula da linha anterior *do mesmo bloco* (ex.: taxa de matrícula lançada
+  // como linha separada logo abaixo da mensalidade) e não uma venda nova. Em vez de
+  // criar um registro à parte (que já foi observado colidindo de chave com outra
+  // venda do mesmo aluno/plano no mesmo dia, sobrescrevendo-a), somamos o valor
+  // dessa linha na venda anterior do bloco.
+  const lastKeyPerBlock = [null, null];
   for(let i=2;i<rows.length;i++){
     const row = rows[i];
     const blocks = [row.slice(0,13), row.slice(14,27)];
-    blocks.forEach(b=>{
+    blocks.forEach((b, blockIdx)=>{
       const [data, plfin, aluno, fonte, plano, opcao, mensalidade, pospago, contato, pagamento, dia, status, obs] = b;
-      if(!aluno || !aluno.trim()) return;
+      const alunoClean = (aluno||'').trim();
+      const valor = toFloatBR(mensalidade) + toFloatBR(pospago);
+      if(!alunoClean){
+        // Linha de continuação (ex.: taxa de matrícula): sem aluno próprio, mas com
+        // dado de venda — soma na última venda deste mesmo bloco, se houver.
+        const lastKey = lastKeyPerBlock[blockIdx];
+        if(lastKey && (valor>0 || (plano||'').trim())){
+          const prev = state.fechamento.entries[lastKey];
+          if(prev){
+            prev.mensalidade += toFloatBR(mensalidade);
+            prev.pospago += toFloatBR(pospago);
+            if((plano||'').trim()) prev.plano += ` + ${(plano||'').trim()}${(opcao||'').trim()?' ('+(opcao||'').trim()+')':''}`;
+          }
+        }
+        return;
+      }
       const d = parseBRDate(data);
       if(!d) return;
       const statusClean = (status||'').trim().toUpperCase();
-      const key = `${d}|${aluno.trim()}|${(plano||'').trim()}`;
+      const key = `${blockIdx}|${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
       state.fechamento.entries[key] = {
-        date:d, aluno:aluno.trim(), fonte:(fonte||'').trim(), plano:(plano||'').trim(),
+        date:d, aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
         mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
       };
+      lastKeyPerBlock[blockIdx] = key;
       added++;
     });
   }
