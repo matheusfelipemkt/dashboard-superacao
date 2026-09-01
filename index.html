@@ -608,6 +608,11 @@
       <div class="table-scroll"><table class="data" id="fechOutrosVendaTable"></table></div>
     </div>
 
+    <div class="section-title">Vendas por tipo de opção (Mensal / Anual / Outra)</div>
+    <div class="card">
+      <div class="table-scroll"><table class="data" id="fechOpcaoTable"></table></div>
+    </div>
+
     <div class="section-title">Aquisição (CAC / LTV)</div>
     <details class="card acq-legend" style="margin-bottom:16px;">
       <summary>Como interpretar essas métricas (clique pra abrir)</summary>
@@ -640,6 +645,11 @@
     <div class="section-title">Saúde do caixa</div>
     <div class="card">
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
+    </div>
+
+    <div class="section-title">Motivos de churn</div>
+    <div class="card">
+      <div class="table-scroll"><table class="data" id="fechChurnTable"></table></div>
     </div>
 
     <div class="section-title">Canal de fechamento (ligação x WhatsApp)</div>
@@ -968,49 +978,57 @@ function kommoLeadsInPeriod(){
    ============================================================ */
 const FECH_COUNT_STATUSES = new Set(['PAGO','A RECEBER','CHURN']);
 
+// Normaliza a coluna OPÇÃO (ANUAL/MENSAL/SEMESTRAL/DIÁRIA/TAXA DE MAT./...) em 3 baldes
+// pra dar pra comparar venda mensal x anual x avulsa direto no dashboard.
+function opcaoBucket(opcao){
+  const up = (opcao||'').trim().toUpperCase();
+  if(!up) return 'Não informado';
+  if(up.startsWith('MENSAL')) return 'Mensal';
+  if(up.startsWith('ANUAL')) return 'Anual';
+  if(up.startsWith('SEMESTRAL')) return 'Semestral';
+  return 'Outra (' + (opcao||'').trim() + ')';
+}
 function processFechRows(rows, sourceLabel){
   if(!rows.length){ return false; }
   let added = 0;
-  // Cada bloco (COMERCIAL e VENDAS SUPERAÇÃO) mantém sua própria "última venda" —
-  // uma linha com ALUNO em branco mas com PLANO/valor preenchido é uma continuação
-  // da matrícula da linha anterior *do mesmo bloco* (ex.: taxa de matrícula lançada
-  // como linha separada logo abaixo da mensalidade) e não uma venda nova. Em vez de
-  // criar um registro à parte (que já foi observado colidindo de chave com outra
-  // venda do mesmo aluno/plano no mesmo dia, sobrescrevendo-a), somamos o valor
-  // dessa linha na venda anterior do bloco.
-  const lastKeyPerBlock = [null, null];
+  // A partir daqui o dashboard só considera o bloco COMERCIAL (colunas A–M) da
+  // planilha de Fechamento — o bloco VENDAS SUPERAÇÃO (colunas O–AA) é ignorado
+  // de propósito, a pedido explícito: só a informação do comercial deve alimentar
+  // este dashboard.
+  // Uma linha com ALUNO em branco mas com PLANO/valor preenchido é uma continuação
+  // da matrícula da linha anterior (ex.: taxa de matrícula lançada como linha
+  // separada logo abaixo da mensalidade) e não uma venda nova — soma o valor na
+  // venda anterior em vez de criar um registro à parte (evita tanto "venda
+  // fantasma" quanto colisão de chave com outra venda do mesmo aluno/plano/dia).
+  let lastKey = null;
   for(let i=2;i<rows.length;i++){
     const row = rows[i];
-    const blocks = [row.slice(0,13), row.slice(14,27)];
-    blocks.forEach((b, blockIdx)=>{
-      const [data, plfin, aluno, fonte, plano, opcao, mensalidade, pospago, contato, pagamento, dia, status, obs] = b;
-      const alunoClean = (aluno||'').trim();
-      const valor = toFloatBR(mensalidade) + toFloatBR(pospago);
-      if(!alunoClean){
-        // Linha de continuação (ex.: taxa de matrícula): sem aluno próprio, mas com
-        // dado de venda — soma na última venda deste mesmo bloco, se houver.
-        const lastKey = lastKeyPerBlock[blockIdx];
-        if(lastKey && (valor>0 || (plano||'').trim())){
-          const prev = state.fechamento.entries[lastKey];
-          if(prev){
-            prev.mensalidade += toFloatBR(mensalidade);
-            prev.pospago += toFloatBR(pospago);
-            if((plano||'').trim()) prev.plano += ` + ${(plano||'').trim()}${(opcao||'').trim()?' ('+(opcao||'').trim()+')':''}`;
-          }
+    const b = row.slice(0,13);
+    const [data, plfin, aluno, fonte, plano, opcao, mensalidade, pospago, contato, pagamento, dia, status, obs] = b;
+    const alunoClean = (aluno||'').trim();
+    const valor = toFloatBR(mensalidade) + toFloatBR(pospago);
+    if(!alunoClean){
+      if(lastKey && (valor>0 || (plano||'').trim())){
+        const prev = state.fechamento.entries[lastKey];
+        if(prev){
+          prev.mensalidade += toFloatBR(mensalidade);
+          prev.pospago += toFloatBR(pospago);
+          if((plano||'').trim()) prev.plano += ` + ${(plano||'').trim()}${(opcao||'').trim()?' ('+(opcao||'').trim()+')':''}`;
         }
-        return;
       }
-      const d = parseBRDate(data);
-      if(!d) return;
-      const statusClean = (status||'').trim().toUpperCase();
-      const key = `${blockIdx}|${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
-      state.fechamento.entries[key] = {
-        date:d, aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
-        mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
-      };
-      lastKeyPerBlock[blockIdx] = key;
-      added++;
-    });
+      continue;
+    }
+    const d = parseBRDate(data);
+    if(!d) continue;
+    const statusClean = (status||'').trim().toUpperCase();
+    const key = `${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
+    state.fechamento.entries[key] = {
+      date:d, aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
+      opcao:(opcao||'').trim(), obs:(obs||'').trim(),
+      mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
+    };
+    lastKey = key;
+    added++;
   }
   state.fechamento.uploads.push({fileName:sourceLabel, uploadedAt:new Date().toISOString(), count:added});
   saveState();
@@ -1609,6 +1627,36 @@ function renderFechamentoPage(){
     <tbody>${outrosVendaItems.length ? outrosVendaItems.map(([label,count])=>`
       <tr><td class="strong">${escapeHtml(label)}</td><td>${fmtInt(count)}</td><td>${sales.length>0?fmtPct(count/sales.length*100):'—'}</td></tr>
     `).join('') : '<tr><td colspan="3" class="empty-hint">Nenhuma venda fora das modalidades no período.</td></tr>'}</tbody>`;
+
+  // Coluna OPÇÃO da planilha (ANUAL/MENSAL/SEMESTRAL/...) — mostra se as vendas do
+  // período são majoritariamente mensal, anual ou avulsa/outra.
+  const opcaoAgg = sales.reduce((agg,s)=>{
+    const b = opcaoBucket(s.opcao);
+    if(!agg[b]) agg[b] = {count:0, valor:0};
+    agg[b].count++; agg[b].valor += (s.mensalidade+s.pospago);
+    return agg;
+  },{});
+  const opcaoItems = Object.entries(opcaoAgg).sort((a,b)=>b[1].count-a[1].count);
+  document.getElementById('fechOpcaoTable').innerHTML = `
+    <thead><tr><th>Opção</th><th>Vendas</th><th>% do total</th><th>Valor somado</th></tr></thead>
+    <tbody>${opcaoItems.length ? opcaoItems.map(([label,v])=>`
+      <tr><td class="strong">${escapeHtml(label)}</td><td>${fmtInt(v.count)}</td><td>${sales.length>0?fmtPct(v.count/sales.length*100):'—'}</td><td>${fmtCurrency(v.valor)}</td></tr>
+    `).join('') : '<tr><td colspan="4" class="empty-hint">Nenhuma venda no período.</td></tr>'}</tbody>`;
+
+  // Motivos de churn: a OBSERVAÇÃO da planilha é onde a equipe registra o motivo
+  // de cada cancelamento — junta tudo aqui pra não precisar abrir a planilha.
+  const churnRows = churn.slice().sort((a,b)=>a.date<b.date?1:-1);
+  document.getElementById('fechChurnTable').innerHTML = `
+    <thead><tr><th>Data</th><th>Aluno</th><th>Plano</th><th>Valor</th><th>Motivo (Observação)</th></tr></thead>
+    <tbody>${churnRows.length ? churnRows.map(s=>`
+      <tr>
+        <td>${s.date.split('-').reverse().join('/')}</td>
+        <td class="strong">${escapeHtml(s.aluno)}</td>
+        <td>${escapeHtml(s.plano)}</td>
+        <td>${fmtCurrency(s.mensalidade+s.pospago)}</td>
+        <td>${escapeHtml(s.obs)||'<span class="empty-hint" style="padding:0;">Sem observação preenchida</span>'}</td>
+      </tr>
+    `).join('') : '<tr><td colspan="5" class="empty-hint">Nenhum churn no período.</td></tr>'}</tbody>`;
 
   const ORIGEM_COLORS = {
     'Tráfego (Meta Ads)':'#3987e5', 'Indicação':'#199e70', 'Orgânico/Instagram':'#c98500',
