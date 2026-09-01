@@ -647,7 +647,7 @@
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
     </div>
 
-    <div class="section-title">Motivos de churn</div>
+    <div class="section-title">Motivos de churn <span id="fechChurnCount" style="color:var(--critical);font-weight:800;"></span></div>
     <div class="card">
       <div class="table-scroll"><table class="data" id="fechChurnTable"></table></div>
     </div>
@@ -1653,6 +1653,12 @@ function renderFechamentoPage(){
   // Motivos de churn: a OBSERVAÇÃO da planilha é onde a equipe registra o motivo
   // de cada cancelamento — junta tudo aqui pra não precisar abrir a planilha.
   const churnRows = churn.slice().sort((a,b)=>a.date<b.date?1:-1);
+  const churnCountEl = document.getElementById('fechChurnCount');
+  if(churnCountEl){
+    churnCountEl.textContent = churn.length>0
+      ? `(${fmtInt(churn.length)} — ${fmtCurrency(brutoChurn)} perdidos)`
+      : '(0 no período)';
+  }
   document.getElementById('fechChurnTable').innerHTML = `
     <thead><tr><th>Data</th><th>Aluno</th><th>Plano</th><th>Valor</th><th>Motivo (Observação)</th></tr></thead>
     <tbody>${churnRows.length ? churnRows.map(s=>`
