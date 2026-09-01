@@ -1560,18 +1560,38 @@ function renderFechamentoPage(){
   const fechadoIndicacao = salesCanal.filter(s=>s.canal==='indicacao').length;
   const migrouLigWpp = salesCanal.filter(s=>s.migrou==='ligacao->whatsapp').length;
   const migrouWppLig = salesCanal.filter(s=>s.migrou==='whatsapp->ligacao').length;
-  const semCanal = salesCanal.filter(s=>s.canal===null).length;
+  const semCanalList = salesCanal.filter(s=>s.canal===null);
+  const semCanal = semCanalList.length;
+
+  // O número grande de cada canal continua contando PAGO+A RECEBER+CHURN juntos
+  // (é uma métrica de "por qual canal a venda fechou", não de receita) — mas
+  // mostra embaixo quantos desses seguiram ativos x quantos churnaram, pra não
+  // esconder canal que fecha muito e não segura o aluno.
+  function canalSub(list){
+    const total = list.length;
+    if(total===0) return sales.length>0 ? '0% das vendas' : '';
+    const churnCount = list.filter(s=>s.status==='CHURN').length;
+    const ativos = total - churnCount;
+    const pct = sales.length>0 ? `${fmtPct(total/sales.length*100)} das vendas` : '';
+    return `${pct}${pct?' · ':''}${fmtInt(ativos)} ativos, ${fmtInt(churnCount)} churn`;
+  }
+  const ligacaoList = salesCanal.filter(s=>s.canal==='ligacao');
+  const whatsappList = salesCanal.filter(s=>s.canal==='whatsapp');
+  const presencialList = salesCanal.filter(s=>s.canal==='presencial');
+  const alunoUpsellList = salesCanal.filter(s=>s.canal==='aluno_upsell');
+  const organicoPresencialList = salesCanal.filter(s=>s.canal==='organico_presencial');
+  const indicacaoList = salesCanal.filter(s=>s.canal==='indicacao');
 
   document.getElementById('fechCanalKpis').innerHTML = [
-    kpiTile('Ligação', fmtInt(fechadoLigacao), sales.length>0?`${fmtPct(fechadoLigacao/sales.length*100)} das vendas`:'', 'var(--c-trafego)'),
-    kpiTile('WhatsApp', fmtInt(fechadoWhatsapp), sales.length>0?`${fmtPct(fechadoWhatsapp/sales.length*100)} das vendas`:'', 'var(--c-natacao)'),
-    kpiTile('Presencial', fmtInt(fechadoPresencial), sales.length>0?`${fmtPct(fechadoPresencial/sales.length*100)} das vendas`:'', 'var(--c-personal)'),
-    kpiTile('Aluno(a)/UpSell', fmtInt(fechadoAlunoUpsell), sales.length>0?`${fmtPct(fechadoAlunoUpsell/sales.length*100)} das vendas`:'', '#9085e9'),
-    kpiTile('Orgânico/Presencial', fmtInt(fechadoOrganicoPresencial), sales.length>0?`${fmtPct(fechadoOrganicoPresencial/sales.length*100)} das vendas`:'', '#c98500'),
-    kpiTile('Indicação', fmtInt(fechadoIndicacao), sales.length>0?`${fmtPct(fechadoIndicacao/sales.length*100)} das vendas`:'', '#199e70'),
+    kpiTile('Ligação', fmtInt(fechadoLigacao), canalSub(ligacaoList), 'var(--c-trafego)'),
+    kpiTile('WhatsApp', fmtInt(fechadoWhatsapp), canalSub(whatsappList), 'var(--c-natacao)'),
+    kpiTile('Presencial', fmtInt(fechadoPresencial), canalSub(presencialList), 'var(--c-personal)'),
+    kpiTile('Aluno(a)/UpSell', fmtInt(fechadoAlunoUpsell), canalSub(alunoUpsellList), '#9085e9'),
+    kpiTile('Orgânico/Presencial', fmtInt(fechadoOrganicoPresencial), canalSub(organicoPresencialList), '#c98500'),
+    kpiTile('Indicação', fmtInt(fechadoIndicacao), canalSub(indicacaoList), '#199e70'),
     kpiTile('Ligação → WhatsApp (fechou)', fmtInt(migrouLigWpp), 'Começou por ligação e fechou pelo WhatsApp', 'var(--warning)'),
     kpiTile('WhatsApp → Ligação (fechou)', fmtInt(migrouWppLig), 'Começou pelo WhatsApp e fechou por ligação', 'var(--warning)'),
-    kpiTile('Sem canal identificado', fmtInt(semCanal), 'Fonte sem nenhuma tag reconhecida', 'var(--c-outro)'),
+    kpiTile('Sem canal identificado', fmtInt(semCanal), 'Fonte sem nenhuma tag reconhecida' + (semCanal>0?` · ${canalSub(semCanalList)}`:''), 'var(--c-outro)'),
   ].join('');
 
   const semCanalSales = salesCanal.filter(s=>s.canal===null).slice().sort((a,b)=>a.date<b.date?1:-1);
