@@ -1326,12 +1326,17 @@ function renderMetaPage(){
 
   const agg = aggregateMeta();
   const mods = orderedModalityKeys(agg);
-  const totalSpend = mods.reduce((s,m)=>s+agg[m].spend,0);
-  const totalLeads = mods.reduce((s,m)=>s+(agg[m].tipo!=='trafego'?agg[m].leads:0),0);
-  const totalFollowers = mods.reduce((s,m)=>s+agg[m].followers,0);
-  const totalReach = mods.reduce((s,m)=>s+agg[m].reach,0);
-  const totalClicks = mods.reduce((s,m)=>s+agg[m].clicks,0);
-  const totalImpressions = mods.reduce((s,m)=>s+agg[m].impressions,0);
+  // Regra: os KPIs do topo desta página são só das campanhas de LEADS (Personal,
+  // Natação, Hidroginástica) — Tráfego ao Perfil (branding) fica de fora de tudo
+  // aqui, não só do total de leads. Mods sem "tipo" mapeado (nenhum) também ficam
+  // fora, pra não poluir com ad set ainda não classificado no mapeamento.
+  const leadMods = mods.filter(m=>agg[m].tipo==='formulario'||agg[m].tipo==='mensagens');
+  const totalSpend = leadMods.reduce((s,m)=>s+agg[m].spend,0);
+  const totalLeads = leadMods.reduce((s,m)=>s+agg[m].leads,0);
+  const totalFollowers = leadMods.reduce((s,m)=>s+agg[m].followers,0);
+  const totalReach = leadMods.reduce((s,m)=>s+agg[m].reach,0);
+  const totalClicks = leadMods.reduce((s,m)=>s+agg[m].clicks,0);
+  const totalImpressions = leadMods.reduce((s,m)=>s+agg[m].impressions,0);
   const avgCpl = totalLeads>0 ? totalSpend/totalLeads : null;
   const avgCpm = totalImpressions>0 ? totalSpend/totalImpressions*1000 : null;
   const avgCtr = totalImpressions>0 ? totalClicks/totalImpressions*100 : null;
@@ -1341,14 +1346,17 @@ function renderMetaPage(){
     kpiTile('Leads totais', fmtInt(totalLeads)),
     kpiTile('CPL médio', avgCpl!==null?fmtCurrency(avgCpl):'—', null, 'var(--c-trafego)'),
     kpiTile('Novos seguidores', fmtInt(totalFollowers), null, 'var(--c-trafego)'),
-    kpiTile('Alcance', fmtInt(totalReach), null, 'var(--c-trafego)'),
+    kpiTile('Alcance', fmtInt(totalReach), 'Soma por campanha — pode superestimar por público sobreposto entre elas', 'var(--c-trafego)'),
     kpiTile('CPM', avgCpm!==null?fmtCurrency(avgCpm):'—', 'Custo por mil impressões', 'var(--c-trafego)'),
     kpiTileRing('CTR', avgCtr, 'Cliques / impressões', 'var(--c-trafego)'),
     kpiTile('Cliques no link', fmtInt(totalClicks), null, 'var(--c-trafego)'),
   ].join('');
 
   renderPieChart('metaChartLeads', mods.map(m=>({label:m,value:agg[m].leads,color:colorForModality(m)})), {formatter:fmtInt});
-  renderBarChart('metaChartCpl', mods.filter(m=>agg[m].leads>0).map(m=>({label:m,value:agg[m].spend/agg[m].leads,color:colorForModality(m)})), {formatter:fmtCurrency});
+  const cplItems = mods.filter(m=>agg[m].leads>0)
+    .map(m=>({label:m,value:agg[m].spend/agg[m].leads,color:colorForModality(m)}))
+    .sort((a,b)=>a.value-b.value); // menor CPL primeiro
+  renderBarChart('metaChartCpl', cplItems, {formatter:fmtCurrency});
 
   const modsBySpend = [...mods].sort((a,b)=>agg[b].spend-agg[a].spend);
   const rows = modsBySpend.map(m=>{
