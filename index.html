@@ -952,6 +952,7 @@ function processKommoObjs(objs, sourceLabel){
       mql: tagList.includes('MQL'),
       sql: tagList.includes('SQL'),
       bioLink: (row['Tags']||'').toLowerCase().includes('linkbio'),
+      trafego: (row['Tags']||'').toLowerCase().includes('metaads'),
     };
     added++;
   });
@@ -971,8 +972,11 @@ function handleKommoFile(file){
 
 function kommoLeadsInPeriod(){
   const {start,end} = state.period;
+  // Alunos/Ex-alunos reengajados só contam como lead se vieram de tráfego pago
+  // (tag MetaAds) — reengajamento orgânico (sem essa tag) não é lead novo.
   return Object.values(state.kommo.entries).filter(r=>
-    r.created && r.created>=start && r.created<=end && r.funil!=='Alunos/Ex-alunos'
+    r.created && r.created>=start && r.created<=end &&
+    (r.funil!=='Alunos/Ex-alunos' || r.trafego)
   );
 }
 
