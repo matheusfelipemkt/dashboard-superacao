@@ -1292,6 +1292,13 @@ function renderHome(){
   const sales = fechSalesInPeriod();
   const churnSales = sales.filter(s=>s.status==='CHURN');
   const bruto = sales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
+  // "Valor bruto vendido" soma Pago + A Receber + Churn + Negociação — igual à
+  // página de Fechamento (ver comentário lá). "bruto"/"sales" seguem só vendas
+  // fechadas, usados no CAC e Valor líquido abaixo, que não mudaram.
+  const negociacaoHome = Object.values(state.fechamento.entries).filter(r=>
+    r.date>=state.period.start && r.date<=state.period.end && r.status==='NEGOCIAÇÃO'
+  );
+  const brutoVendido = bruto + negociacaoHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const brutoChurn = churnSales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const liquido = bruto - brutoChurn;
   const conversao = leadsGerados>0 ? (sales.length/leadsGerados*100) : null;
@@ -1303,7 +1310,7 @@ function renderHome(){
     kpiTile('Leads gerados', fmtInt(leadGenLeads), 'Meta Ads no período', 'var(--c-trafego)'),
     kpiTile('Vendas', fmtInt(sales.length), 'Pago + a receber + churn'),
     kpiTileRing('Taxa de conversão', conversao, `${fmtInt(sales.length)} vendas / ${fmtInt(leadsGerados)} leads`),
-    kpiTile('Valor bruto vendido', fmtCurrency(bruto), `${fmtInt(sales.length)} vendas fechadas`),
+    kpiTile('Valor bruto vendido', fmtCurrency(brutoVendido), 'Pago + a receber + churn + negociação'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento / vendas', 'var(--c-trafego)'),
     kpiTile('Valor líquido', fmtCurrency(liquido), `- ${fmtCurrency(brutoChurn)} de churn`),
     kpiTile('Churn', fmtInt(churnSales.length), `${sales.length>0?fmtPct(churnSales.length/sales.length*100):'—'} das vendas`, 'var(--critical)'),
@@ -1474,6 +1481,13 @@ function renderFechamentoPage(){
   const semStatus = totalEntries.filter(r=> !FECH_COUNT_STATUSES.has(r.status) && r.status!=='NEGOCIAÇÃO');
   const valorDe = arr => arr.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const bruto = valorDe(sales);
+  // "Valor bruto vendido" (nome exato do KPI) soma mensalidade (pré-paga) + pós-pago
+  // de TUDO que tem valor registrado no período — Pago, A Receber, Churn e também
+  // Negociação (o que hoje aparece na linha "Previsão" da planilha). Só fica de fora
+  // o que está sem status preenchido (não é um valor registrado de verdade ainda).
+  // Isso é diferente de "bruto"/"sales", que seguem sendo só vendas fechadas (Pago+
+  // A Receber+Churn) — usados no Ticket médio, CAC e Aquisição, que não mudaram.
+  const brutoVendido = bruto + valorDe(negociacao);
   const brutoChurn = valorDe(churn);
   const validado = valorDe(pago) + valorDe(aReceber);
   const receitaReal = valorDe(pago);
@@ -1628,7 +1642,7 @@ function renderFechamentoPage(){
 
   document.getElementById('fechKpis').innerHTML = [
     kpiTile('Vendas no período', fmtInt(sales.length), `${fmtInt(pago.length)} pago · ${fmtInt(aReceber.length)} a receber · ${fmtInt(churn.length)} churn`),
-    kpiTile('Valor total de vendas', fmtCurrency(bruto), `${fmtInt(sales.length)} vendas (pago + a receber + churn)`),
+    kpiTile('Valor total de vendas', fmtCurrency(brutoVendido), 'Pago + a receber + churn + negociação'),
     kpiTile('Churn', fmtInt(churn.length), sales.length>0?fmtPct(churn.length/sales.length*100)+' das vendas':'', 'var(--critical)'),
     kpiTile('Total de registros', fmtInt(totalEntries.length), 'Vendas + negociação + sem status', null),
     kpiTile('Em negociação', fmtInt(negociacao.length), fmtCurrency(valorDe(negociacao))+' ainda não fechado', 'var(--warning)'),
@@ -1732,7 +1746,7 @@ function renderFechamentoPage(){
   renderPieChart('fechChartOrigem', origemItems, {formatter:fmtInt});
 
   const healthRows = [
-    ['Bruto vendido', fmtCurrency(bruto)],
+    ['Bruto vendido (pago + a receber + churn + negociação)', fmtCurrency(brutoVendido)],
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
