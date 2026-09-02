@@ -1492,11 +1492,10 @@ function renderFechamentoPage(){
   // não deve existir uma segunda lógica de LTV/CAC divergente nesta página.
   function acqPlanoModalidade(p){
     const up = (p||'').trim().toUpperCase();
-    if(up==='START') return 'Personal'; // Start = treino de 1h, também é Personal (igual UP)
+    // START, UP, SKY e TOTALPASS são todos Personal.
+    if(up==='START'||up==='UP'||up.includes('SKY')||up.includes('TOTALPASS')) return 'Personal';
     if(up.includes('HIDRO')) return 'Hidroginástica';
     if(up.includes('NATA')) return 'Natação';
-    if(up==='UP') return 'Personal';
-    if(up.includes('SKY')) return 'Sky';
     return null;
   }
   function acqIsAddon(r){
@@ -1524,8 +1523,8 @@ function renderFechamentoPage(){
 
   const avgRetention = state.settings.avgRetentionMonths || 7;
   document.getElementById('acqRetentionInput').value = avgRetention;
-  const ACQ_MODALIDADES = ['Hidroginástica','Natação','Personal','Sky'];
-  const ACQ_COLORS = { 'Hidroginástica':'#c98500', 'Natação':'#199e70', 'Personal':'#d6407a', 'Sky':'#7fb8f2' };
+  const ACQ_MODALIDADES = ['Hidroginástica','Natação','Personal'];
+  const ACQ_COLORS = { 'Hidroginástica':'#c98500', 'Natação':'#199e70', 'Personal':'#d6407a' };
   const acqPorModalidade = ACQ_MODALIDADES.map(mod=>{
     const arr = vendasNovas.filter(r=>acqPlanoModalidade(r.plano)===mod);
     const ticketMedio = arr.length>0 ? arr.reduce((s,r)=>s+acqValor(r),0)/arr.length : null;
@@ -1646,8 +1645,8 @@ function renderFechamentoPage(){
     const up = p.toUpperCase();
     if(up.startsWith('NATAÇÃO')||up.startsWith('NATACAO')) return 'Natação';
     if(up.startsWith('HIDRO')) return 'Hidroginástica';
-    if(up==='UP'||up==='START') return 'Personal'; // Start = treino de 1h, também é Personal
-    if(up==='SKY') return 'TotalPass';
+    // START, UP, SKY e TOTALPASS são todos Personal.
+    if(up==='UP'||up==='START'||up==='SKY'||up==='TOTALPASS') return 'Personal';
     return null;
   }
   const planoItems = Object.entries(sales.reduce((agg,s)=>{
