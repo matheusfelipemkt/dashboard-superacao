@@ -1012,6 +1012,16 @@ function processFechRows(rows, sourceLabel){
     const row = rows[i];
     const b = row.slice(0,13);
     const [data, plfin, aluno, fonte, plano, opcao, mensalidade, pospago, contato, pagamento, dia, status, obs] = b;
+    // Linha de rodapé "PREVISÃO" da própria planilha — não é venda, não é linha de
+    // continuação. Guarda o valor dela à parte (usado em "Valor bruto vendido") e
+    // pula pro resto do processamento, senão ela caía na regra de "continuação"
+    // e inflava a última venda real da lista com o valor do rodapé inteiro.
+    if((data||'').trim().toUpperCase()==='PREVISÃO'){
+      state.fechamento.previsao = {
+        mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago),
+      };
+      continue;
+    }
     const alunoClean = (aluno||'').trim();
     const valor = toFloatBR(mensalidade) + toFloatBR(pospago);
     if(!alunoClean){
@@ -1292,13 +1302,15 @@ function renderHome(){
   const sales = fechSalesInPeriod();
   const churnSales = sales.filter(s=>s.status==='CHURN');
   const bruto = sales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
-  // "Valor bruto vendido" soma TODOS os registros do período, qualquer status —
+  // "Valor bruto vendido" = a linha "PREVISÃO" da planilha, lida direto do CSV —
   // igual à página de Fechamento (ver comentário lá). "bruto"/"sales" seguem só
   // vendas fechadas, usados no CAC e Valor líquido abaixo, que não mudaram.
-  const todosRegistrosHome = Object.values(state.fechamento.entries).filter(r=>
+  const totalEntriesHome = Object.values(state.fechamento.entries).filter(r=>
     r.date>=state.period.start && r.date<=state.period.end
   );
-  const brutoVendido = todosRegistrosHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
+  const brutoVendido = state.fechamento.previsao
+    ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
+    : totalEntriesHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const brutoChurn = churnSales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const liquido = bruto - brutoChurn;
   const conversao = leadsGerados>0 ? (sales.length/leadsGerados*100) : null;
@@ -1310,7 +1322,7 @@ function renderHome(){
     kpiTile('Leads gerados', fmtInt(leadGenLeads), 'Meta Ads no período', 'var(--c-trafego)'),
     kpiTile('Vendas', fmtInt(sales.length), 'Pago + a receber + churn'),
     kpiTileRing('Taxa de conversão', conversao, `${fmtInt(sales.length)} vendas / ${fmtInt(leadsGerados)} leads`),
-    kpiTile('Valor bruto vendido', fmtCurrency(brutoVendido), 'Todos os registros do período'),
+    kpiTile('Valor bruto vendido', fmtCurrency(brutoVendido), 'Linha "Previsão" da planilha de Fechamento'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento / vendas', 'var(--c-trafego)'),
     kpiTile('Valor líquido', fmtCurrency(liquido), `- ${fmtCurrency(brutoChurn)} de churn`),
     kpiTile('Churn', fmtInt(churnSales.length), `${sales.length>0?fmtPct(churnSales.length/sales.length*100):'—'} das vendas`, 'var(--critical)'),
@@ -1481,13 +1493,13 @@ function renderFechamentoPage(){
   const semStatus = totalEntries.filter(r=> !FECH_COUNT_STATUSES.has(r.status) && r.status!=='NEGOCIAÇÃO');
   const valorDe = arr => arr.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const bruto = valorDe(sales);
-  // "Valor bruto vendido" (nome exato do KPI) soma mensalidade (pré-paga) + pós-pago
-  // de TODOS os registros do período, qualquer status (Pago, A Receber, Churn,
-  // Negociação e até sem status preenchido) — é a soma bruta de tudo que está
-  // lançado na planilha. Isso é diferente de "bruto"/"sales", que seguem sendo só
-  // vendas fechadas (Pago+A Receber+Churn) — usados no Ticket médio, CAC e
-  // Aquisição, que não mudaram.
-  const brutoVendido = valorDe(totalEntries);
+  // "Valor bruto vendido" = a linha "PREVISÃO" da própria planilha (Mensalidade +
+  // Pós-pago do rodapé), lida direto do CSV — não recalculado a partir das vendas.
+  // Isso é diferente de "bruto"/"sales", que seguem sendo só vendas fechadas
+  // (Pago+A Receber+Churn) — usados no Ticket médio, CAC e Aquisição, que não mudaram.
+  const brutoVendido = state.fechamento.previsao
+    ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
+    : valorDe(totalEntries);
   const brutoChurn = valorDe(churn);
   const validado = valorDe(pago) + valorDe(aReceber);
   const receitaReal = valorDe(pago);
@@ -1642,7 +1654,7 @@ function renderFechamentoPage(){
 
   document.getElementById('fechKpis').innerHTML = [
     kpiTile('Vendas no período', fmtInt(sales.length), `${fmtInt(pago.length)} pago · ${fmtInt(aReceber.length)} a receber · ${fmtInt(churn.length)} churn`),
-    kpiTile('Valor total de vendas', fmtCurrency(brutoVendido), 'Todos os registros do período'),
+    kpiTile('Valor total de vendas', fmtCurrency(brutoVendido), 'Linha "Previsão" da planilha de Fechamento'),
     kpiTile('Churn', fmtInt(churn.length), sales.length>0?fmtPct(churn.length/sales.length*100)+' das vendas':'', 'var(--critical)'),
     kpiTile('Total de registros', fmtInt(totalEntries.length), 'Vendas + negociação + sem status', null),
     kpiTile('Em negociação', fmtInt(negociacao.length), fmtCurrency(valorDe(negociacao))+' ainda não fechado', 'var(--warning)'),
@@ -1746,7 +1758,7 @@ function renderFechamentoPage(){
   renderPieChart('fechChartOrigem', origemItems, {formatter:fmtInt});
 
   const healthRows = [
-    ['Bruto vendido (todos os registros do período)', fmtCurrency(brutoVendido)],
+    ['Bruto vendido (linha "Previsão" da planilha)', fmtCurrency(brutoVendido)],
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
