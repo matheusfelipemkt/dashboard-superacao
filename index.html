@@ -618,7 +618,7 @@
       <summary>Como interpretar essas métricas (clique pra abrir)</summary>
       <div class="acq-legend-body">
         <div><b>Investimento total (Meta Ads)</b> — quanto foi gasto em anúncios no período selecionado.</div>
-        <div><b>Vendas novas</b> — vendas que contam como aquisição de cliente novo de verdade: exclui churn (cancelou), negociação em aberto (ainda não fechou) e upsell/complemento de quem já é aluno (avaliação, dia adicional, taxa de matrícula).</div>
+        <div><b>Vendas novas</b> — vendas que contam como aquisição de cliente novo de verdade: Pago + A Receber + Churn (o churn conta porque a venda aconteceu — o canal converteu, quem não segurou o aluno depois foi o Studio, não a aquisição). Exclui negociação em aberto (ainda não fechou nada) e upsell/complemento de quem já é aluno (avaliação, dia adicional, taxa de matrícula).</div>
         <div><b>CAC pago</b> — quanto custou, em média, cada venda nova que veio de canal pago (Tráfego/Anúncios ou LinkBio). É o número certo pra decidir se vale investir mais em ads.</div>
         <div><b>CAC blended</b> — mesma conta, mas dividida por TODAS as vendas novas, incluindo indicação/orgânico que não custaram anúncio. Fica menor que o CAC pago porque "dilui" com vendas gratuitas — é só contexto, não usar pra decisão de investimento.</div>
         <div><b>Ticket médio</b> — quanto, em média, um aluno novo daquela modalidade paga por mês.</div>
@@ -1513,7 +1513,11 @@ function renderFechamentoPage(){
     if(f.includes('linkbio')) return 'linkbio';
     return 'outros';
   }
-  const vendasNovas = totalEntries.filter(r=> (r.status==='PAGO'||r.status==='A RECEBER') && !acqIsAddon(r));
+  // Vendas novas conta Pago + A Receber + Churn — o churn é uma venda que
+  // aconteceu de verdade (o canal converteu); quem perdeu o aluno depois foi
+  // o Studio, não o canal de aquisição. Negociação fica de fora porque ainda
+  // não fechou nada (não é venda, é lead em conversa).
+  const vendasNovas = totalEntries.filter(r=> (r.status==='PAGO'||r.status==='A RECEBER'||r.status==='CHURN') && !acqIsAddon(r));
   const vendasNovasTrafego = vendasNovas.filter(r=>acqCanal(r)==='trafego');
   const vendasNovasLinkBio = vendasNovas.filter(r=>acqCanal(r)==='linkbio');
   const vendasNovasOutros = vendasNovas.filter(r=>acqCanal(r)==='outros');
