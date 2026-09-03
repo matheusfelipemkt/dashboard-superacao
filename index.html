@@ -1595,14 +1595,14 @@ function renderFechamentoPage(){
   const liquido = bruto - brutoChurn;
 
   // ===== MRR novo (recorrente) =====
-  // Só entra o que gera receita TODO MÊS: vendas Pago + A Receber com opção
-  // Mensal / Anual / Semestral. FICA DE FORA: churn (status CHURN não entra),
-  // aula avulsa/diária, taxa de matrícula, avaliação e pós-pago pontual (opção
-  // fora dessas três). Valor = mensalidade (ou pós-pago como fallback quando a
-  // mensalidade veio vazia — caso comum nas linhas A RECEBER).
+  // Só entra contrato com compromisso: vendas Pago + A Receber com opção ANUAL
+  // ou SEMESTRAL. FICA DE FORA: churn (status CHURN não entra), venda MENSAL
+  // (mês a mês, sem contrato — não é recorrência garantida), aula avulsa/diária,
+  // taxa de matrícula, avaliação e pós-pago pontual. Valor = mensalidade (ou
+  // pós-pago como fallback quando a mensalidade veio vazia — comum em A RECEBER).
   function isRecorrente(r){
     const b = opcaoBucket(r.opcao);
-    if(b!=='Mensal' && b!=='Anual' && b!=='Semestral') return false;
+    if(b!=='Anual' && b!=='Semestral') return false;
     const pl = (r.plano||'').trim().toUpperCase();
     if(pl==='AVALIAÇÃO' || pl==='AVALIACAO') return false;
     if(pl.startsWith('TAXA DE MAT')) return false;
@@ -1771,7 +1771,7 @@ function renderFechamentoPage(){
     kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} vendas ainda não pagas`, 'var(--warning)'),
     kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma da mensalidade de ${fmtInt(pago.length)} vendas pagas`),
     kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `${fmtInt(aReceber.length)} vendas aguardando pagamento`, 'var(--warning)'),
-    kpiTile('MRR novo (recorrente)', fmtCurrency(mrrNovo), `Receita que entra todo mês: ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Mensal/Anual/Semestral. NÃO inclui churn, nem aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
+    kpiTile('MRR novo (recorrente)', fmtCurrency(mrrNovo), `Receita recorrente contratada: ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Anual ou Semestral. NÃO inclui churn, venda mensal (mês a mês), aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
     kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', null, 'var(--c-trafego)'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento Meta Ads / vendas', 'var(--c-trafego)'),
     kpiTile('LTV/CAC', ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—', 'LTV (ticket × tempo médio de permanência) ÷ CAC pago — igual ao "Geral (blended)" da seção Aquisição', 'var(--c-trafego)', 'topLtvCacValue'),
@@ -1881,7 +1881,7 @@ function renderFechamentoPage(){
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
-    ['MRR novo recorrente (Mensal/Anual/Semestral, líquido de churn — sem avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
+    ['MRR novo recorrente (só Anual/Semestral — sem churn, mensal, avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
     ['LTV perdido (churn, valor da planilha)', fmtCurrency(brutoChurn)],
     ['Valor líquido (bruto - churn, inclui tudo)', fmtCurrency(liquido)],
   ];
