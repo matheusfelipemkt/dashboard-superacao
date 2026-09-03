@@ -1572,7 +1572,10 @@ function renderFechamentoPage(){
     ? state.fechamento.previsao.cancelamento
     : churnLabeladoValor;
   const validado = valorDe(pago) + valorDe(aReceber);
-  const receitaReal = valorDe(pago);
+  // "Já está no caixa (Pago)" = soma SÓ da coluna MENSALIDADE das linhas com
+  // status PAGO (jeito que o time confere na planilha). Pós-pago/boleto pendente,
+  // mesmo numa linha PAGO, não conta como dinheiro no caixa.
+  const receitaReal = pago.reduce((s,r)=>s+r.mensalidade,0);
   const posPagoPendente = valorDe(aReceber);
   const liquido = bruto - brutoChurn;
   const ticket = sales.length>0 ? bruto/sales.length : null;
@@ -1729,7 +1732,7 @@ function renderFechamentoPage(){
     kpiTile('Em negociação', fmtInt(negociacao.length), fmtCurrency(valorDe(negociacao))+' ainda não fechado', 'var(--warning)'),
     kpiTile('Sem status na planilha', fmtInt(semStatus.length), 'Cadastrado mas sem status preenchido (conta no total)', 'var(--c-outro)'),
     kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} vendas ainda não pagas`, 'var(--warning)'),
-    kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `${fmtInt(pago.length)} vendas com o dinheiro já recebido`),
+    kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma da mensalidade de ${fmtInt(pago.length)} vendas pagas`),
     kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `${fmtInt(aReceber.length)} vendas aguardando pagamento`, 'var(--warning)'),
     kpiTile('Aumento do LTV', fmtCurrency(liquido), 'Vendas ativas (bruto - churn)'),
     kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', null, 'var(--c-trafego)'),
