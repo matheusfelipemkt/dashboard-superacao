@@ -1037,6 +1037,7 @@ function processFechRows(rows, sourceLabel){
   // venda anterior em vez de criar um registro à parte (evita tanto "venda
   // fantasma" quanto colisão de chave com outra venda do mesmo aluno/plano/dia).
   let lastKey = null;
+  const sigToKey = new Map();   // assinatura de conteúdo -> chave — pra pular linha duplicada na planilha
   for(let i=2;i<rows.length;i++){
     const row = rows[i];
     const b = row.slice(0,13);
@@ -1104,7 +1105,14 @@ function processFechRows(rows, sourceLabel){
       if(!planoClean) planoClean = prevEntry.plano || '';
       if(!opcaoClean) opcaoClean = prevEntry.opcao || '';
     }
+    // Linha duplicada na planilha (mesmo aluno, plano, opção, valor e status na
+    // mesma data) — conta uma vez só. Ex.: a mesma venda lançada 2x. Mantém o
+    // lastKey na 1ª ocorrência pra que uma linha de família logo abaixo herde
+    // o status certo.
+    const sig = `${d}|${alunoClean.toUpperCase()}|${planoClean.toUpperCase()}|${opcaoClean.toUpperCase()}|${toFloatBR(mensalidade)}|${toFloatBR(pospago)}|${statusClean}`;
+    if(sigToKey.has(sig)){ lastKey = sigToKey.get(sig); continue; }
     const key = `${d}|${alunoClean}|${planoClean}|${i}`;
+    sigToKey.set(sig, key);
     let obsClean = (obs||'').trim();
     if(dateGuessed && (data||'').trim()){
       obsClean = (obsClean ? obsClean + ' | ' : '') + `⚠ data na planilha: "${(data||'').trim()}"`;
