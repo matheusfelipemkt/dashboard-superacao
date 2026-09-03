@@ -1882,7 +1882,7 @@ function renderFechamentoPage(){
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
     ['MRR novo recorrente (só Anual/Semestral — sem churn, mensal, avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
-    ['LTV perdido (churn, valor da planilha)', fmtCurrency(brutoChurn)],
+    ['MRR perdido (churn, valor CANCELAMENTO da planilha)', fmtCurrency(brutoChurn)],
     ['Valor líquido (bruto - churn, inclui tudo)', fmtCurrency(liquido)],
   ];
   document.getElementById('fechHealthTable').innerHTML = `<tbody>${healthRows.map(r=>`<tr><td>${r[0]}</td><td class="strong" style="text-align:right;">${r[1]}</td></tr>`).join('')}</tbody>`;
