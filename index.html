@@ -1088,7 +1088,18 @@ function processFechRows(rows, sourceLabel){
       else d = isoDate(new Date());
       dateGuessed = true;
     }
-    const statusClean = (status||'').trim().toUpperCase();
+    const rawStatus = (status||'').trim().toUpperCase();
+    let statusClean = rawStatus;
+    let fonteClean = (fonte||'').trim();
+    // Linha de 2º membro da família: duas pessoas fecham juntas, mesma forma de
+    // pagamento, e o status (às vezes a fonte) fica só na linha de cima. Se veio
+    // sem status, herda o da venda logo acima — assim não some do caixa (nem
+    // vira "venda paga" quando a de cima é NEGOCIAÇÃO/A RECEBER/CHURN).
+    if(!rawStatus && lastKey && state.fechamento.entries[lastKey]){
+      const prevEntry = state.fechamento.entries[lastKey];
+      statusClean = prevEntry.status || '';
+      if(!fonteClean) fonteClean = prevEntry.fonte || '';
+    }
     const key = `${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
     let obsClean = (obs||'').trim();
     if(dateGuessed && (data||'').trim()){
@@ -1096,7 +1107,7 @@ function processFechRows(rows, sourceLabel){
     }
     state.fechamento.entries[key] = {
       date:d, srcMonthKey: srcMonthKey||null, dateGuessed,
-      aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
+      aluno:alunoClean, fonte:fonteClean, plano:(plano||'').trim(),
       opcao:(opcao||'').trim(), obs:obsClean,
       mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
     };
