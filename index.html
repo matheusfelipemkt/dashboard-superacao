@@ -1091,24 +1091,28 @@ function processFechRows(rows, sourceLabel){
     const rawStatus = (status||'').trim().toUpperCase();
     let statusClean = rawStatus;
     let fonteClean = (fonte||'').trim();
+    let planoClean = (plano||'').trim();
+    let opcaoClean = (opcao||'').trim();
     // Linha de 2º membro da família: duas pessoas fecham juntas, mesma forma de
-    // pagamento, e o status (às vezes a fonte) fica só na linha de cima. Se veio
-    // sem status, herda o da venda logo acima — assim não some do caixa (nem
-    // vira "venda paga" quando a de cima é NEGOCIAÇÃO/A RECEBER/CHURN).
+    // pagamento, e o status (às vezes fonte/plano/opção) fica só na linha de
+    // cima. Se veio sem status, herda o da venda logo acima — assim não some do
+    // caixa (nem vira "venda paga" quando a de cima é NEGOCIAÇÃO/A RECEBER/CHURN).
     if(!rawStatus && lastKey && state.fechamento.entries[lastKey]){
       const prevEntry = state.fechamento.entries[lastKey];
       statusClean = prevEntry.status || '';
       if(!fonteClean) fonteClean = prevEntry.fonte || '';
+      if(!planoClean) planoClean = prevEntry.plano || '';
+      if(!opcaoClean) opcaoClean = prevEntry.opcao || '';
     }
-    const key = `${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
+    const key = `${d}|${alunoClean}|${planoClean}|${i}`;
     let obsClean = (obs||'').trim();
     if(dateGuessed && (data||'').trim()){
       obsClean = (obsClean ? obsClean + ' | ' : '') + `⚠ data na planilha: "${(data||'').trim()}"`;
     }
     state.fechamento.entries[key] = {
       date:d, srcMonthKey: srcMonthKey||null, dateGuessed,
-      aluno:alunoClean, fonte:fonteClean, plano:(plano||'').trim(),
-      opcao:(opcao||'').trim(), obs:obsClean,
+      aluno:alunoClean, fonte:fonteClean, plano:planoClean,
+      opcao:opcaoClean, obs:obsClean,
       mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
     };
     lastKey = key;
@@ -1589,6 +1593,28 @@ function renderFechamentoPage(){
   const receitaReal = pago.reduce((s,r)=>s+r.mensalidade,0);
   const posPagoPendente = valorDe(aReceber);
   const liquido = bruto - brutoChurn;
+
+  // ===== MRR novo (recorrente) =====
+  // Só entra o que gera receita TODO MÊS: vendas Pago + A Receber com opção
+  // Mensal / Anual / Semestral. FICA DE FORA: churn (status CHURN não entra),
+  // aula avulsa/diária, taxa de matrícula, avaliação e pós-pago pontual (opção
+  // fora dessas três). Valor = mensalidade (ou pós-pago como fallback quando a
+  // mensalidade veio vazia — caso comum nas linhas A RECEBER).
+  function isRecorrente(r){
+    const b = opcaoBucket(r.opcao);
+    if(b!=='Mensal' && b!=='Anual' && b!=='Semestral') return false;
+    const pl = (r.plano||'').trim().toUpperCase();
+    if(pl==='AVALIAÇÃO' || pl==='AVALIACAO') return false;
+    if(pl.startsWith('TAXA DE MAT')) return false;
+    return true;
+  }
+  const valorRecorrente = r => r.mensalidade>0 ? r.mensalidade : r.pospago;
+  // Vendas fechadas que vão faturar todo mês = Pago + A Receber recorrentes.
+  // Churn já fica de fora (status CHURN não entra aqui).
+  const mrrRows = [...pago, ...aReceber].filter(isRecorrente);
+  const mrrNaoRec = [...pago, ...aReceber].filter(r=>!isRecorrente(r)).reduce((s,r)=>s+valorRecorrente(r),0);
+  const mrrNovo = mrrRows.reduce((s,r)=>s+valorRecorrente(r),0);
+
   const ticket = sales.length>0 ? bruto/sales.length : null;
   const pctCaidas = sales.length>0 ? aReceber.length/sales.length*100 : null;
   const totalInvest = Object.values(aggregateMeta()).reduce((s,a)=>s+a.spend,0);
@@ -1745,7 +1771,7 @@ function renderFechamentoPage(){
     kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} vendas ainda não pagas`, 'var(--warning)'),
     kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma da mensalidade de ${fmtInt(pago.length)} vendas pagas`),
     kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `${fmtInt(aReceber.length)} vendas aguardando pagamento`, 'var(--warning)'),
-    kpiTile('Aumento do LTV', fmtCurrency(liquido), 'Vendas ativas (bruto - churn)'),
+    kpiTile('MRR novo (recorrente)', fmtCurrency(mrrNovo), `Receita que entra todo mês: ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Mensal/Anual/Semestral. NÃO inclui churn, nem aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
     kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', null, 'var(--c-trafego)'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento Meta Ads / vendas', 'var(--c-trafego)'),
     kpiTile('LTV/CAC', ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—', 'LTV (ticket × tempo médio de permanência) ÷ CAC pago — igual ao "Geral (blended)" da seção Aquisição', 'var(--c-trafego)', 'topLtvCacValue'),
@@ -1855,9 +1881,9 @@ function renderFechamentoPage(){
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
-    ['Aumento do LTV (vendas ativas)', fmtCurrency(liquido)],
-    ['LTV perdido (churn)', fmtCurrency(brutoChurn)],
-    ['Valor líquido (bruto - churn)', fmtCurrency(liquido)],
+    ['MRR novo recorrente (Mensal/Anual/Semestral, líquido de churn — sem avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
+    ['LTV perdido (churn, valor da planilha)', fmtCurrency(brutoChurn)],
+    ['Valor líquido (bruto - churn, inclui tudo)', fmtCurrency(liquido)],
   ];
   document.getElementById('fechHealthTable').innerHTML = `<tbody>${healthRows.map(r=>`<tr><td>${r[0]}</td><td class="strong" style="text-align:right;">${r[1]}</td></tr>`).join('')}</tbody>`;
 
