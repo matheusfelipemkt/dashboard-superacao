@@ -799,9 +799,32 @@ function parseKommoDate(s){
   return `${m[3]}-${m[2]}-${m[1]}`;
 }
 function parseBRDate(s){
-  const m = /^(\d{2})\/(\d{2})\/(\d{4})/.exec((s||'').trim());
+  // Tolerante: aceita 1-2 dígitos em dia/mês, separador / . ou -, ano com 2 ou 4
+  // dígitos. Ano com 3 dígitos (typo tipo "202e" -> "202") volta null de propósito
+  // pra quem chamou cair no mês da aba de origem em vez de perder a linha.
+  const m = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})/.exec((s||'').trim());
   if(!m) return null;
-  return `${m[3]}-${m[2]}-${m[1]}`;
+  let [, d, mo, y] = m;
+  if(y.length===3) return null;
+  if(y.length===2) y = '20'+y;
+  d = d.padStart(2,'0'); mo = mo.padStart(2,'0');
+  if(+mo<1 || +mo>12 || +d<1 || +d>31) return null;
+  return `${y}-${mo}-${d}`;
+}
+
+// Descobre o mês de uma aba/arquivo de Fechamento pelo nome ("AGOSTO",
+// "Fechamento_Setembro", "Controle ... - Março 2026.csv"). Quando dá pra saber,
+// a ABA manda: toda linha dela é daquele mês, mesmo com a célula de data errada
+// ou vazia. Retorna 'AAAA-MM' ou null.
+const PT_MONTH_MAP = {janeiro:1,fevereiro:2,'março':3,marco:3,abril:4,maio:5,junho:6,julho:7,agosto:8,setembro:9,outubro:10,novembro:11,dezembro:12};
+function fechMonthKeyFromLabel(label, fallbackYear){
+  const low = (label||'').toLowerCase();
+  let month = null;
+  for(const name in PT_MONTH_MAP){ if(low.includes(name)){ month = PT_MONTH_MAP[name]; break; } }
+  if(!month) return null;
+  const ym = low.match(/20\d{2}/);
+  const year = ym ? +ym[0] : fallbackYear;
+  return `${year}-${String(month).padStart(2,'0')}`;
 }
 
 /* ============================================================
@@ -998,6 +1021,11 @@ function opcaoBucket(opcao){
 function processFechRows(rows, sourceLabel){
   if(!rows.length){ return false; }
   let added = 0;
+  // Mês da aba/arquivo de origem ("AGOSTO", "Fechamento_Setembro"...). Quando dá
+  // pra saber, a aba é a verdade: toda linha dela conta nesse mês, mesmo se a
+  // célula de data estiver vazia ou com typo. Sem isso, cai no filtro por data.
+  const yearGuess = (state.period && state.period.start) ? +state.period.start.slice(0,4) : new Date().getFullYear();
+  const srcMonthKey = fechMonthKeyFromLabel(sourceLabel, yearGuess);
   // A partir daqui o dashboard só considera o bloco COMERCIAL (colunas A–M) da
   // planilha de Fechamento — o bloco VENDAS SUPERAÇÃO (colunas O–AA) é ignorado
   // de propósito, a pedido explícito: só a informação do comercial deve alimentar
@@ -1041,13 +1069,27 @@ function processFechRows(rows, sourceLabel){
       }
       continue;
     }
-    const d = parseBRDate(data);
-    if(!d) continue;
+    let d = parseBRDate(data);
+    let dateGuessed = false;
+    if(!d){
+      // Data ausente/quebrada na planilha — NÃO joga a linha fora. Usa o mês da
+      // aba de origem; se nem isso der, joga no período selecionado. O importante
+      // é que a venda (e o valor dela, ex.: churn) não suma do dashboard.
+      if(srcMonthKey) d = `${srcMonthKey}-15`;
+      else if(state.period && state.period.start) d = state.period.start;
+      else d = isoDate(new Date());
+      dateGuessed = true;
+    }
     const statusClean = (status||'').trim().toUpperCase();
     const key = `${d}|${alunoClean}|${(plano||'').trim()}|${i}`;
+    let obsClean = (obs||'').trim();
+    if(dateGuessed && (data||'').trim()){
+      obsClean = (obsClean ? obsClean + ' | ' : '') + `⚠ data na planilha: "${(data||'').trim()}"`;
+    }
     state.fechamento.entries[key] = {
-      date:d, aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
-      opcao:(opcao||'').trim(), obs:(obs||'').trim(),
+      date:d, srcMonthKey: srcMonthKey||null, dateGuessed,
+      aluno:alunoClean, fonte:(fonte||'').trim(), plano:(plano||'').trim(),
+      opcao:(opcao||'').trim(), obs:obsClean,
       mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago), status: statusClean,
     };
     lastKey = key;
@@ -1075,9 +1117,13 @@ function handleFechFile(file){
 // a receber / churn) e o tile "Sem status na planilha".
 function fechSalesInPeriod(){
   const {start,end} = state.period;
-  return Object.values(state.fechamento.entries).filter(r=>
-    r.date>=start && r.date<=end
-  );
+  const startM = start.slice(0,7), endM = end.slice(0,7);
+  return Object.values(state.fechamento.entries).filter(r=>{
+    // Se sabemos de qual aba/mês a linha veio, a aba manda — toda linha da aba
+    // "AGOSTO" é agosto, mesmo com a célula de data errada, vazia ou de outro mês.
+    if(r.srcMonthKey) return r.srcMonthKey>=startM && r.srcMonthKey<=endM;
+    return r.date>=start && r.date<=end;
+  });
 }
 
 /* ============================================================
@@ -1311,9 +1357,7 @@ function renderHome(){
   // "Valor bruto vendido" = a linha "PREVISÃO" da planilha, lida direto do CSV —
   // igual à página de Fechamento (ver comentário lá). "bruto"/"sales" agora somam
   // todos os registros do período, usados no CAC e Valor líquido abaixo.
-  const totalEntriesHome = Object.values(state.fechamento.entries).filter(r=>
-    r.date>=state.period.start && r.date<=state.period.end
-  );
+  const totalEntriesHome = sales;
   const brutoVendido = state.fechamento.previsao
     ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
     : totalEntriesHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
