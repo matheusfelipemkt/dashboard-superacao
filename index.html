@@ -649,6 +649,7 @@
 
     <div class="section-title">Motivos de churn <span id="fechChurnCount" style="color:var(--critical);font-weight:800;"></span></div>
     <div class="card">
+      <p class="empty-hint" id="fechChurnNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="fechChurnTable"></table></div>
     </div>
 
@@ -1045,8 +1046,15 @@ function processFechRows(rows, sourceLabel){
     // pula pro resto do processamento, senão ela caía na regra de "continuação"
     // e inflava a última venda real da lista com o valor do rodapé inteiro.
     if((data||'').trim().toUpperCase()==='PREVISÃO'){
+      // A planilha já mantém aqui os totais oficiais: MENSALIDADE (G) + PÓS-PAGO
+      // (H) = bruto vendido, e o valor logo depois do rótulo "CANCELAMENTO" = o
+      // churn do mês. Lê o churn direto daqui — é a fonte de verdade, porque na
+      // planilha o cancelamento é marcado pela COR da linha e nem sempre o
+      // status da linha chega a virar "CHURN".
+      const cancelIdx = b.map(x=>(x||'').trim().toUpperCase()).indexOf('CANCELAMENTO');
       state.fechamento.previsao = {
         mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago),
+        cancelamento: (cancelIdx>=0 && cancelIdx+1<b.length) ? toFloatBR(b[cancelIdx+1]) : null,
       };
       continue;
     }
@@ -1361,7 +1369,12 @@ function renderHome(){
   const brutoVendido = state.fechamento.previsao
     ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
     : totalEntriesHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
-  const brutoChurn = churnSales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
+  // Churn em R$ = valor CANCELAMENTO da linha "PREVISÃO" da planilha (fonte de
+  // verdade — a planilha marca churn pela cor da linha, não só pelo status).
+  // Só cai na soma das linhas com status CHURN se a planilha não trouxer esse total.
+  const brutoChurn = (state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null)
+    ? state.fechamento.previsao.cancelamento
+    : churnSales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const liquido = bruto - brutoChurn;
   const conversao = leadsGerados>0 ? (sales.length/leadsGerados*100) : null;
   const cac = sales.length>0 ? totalInvest/sales.length : null;
@@ -1550,7 +1563,14 @@ function renderFechamentoPage(){
   const brutoVendido = state.fechamento.previsao
     ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
     : valorDe(totalEntries);
-  const brutoChurn = valorDe(churn);
+  // Churn em R$ = valor CANCELAMENTO da linha "PREVISÃO" da planilha. É a fonte
+  // de verdade: a planilha marca churn pela COR da linha e nem sempre o status
+  // vira "CHURN", então somar só as linhas com status CHURN fica abaixo do real.
+  // churnLabeladoValor = o que as linhas status=CHURN somam (mostrado no detalhe).
+  const churnLabeladoValor = valorDe(churn);
+  const brutoChurn = (state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null)
+    ? state.fechamento.previsao.cancelamento
+    : churnLabeladoValor;
   const validado = valorDe(pago) + valorDe(aReceber);
   const receitaReal = valorDe(pago);
   const posPagoPendente = valorDe(aReceber);
@@ -1769,8 +1789,18 @@ function renderFechamentoPage(){
   const churnCountEl = document.getElementById('fechChurnCount');
   if(churnCountEl){
     churnCountEl.textContent = churn.length>0
-      ? `(${fmtInt(churn.length)} — ${fmtCurrency(brutoChurn)} perdidos)`
+      ? `(${fmtCurrency(brutoChurn)} perdidos)`
       : '(0 no período)';
+  }
+  const churnNoteEl = document.getElementById('fechChurnNote');
+  if(churnNoteEl){
+    const usouPlanilha = state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null;
+    const diff = brutoChurn - churnLabeladoValor;
+    if(usouPlanilha && Math.abs(diff) >= 0.5){
+      churnNoteEl.textContent = `Total de churn: ${fmtCurrency(brutoChurn)} — vem do CANCELAMENTO da linha "Previsão" da planilha. As ${fmtInt(churn.length)} linhas abaixo têm status CHURN e somam ${fmtCurrency(churnLabeladoValor)}; a diferença de ${fmtCurrency(Math.abs(diff))} são cancelamentos marcados só pela cor da linha, sem o status atualizado.`;
+    } else {
+      churnNoteEl.textContent = `${fmtInt(churn.length)} linhas com status CHURN, somando ${fmtCurrency(brutoChurn)}.`;
+    }
   }
   document.getElementById('fechChurnTable').innerHTML = `
     <thead><tr><th>Data</th><th>Aluno</th><th>Plano</th><th>Valor</th><th>Motivo (Observação)</th></tr></thead>
