@@ -554,6 +554,7 @@
     </div>
 
     <div class="grid kpis" id="kommoKpis" style="margin-top:22px;"></div>
+    <p class="empty-hint" id="kommoModNote" style="text-align:left;padding:10px 0 0;margin:0;"></p>
 
     <div class="section-title">MQL e SQL por modalidade</div>
     <div class="grid kpis" id="kommoQualKpis"></div>
@@ -571,6 +572,7 @@
 
     <div class="section-title">Detalhe por modalidade</div>
     <div class="card">
+      <p class="empty-hint" id="kommoTableNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="kommoTable"></table></div>
     </div>
 
@@ -1521,12 +1523,37 @@ function renderKommoPage(){
     if(l.sql) byMod[l.modalidade].sql++;
   });
 
+  // CPMQL = investimento em Meta Ads ÷ nº de MQL. O geral usa TODO o
+  // investimento mapeado (qualquer modalidade); por modalidade usa só o
+  // investimento daquela modalidade no Meta Ads ÷ MQL daquela modalidade no
+  // Kommo — só funciona pras modalidades que têm investimento mapeado na aba
+  // Meta Ads (Personal/Hidro/Natação); Corrida, TotalPass e "Não identificado"
+  // não têm verba própria mapeada, então ficam sem CPMQL (—).
+  const metaAggKommo = aggregateMeta();
+  const totalInvestKommo = Object.values(metaAggKommo).reduce((s,a)=>s+a.spend,0);
+  const cpmqlGeral = mql>0 ? totalInvestKommo/mql : null;
+
+  // "Leads no período" conta TODA tag reconhecida pelo Kommo, não só as 3
+  // modalidades principais — tem também Corrida, TotalPass e lead sem
+  // nenhuma tag "int.*" reconhecida (Não identificado). Personal+Hidro+Natação
+  // quase nunca vai bater sozinho com o total; por isso o tile "Outras
+  // modalidades" abaixo soma o resto, e a nota deixa explícito onde ele está.
+  const modPrincipaisCount = (byMod['Personal']?.leads||0) + (byMod['Hidroginástica']?.leads||0) + (byMod['Natação']?.leads||0);
+  const outrasModCount = total - modPrincipaisCount;
   document.getElementById('kommoKpis').innerHTML = [
     kpiTile('Leads no período', fmtInt(total)),
     kpiTile('Personal', fmtInt(byMod['Personal']?.leads||0), null, 'var(--c-personal)'),
     kpiTile('Hidroginástica', fmtInt(byMod['Hidroginástica']?.leads||0), null, 'var(--c-hidro)'),
     kpiTile('Natação', fmtInt(byMod['Natação']?.leads||0), null, 'var(--c-natacao)'),
+    kpiTile('Outras modalidades', fmtInt(outrasModCount), `Corrida: ${fmtInt(byMod['Corrida']?.leads||0)} · TotalPass: ${fmtInt(byMod['TotalPass']?.leads||0)} · Não identificado: ${fmtInt(byMod['Não identificado']?.leads||0)}`, 'var(--c-outro)'),
+    kpiTile('CPMQL geral', cpmqlGeral!==null?fmtCurrency(cpmqlGeral):'—', `Investimento total em Meta Ads (${fmtCurrency(totalInvestKommo)}) ÷ ${fmtInt(mql)} MQL de todas as modalidades`, 'var(--c-trafego)'),
   ].join('');
+  const kommoModNoteEl = document.getElementById('kommoModNote');
+  if(kommoModNoteEl){
+    kommoModNoteEl.textContent = outrasModCount>0
+      ? `Personal + Hidroginástica + Natação = ${fmtInt(modPrincipaisCount)} dos ${fmtInt(total)} leads. Os outros ${fmtInt(outrasModCount)} são Corrida, TotalPass ou sem tag de modalidade reconhecida — estão no tile "Outras modalidades" e na tabela "Detalhe por modalidade" mais abaixo.`
+      : `Todos os ${fmtInt(total)} leads têm Personal, Hidroginástica ou Natação identificado.`;
+  }
 
   function qualStatCard(label, color){
     const d = byMod[label] || {mql:0,sql:0};
@@ -1560,6 +1587,8 @@ function renderKommoPage(){
     const pctTotal = total>0 ? d.leads/total*100 : 0;
     const pctMql = d.leads>0 ? d.mql/d.leads*100 : null;
     const pctSql = d.leads>0 ? d.sql/d.leads*100 : null;
+    const spendMod = metaAggKommo[m]?.spend || 0;
+    const cpmqlMod = (spendMod>0 && d.mql>0) ? spendMod/d.mql : null;
     return `<tr>
       <td class="strong"><span class="swatch" style="background:${colorForModality(m)}"></span>${escapeHtml(m)}</td>
       <td>${fmtInt(d.leads)}</td>
@@ -1568,11 +1597,16 @@ function renderKommoPage(){
       <td>${pctMql!==null?fmtPct(pctMql):'—'}</td>
       <td>${fmtInt(d.sql)}</td>
       <td>${pctSql!==null?fmtPct(pctSql):'—'}</td>
+      <td>${cpmqlMod!==null?fmtCurrency(cpmqlMod):'—'}</td>
     </tr>`;
   }).join('');
   document.getElementById('kommoTable').innerHTML = `
-    <thead><tr><th>Modalidade</th><th>Leads</th><th>% do total</th><th>MQL</th><th>% MQL</th><th>SQL</th><th>% SQL</th></tr></thead>
-    <tbody>${tableRows || '<tr><td colspan="7" class="empty-hint">Sem dados no período.</td></tr>'}</tbody>`;
+    <thead><tr><th>Modalidade</th><th>Leads</th><th>% do total</th><th>MQL</th><th>% MQL</th><th>SQL</th><th>% SQL</th><th>CPMQL</th></tr></thead>
+    <tbody>${tableRows || '<tr><td colspan="8" class="empty-hint">Sem dados no período.</td></tr>'}</tbody>`;
+  const kommoTableNoteEl = document.getElementById('kommoTableNote');
+  if(kommoTableNoteEl){
+    kommoTableNoteEl.textContent = 'CPMQL = investimento em Meta Ads daquela modalidade ÷ MQL daquela modalidade. Só existe pra quem tem verba mapeada na aba Meta Ads — Corrida, TotalPass e "Não identificado" ficam em "—".';
+  }
 }
 
 function renderFechamentoPage(){
