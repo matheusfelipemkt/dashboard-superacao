@@ -596,25 +596,25 @@
     <div class="grid two" style="margin-top:16px;">
       <div class="card">
         <h3>Vendas por modalidade</h3>
-        <p class="empty-hint" style="text-align:left;padding:0 0 8px;margin:0;">Todo registro do mês (qualquer status) cujo PLANO é reconhecido como Natação/Hidro/Personal. Quem não tem plano classificável está na tabela "Outros tipos de venda" logo abaixo — some as duas e bate com "Vendas no período".</p>
+        <p class="empty-hint" id="fechModalidadeNote" style="text-align:left;padding:0 0 8px;margin:0;"></p>
         <div class="chart-wrap" id="fechChartPlanos"></div>
       </div>
       <div class="card">
         <h3>Origem das vendas</h3>
-        <p class="empty-hint" style="text-align:left;padding:0 0 8px;margin:0;">Todo registro do mês (qualquer status), agrupado pela coluna FONTE/FECHAMENTO. Soma = "Vendas no período".</p>
+        <p class="empty-hint" id="fechOrigemNote" style="text-align:left;padding:0 0 8px;margin:0;"></p>
         <div class="chart-wrap" id="fechChartOrigem"></div>
       </div>
     </div>
 
     <div class="section-title">Outros tipos de venda (não são modalidade)</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Registros do mês cujo PLANO não é Natação/Hidro/Personal (ex.: avulso/diária, taxa de matrícula, migração de plano). % é sobre "Vendas no período".</p>
+      <p class="empty-hint" id="fechOutrosNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="fechOutrosVendaTable"></table></div>
     </div>
 
     <div class="section-title">Vendas por tipo de opção (Mensal / Anual / Outra)</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Todo registro do mês (qualquer status), agrupado pela coluna OPÇÃO da planilha. % e valor somado são sobre "Vendas no período".</p>
+      <p class="empty-hint" id="fechOpcaoNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="fechOpcaoTable"></table></div>
     </div>
 
@@ -644,13 +644,13 @@
     </div>
     <div class="grid kpis" id="acqKpis"></div>
     <div class="card" style="margin-top:16px;">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Coluna "Vendas novas" = Pago + A Receber + Churn daquela modalidade (exclui negociação, sem status e upsell/addon). "Geral (blended)" soma todas as modalidades + registros sem plano classificável.</p>
+      <p class="empty-hint" id="acqModalidadeNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="acqModalidadeTable"></table></div>
     </div>
 
     <div class="section-title">Saúde do caixa</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;"><b>"ARR novo/perdido do mês"</b> = MRR das vendas fechadas <b>neste mês</b> × 12 (bookings/churn anualizados do período). <b>NÃO é o ARR total da empresa</b> — isso exigiria a mensalidade recorrente ativa acumulada de todos os alunos de todos os meses, que a planilha mensal de Fechamento não traz (ela só mostra o que mudou neste mês).</p>
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">As linhas de <b>ARR</b> aqui são só deste mês — quanto de receita anual entrou/saiu <b>por causa das vendas e cancelamentos de agora</b>. Não é o ARR da empresa toda (isso somaria os alunos ativos de todos os meses, e a planilha só traz o mês atual).</p>
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
     </div>
 
@@ -661,18 +661,18 @@
     </div>
 
     <div class="section-title">Canal de fechamento (ligação x WhatsApp)</div>
-    <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Base = vendas FECHADAS (Pago + A Receber + Churn) — negociação em aberto e sem status não contam aqui, porque ainda não fecharam por canal nenhum. % é sobre essa base.</p>
+    <p class="empty-hint" id="fechCanalNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
     <div class="grid kpis" id="fechCanalKpis"></div>
 
     <div class="section-title">Vendas sem canal identificado (falta preencher na planilha)</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Vendas fechadas (Pago + A Receber + Churn) cuja coluna FONTE não tem nenhuma tag de canal reconhecida.</p>
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Vendas que já fecharam (pago, a receber ou churn), mas a planilha não diz por onde a pessoa veio.</p>
       <div class="table-scroll"><table class="data" id="fechSemCanalTable"></table></div>
     </div>
 
     <div class="section-title">Vendas do período</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Vendas FECHADAS do mês (Pago + A Receber + Churn) com o canal por onde cada uma fechou. Negociação em aberto e sem status estão na seção "Em negociação / sem status" logo abaixo.</p>
+      <p class="empty-hint" id="fechTableNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
       <div class="table-scroll"><table class="data" id="fechTable"></table></div>
     </div>
 
@@ -1760,6 +1760,10 @@ function renderFechamentoPage(){
     const pct = vendasFechadas.length>0 ? `${fmtPct(total/vendasFechadas.length*100)} das vendas fechadas` : '';
     return `${pct}${pct?' · ':''}${fmtInt(ativos)} ativos, ${fmtInt(churnCount)} churn`;
   }
+  const fechCanalNoteEl = document.getElementById('fechCanalNote');
+  if(fechCanalNoteEl){
+    fechCanalNoteEl.textContent = `Só entra venda que já fechou (${fmtInt(vendasFechadas.length)} pago + a receber + churn). Negociação em aberto não conta — ainda não fechou por canal nenhum.`;
+  }
   const ligacaoList = salesCanal.filter(s=>s.canal==='ligacao');
   const whatsappList = salesCanal.filter(s=>s.canal==='whatsapp');
   const presencialList = salesCanal.filter(s=>s.canal==='presencial');
@@ -1833,6 +1837,18 @@ function renderFechamentoPage(){
     agg[label]=(agg[label]||0)+1; return agg;
   },{});
   const outrosVendaItems = Object.entries(outrosVendaAgg).sort((a,b)=>b[1]-a[1]);
+  const comModalidadeCount = planoItems.reduce((s,i)=>s+i.value,0);
+  const semModalidadeCount = sales.length - comModalidadeCount;
+  const fechModalidadeNoteEl = document.getElementById('fechModalidadeNote');
+  if(fechModalidadeNoteEl){
+    fechModalidadeNoteEl.textContent = semModalidadeCount>0
+      ? `${fmtInt(comModalidadeCount)} das ${fmtInt(sales.length)} vendas do mês têm modalidade reconhecida (Natação, Hidro ou Personal). As outras ${fmtInt(semModalidadeCount)} estão na tabela "Outros tipos de venda" logo abaixo.`
+      : `Todas as ${fmtInt(sales.length)} vendas do mês têm modalidade reconhecida (Natação, Hidro ou Personal).`;
+  }
+  const fechOutrosNoteEl = document.getElementById('fechOutrosNote');
+  if(fechOutrosNoteEl){
+    fechOutrosNoteEl.textContent = `Essas ${fmtInt(semModalidadeCount)} vendas não entraram no gráfico "Vendas por modalidade" acima porque o plano não é Natação/Hidro/Personal (avulso, taxa de matrícula etc.).`;
+  }
   document.getElementById('fechOutrosVendaTable').innerHTML = `
     <thead><tr><th>Tipo</th><th>Vendas</th><th>% do total</th></tr></thead>
     <tbody>${outrosVendaItems.length ? outrosVendaItems.map(([label,count])=>`
@@ -1848,6 +1864,10 @@ function renderFechamentoPage(){
     return agg;
   },{});
   const opcaoItems = Object.entries(opcaoAgg).sort((a,b)=>b[1].count-a[1].count);
+  const fechOpcaoNoteEl = document.getElementById('fechOpcaoNote');
+  if(fechOpcaoNoteEl){
+    fechOpcaoNoteEl.textContent = `Todas as ${fmtInt(sales.length)} vendas do mês, separadas por Mensal, Anual ou Semestral (coluna OPÇÃO da planilha).`;
+  }
   document.getElementById('fechOpcaoTable').innerHTML = `
     <thead><tr><th>Opção</th><th>Vendas</th><th>% do total</th><th>Valor somado</th></tr></thead>
     <tbody>${opcaoItems.length ? opcaoItems.map(([label,v])=>`
@@ -1906,6 +1926,10 @@ function renderFechamentoPage(){
     .map(([label,value])=>({label,value,color:ORIGEM_COLORS[label]||'#7C8B96'}))
     .sort((a,b)=>b.value-a.value);
   renderPieChart('fechChartOrigem', origemItems, {formatter:fmtInt});
+  const fechOrigemNoteEl = document.getElementById('fechOrigemNote');
+  if(fechOrigemNoteEl){
+    fechOrigemNoteEl.textContent = `De onde vieram as ${fmtInt(sales.length)} vendas do mês (tráfego pago, indicação, orgânico etc.).`;
+  }
 
   // "ARR novo/perdido do mês" = MRR NOVO/PERDIDO do mês × 12 (bookings/churn
   // anualizados DESTE mês, calculado só a partir da aba de Fechamento do mês).
@@ -1936,6 +1960,10 @@ function renderFechamentoPage(){
       return `${CANAL_LABEL[from]} → ${CANAL_LABEL[to]}`;
     }
     return label;
+  }
+  const fechTableNoteEl = document.getElementById('fechTableNote');
+  if(fechTableNoteEl){
+    fechTableNoteEl.textContent = `Lista das ${fmtInt(vendasFechadas.length)} vendas que já fecharam este mês (pago, a receber ou churn). Quem está em negociação ou sem status está na seção "Em negociação / sem status" logo abaixo.`;
   }
   const rows = salesCanal.slice().sort((a,b)=>a.date<b.date?1:-1).map(s=>`
     <tr>
@@ -1973,6 +2001,12 @@ function renderFechamentoPage(){
     kpiTile('CAC blended', cacBlended!==null?fmtCurrency(cacBlended):'—', 'Investimento ÷ todas as vendas novas — infla o resultado, só contexto', 'var(--c-outro)'),
   ].join('');
 
+  const acqModalidadeNoteEl = document.getElementById('acqModalidadeNote');
+  if(acqModalidadeNoteEl){
+    const somaModalidades = acqPorModalidade.reduce((s,m)=>s+m.count,0);
+    const semModAcq = vendasNovas.length - somaModalidades;
+    acqModalidadeNoteEl.textContent = `"Vendas novas" só conta quem já fechou (pago, a receber ou churn) — não conta negociação em aberto nem taxa de matrícula/avaliação. "Geral (blended)" é o total, juntando as 3 modalidades` + (semModAcq>0 ? ` + ${fmtInt(semModAcq)} venda(s) sem modalidade reconhecida.` : '.');
+  }
   const acqRows = acqPorModalidade.map(m=>`
     <tr>
       <td class="strong"><span class="swatch" style="background:${ACQ_COLORS[m.modalidade]}"></span>${m.modalidade}</td>
