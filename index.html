@@ -650,7 +650,7 @@
 
     <div class="section-title">Saúde do caixa</div>
     <div class="card">
-      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">As linhas de ARR são o MRR do mês × 12 — uma projeção anualizada do recorrente que entrou/saiu <b>neste mês</b>. Não é o ARR total da base de alunos (isso precisaria da mensalidade recorrente ativa acumulada de todos os meses, que a planilha mensal não traz).</p>
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;"><b>"ARR novo/perdido do mês"</b> = MRR das vendas fechadas <b>neste mês</b> × 12 (bookings/churn anualizados do período). <b>NÃO é o ARR total da empresa</b> — isso exigiria a mensalidade recorrente ativa acumulada de todos os alunos de todos os meses, que a planilha mensal de Fechamento não traz (ela só mostra o que mudou neste mês).</p>
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
     </div>
 
@@ -1802,7 +1802,7 @@ function renderFechamentoPage(){
     kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} linhas com status A RECEBER ÷ ${fmtInt(sales.length)} registros do mês`, 'var(--warning)'),
     kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma só da coluna MENSALIDADE de ${fmtInt(pago.length)} linhas com status PAGO (pós-pago/boleto pendente numa linha Pago não conta aqui)`),
     kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `Soma de MENSALIDADE + PÓS-PAGO de ${fmtInt(aReceber.length)} linhas com status A RECEBER`, 'var(--warning)'),
-    kpiTile('MRR novo (recorrente)', fmtCurrency(mrrNovo), `Receita recorrente contratada: ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Anual ou Semestral. NÃO inclui churn, venda mensal (mês a mês), aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
+    kpiTile('MRR novo do mês (recorrente)', fmtCurrency(mrrNovo), `Receita recorrente contratada NAS VENDAS DESTE MÊS (não é o MRR total da base): ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Anual ou Semestral. NÃO inclui churn, venda mensal (mês a mês), aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
     kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', `Valor de TODOS os ${fmtInt(sales.length)} registros do mês (mensalidade+pós-pago, inclusive diária/avulso/negociação/churn) ÷ nº de registros — número bruto, não é ticket de venda fechada`, 'var(--c-trafego)'),
     kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', `Investimento Meta Ads ÷ ${fmtInt(sales.length)} registros do mês (todos os status). Use o "CAC pago" da seção Aquisição pra decisão de investimento`, 'var(--c-trafego)'),
     kpiTile('LTV/CAC', ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—', 'LTV (ticket × tempo médio de permanência) ÷ CAC pago — igual ao "Geral (blended)" da seção Aquisição', 'var(--c-trafego)', 'topLtvCacValue'),
@@ -1907,11 +1907,11 @@ function renderFechamentoPage(){
     .sort((a,b)=>b.value-a.value);
   renderPieChart('fechChartOrigem', origemItems, {formatter:fmtInt});
 
-  // ARR aqui é sempre "× 12" em cima do MRR NOVO/PERDIDO do mês — ou seja, uma
-  // projeção anualizada do que entrou/saiu de recorrente NESTE mês. NÃO é o ARR
-  // total da base de alunos (isso exigiria o total de mensalidades recorrentes
-  // ativas de todos os meses anteriores, que a planilha de Fechamento mensal
-  // não traz — só dá pra ver o que mudou mês a mês).
+  // "ARR novo/perdido do mês" = MRR NOVO/PERDIDO do mês × 12 (bookings/churn
+  // anualizados DESTE mês, calculado só a partir da aba de Fechamento do mês).
+  // Rótulo tem "do mês" de propósito — NÃO é o ARR total da base de alunos
+  // (isso exigiria o total de mensalidades recorrentes ativas acumuladas de
+  // todos os meses anteriores, que a planilha mensal não traz).
   const arrNovo = mrrNovo*12;
   const arrPerdido = brutoChurn*12;
   const healthRows = [
@@ -1919,10 +1919,10 @@ function renderFechamentoPage(){
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
-    ['MRR novo recorrente (só Anual/Semestral — sem churn, mensal, avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
-    ['ARR novo (MRR novo × 12 — projeção anual só do recorrente ganho neste mês)', fmtCurrency(arrNovo)],
-    ['MRR perdido (churn, valor CANCELAMENTO da planilha)', fmtCurrency(brutoChurn)],
-    ['ARR perdido (MRR perdido × 12 — projeção anual do churn deste mês)', fmtCurrency(arrPerdido)],
+    ['MRR novo do mês (só Anual/Semestral — sem churn, mensal, avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
+    ['ARR novo do mês (MRR novo do mês × 12 — NÃO é o ARR total da base, só as vendas fechadas neste mês)', fmtCurrency(arrNovo)],
+    ['MRR perdido do mês (churn, valor CANCELAMENTO da planilha)', fmtCurrency(brutoChurn)],
+    ['ARR perdido do mês (MRR perdido do mês × 12 — NÃO é o ARR total da base, só o churn deste mês)', fmtCurrency(arrPerdido)],
     ['Valor líquido (bruto - churn, inclui tudo)', fmtCurrency(liquido)],
   ];
   document.getElementById('fechHealthTable').innerHTML = `<tbody>${healthRows.map(r=>`<tr><td>${r[0]}</td><td class="strong" style="text-align:right;">${r[1]}</td></tr>`).join('')}</tbody>`;
