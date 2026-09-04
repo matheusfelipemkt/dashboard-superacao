@@ -618,13 +618,13 @@
       <summary>Como interpretar essas métricas (clique pra abrir)</summary>
       <div class="acq-legend-body">
         <div><b>Investimento total (Meta Ads)</b> — quanto foi gasto em anúncios no período selecionado.</div>
-        <div><b>Vendas novas</b> — todo registro do mês na planilha (Pago, A Receber, Churn, Negociação e sem status), excluindo só upsell/complemento de quem já é aluno (avaliação, dia adicional, taxa de matrícula). <b>Obs.:</b> como inclui negociação em aberto, o CAC pago abaixo fica mais baixo do que o custo real por venda fechada.</div>
+        <div><b>Vendas novas</b> — vendas que fecharam por algum canal: Pago + A Receber + Churn (o churn conta porque a venda aconteceu — o canal converteu; quem não segurou o aluno depois foi o Studio). Fica de fora negociação em aberto e sem status (ainda não fechou nada) e upsell/complemento de quem já é aluno (avaliação, dia adicional, taxa de matrícula, fonte UpSell). É o denominador do CAC.</div>
         <div><b>CAC pago</b> — quanto custou, em média, cada venda nova que veio de canal pago (Tráfego/Anúncios ou LinkBio). É o número certo pra decidir se vale investir mais em ads.</div>
         <div><b>CAC blended</b> — mesma conta, mas dividida por TODAS as vendas novas, incluindo indicação/orgânico que não custaram anúncio. Fica menor que o CAC pago porque "dilui" com vendas gratuitas — é só contexto, não usar pra decisão de investimento.</div>
         <div><b>Ticket médio</b> — quanto, em média, um aluno novo daquela modalidade paga por mês.</div>
         <div><b>LTV (Lifetime Value)</b> — quanto um aluno médio deve gerar de receita durante todo o tempo que fica treinando: ticket médio × tempo médio de permanência (hoje uma estimativa do time, ainda não calculada com churn real).</div>
         <div><b>LTV/CAC</b> — quantas vezes o valor que um aluno gera paga o custo de trazer ele. Acima de 3x costuma ser saudável; abaixo de 1x é prejuízo. Sempre calculado sobre o CAC pago, nunca o blended.</div>
-        <div class="acq-legend-warn"><b>Atenção:</b> o tile "CAC" mais acima nesta página usa investimento ÷ TODAS as vendas do período (todos os canais e status). O "CAC pago" desta seção divide só pelas vendas novas de canal pago (Tráfego + LinkBio) — é o número pra decisão de ads, mesmo assim hoje inclui negociação em aberto no denominador.</div>
+        <div class="acq-legend-warn"><b>Atenção:</b> o tile "CAC" mais acima nesta página usa investimento ÷ TODAS as vendas do período (todos os canais e status, inclusive negociação e churn) — por isso dá bem mais baixo. O "CAC pago" desta seção divide só pelas vendas novas de canal pago (Tráfego + LinkBio) que fecharam — é o número pra decisão de ads.</div>
       </div>
     </details>
     <div class="card" id="acqPartialNote" style="display:none;margin-bottom:16px;border-color:var(--warning);">
@@ -1629,8 +1629,8 @@ function renderFechamentoPage(){
   const cac = sales.length>0 ? totalInvest/sales.length : null;
 
   // ============ AQUISIÇÃO (CAC / LTV) — fonte única de verdade ============
-  // Vendas novas = todo registro do período, excluindo só upsell/addon
-  // (Avaliação, Dia Adicional, Taxa de Mat., ou fonte contendo "upsell").
+  // Vendas novas = Pago + A Receber + Churn, excluindo negociação/sem status e
+  // upsell/addon (Avaliação, Dia Adicional, Taxa de Mat., ou fonte com "upsell").
   // Valor = mensalidade, com pós-pago como fallback só se vier vazia/zero.
   // Usado tanto pelo tile "LTV/CAC" do topo quanto pelo módulo "Aquisição" abaixo —
   // não deve existir uma segunda lógica de LTV/CAC divergente nesta página.
@@ -1657,11 +1657,15 @@ function renderFechamentoPage(){
     if(f.includes('linkbio')) return 'linkbio';
     return 'outros';
   }
-  // Vendas novas = todo registro do período (qualquer status, inclusive
-  // NEGOCIAÇÃO e sem status), excluindo só upsell/complemento de quem já é aluno
-  // (avaliação, dia adicional, taxa de matrícula) — esses são item de linha, não
-  // aquisição de cliente novo. Base alinhada com "Vendas no período".
-  const vendasNovas = totalEntries.filter(r=> !acqIsAddon(r));
+  // Vendas novas = aquisição de cliente novo de verdade: uma venda FECHOU por
+  // algum canal. Conta Pago + A Receber + Churn (o churn conta — o canal
+  // converteu, quem perdeu o aluno depois foi o Studio). FICA DE FORA:
+  // NEGOCIAÇÃO e sem status (ainda não fechou nada) e upsell/complemento de
+  // quem já é aluno (avaliação, dia adicional, taxa de matrícula, fonte UpSell).
+  // É o denominador do CAC — não pode ter negócio em aberto aqui.
+  const vendasNovas = totalEntries.filter(r=>
+    (r.status==='PAGO' || r.status==='A RECEBER' || r.status==='CHURN') && !acqIsAddon(r)
+  );
   const vendasNovasTrafego = vendasNovas.filter(r=>acqCanal(r)==='trafego');
   const vendasNovasLinkBio = vendasNovas.filter(r=>acqCanal(r)==='linkbio');
   const vendasNovasOutros = vendasNovas.filter(r=>acqCanal(r)==='outros');
@@ -1933,7 +1937,7 @@ function renderFechamentoPage(){
   // ============ Renderização do módulo "Aquisição" (usa os valores computados acima) ============
   document.getElementById('acqKpis').innerHTML = [
     kpiTile('Investimento total (Meta Ads)', fmtCurrency(totalInvest), 'Período selecionado', 'var(--c-trafego)'),
-    kpiTile('Vendas novas', fmtInt(vendasNovas.length), 'Exclui churn, negociação e upsell/addon'),
+    kpiTile('Vendas novas', fmtInt(vendasNovas.length), 'Pago + A Receber + Churn · exclui negociação, sem status e upsell/addon'),
     kpiTile('Vendas novas — Tráfego', fmtInt(vendasNovasTrafego.length), 'Canal pago (Meta Ads)', 'var(--c-trafego)'),
     kpiTile('Vendas novas — LinkBio', fmtInt(vendasNovasLinkBio.length), 'Canal pago (link da bio)', 'var(--c-trafego)'),
     kpiTile('Vendas novas — Outros canais', fmtInt(vendasNovasOutros.length), 'Indicação, orgânico, presencial etc.', 'var(--c-outro)'),
