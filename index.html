@@ -492,6 +492,7 @@
       </div>
       <div class="card">
         <h3>Funil: leads → retenção</h3>
+        <p class="empty-hint" style="text-align:left;padding:0 0 8px;margin:0;">"Vendas" = todo registro do mês (qualquer status). "Retenção líquida" = Vendas − Churn do mesmo mês (não é retenção da base de alunos antigos). Passe o mouse na barra pra ver o detalhe.</p>
         <div class="chart-wrap" id="homeFunnelChart"></div>
       </div>
     </div>
@@ -595,21 +596,25 @@
     <div class="grid two" style="margin-top:16px;">
       <div class="card">
         <h3>Vendas por modalidade</h3>
+        <p class="empty-hint" style="text-align:left;padding:0 0 8px;margin:0;">Todo registro do mês (qualquer status) cujo PLANO é reconhecido como Natação/Hidro/Personal. Quem não tem plano classificável está na tabela "Outros tipos de venda" logo abaixo — some as duas e bate com "Vendas no período".</p>
         <div class="chart-wrap" id="fechChartPlanos"></div>
       </div>
       <div class="card">
         <h3>Origem das vendas</h3>
+        <p class="empty-hint" style="text-align:left;padding:0 0 8px;margin:0;">Todo registro do mês (qualquer status), agrupado pela coluna FONTE/FECHAMENTO. Soma = "Vendas no período".</p>
         <div class="chart-wrap" id="fechChartOrigem"></div>
       </div>
     </div>
 
     <div class="section-title">Outros tipos de venda (não são modalidade)</div>
     <div class="card">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Registros do mês cujo PLANO não é Natação/Hidro/Personal (ex.: avulso/diária, taxa de matrícula, migração de plano). % é sobre "Vendas no período".</p>
       <div class="table-scroll"><table class="data" id="fechOutrosVendaTable"></table></div>
     </div>
 
     <div class="section-title">Vendas por tipo de opção (Mensal / Anual / Outra)</div>
     <div class="card">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Todo registro do mês (qualquer status), agrupado pela coluna OPÇÃO da planilha. % e valor somado são sobre "Vendas no período".</p>
       <div class="table-scroll"><table class="data" id="fechOpcaoTable"></table></div>
     </div>
 
@@ -639,11 +644,13 @@
     </div>
     <div class="grid kpis" id="acqKpis"></div>
     <div class="card" style="margin-top:16px;">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Coluna "Vendas novas" = Pago + A Receber + Churn daquela modalidade (exclui negociação, sem status e upsell/addon). "Geral (blended)" soma todas as modalidades + registros sem plano classificável.</p>
       <div class="table-scroll"><table class="data" id="acqModalidadeTable"></table></div>
     </div>
 
     <div class="section-title">Saúde do caixa</div>
     <div class="card">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">As linhas de ARR são o MRR do mês × 12 — uma projeção anualizada do recorrente que entrou/saiu <b>neste mês</b>. Não é o ARR total da base de alunos (isso precisaria da mensalidade recorrente ativa acumulada de todos os meses, que a planilha mensal não traz).</p>
       <div class="table-scroll"><table class="data" id="fechHealthTable"></table></div>
     </div>
 
@@ -654,15 +661,18 @@
     </div>
 
     <div class="section-title">Canal de fechamento (ligação x WhatsApp)</div>
+    <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Base = vendas FECHADAS (Pago + A Receber + Churn) — negociação em aberto e sem status não contam aqui, porque ainda não fecharam por canal nenhum. % é sobre essa base.</p>
     <div class="grid kpis" id="fechCanalKpis"></div>
 
     <div class="section-title">Vendas sem canal identificado (falta preencher na planilha)</div>
     <div class="card">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Vendas fechadas (Pago + A Receber + Churn) cuja coluna FONTE não tem nenhuma tag de canal reconhecida.</p>
       <div class="table-scroll"><table class="data" id="fechSemCanalTable"></table></div>
     </div>
 
     <div class="section-title">Vendas do período</div>
     <div class="card">
+      <p class="empty-hint" style="text-align:left;padding:0 0 10px;margin:0;">Vendas FECHADAS do mês (Pago + A Receber + Churn) com o canal por onde cada uma fechou. Negociação em aberto e sem status estão na seção "Em negociação / sem status" logo abaixo.</p>
       <div class="table-scroll"><table class="data" id="fechTable"></table></div>
     </div>
 
@@ -1217,7 +1227,7 @@ function renderBarChart(containerId, items, opts){
   container.querySelectorAll('rect.bar').forEach(rect=>{
     const it = items[+rect.dataset.idx];
     rect.addEventListener('mousemove', evt=>{
-      showTooltip(evt, `<b>${escapeHtml(it.label)}</b><br>${escapeHtml(fmt(it.value))}${opts.suffix||''}`);
+      showTooltip(evt, `<b>${escapeHtml(it.label)}</b><br>${escapeHtml(fmt(it.value))}${opts.suffix||''}${it.hint?`<br><span style="opacity:.75;font-size:11px;">${escapeHtml(it.hint)}</span>`:''}`);
     });
     rect.addEventListener('mouseleave', hideTooltip);
   });
@@ -1406,24 +1416,27 @@ function renderHome(){
     kpiTile('Investimento total', fmtCurrency(totalInvest), 'Meta Ads no período', 'var(--c-trafego)'),
     kpiTile('CPL médio', cplMedio!==null?fmtCurrency(cplMedio):'—', 'Campanhas de leads (form. + mensagens)', 'var(--c-trafego)'),
     kpiTile('Leads gerados', fmtInt(leadGenLeads), 'Meta Ads no período', 'var(--c-trafego)'),
-    kpiTile('Vendas', fmtInt(sales.length), 'Todos os registros do mês na planilha'),
-    kpiTileRing('Taxa de conversão', conversao, `${fmtInt(sales.length)} vendas / ${fmtInt(leadsGerados)} leads`),
-    kpiTile('Valor bruto vendido', fmtCurrency(brutoVendido), 'Linha "Previsão" da planilha de Fechamento'),
-    kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento / vendas', 'var(--c-trafego)'),
-    kpiTile('Valor líquido', fmtCurrency(liquido), `- ${fmtCurrency(brutoChurn)} de churn`),
-    kpiTile('Churn', fmtInt(churnSales.length), `${sales.length>0?fmtPct(churnSales.length/sales.length*100):'—'} das vendas`, 'var(--critical)'),
+    kpiTile('Vendas', fmtInt(sales.length), 'Todo registro da aba do mês na planilha de Fechamento (qualquer status: pago, a receber, churn, negociação, sem status), sem linha duplicada'),
+    kpiTileRing('Taxa de conversão', conversao, `${fmtInt(sales.length)} registros de venda ÷ ${fmtInt(leadsGerados)} leads do Kommo no período`),
+    kpiTile('Valor bruto vendido', fmtCurrency(brutoVendido), 'Mensalidade + pós-pago da linha "Previsão" da planilha (não recalculado a partir das linhas)'),
+    kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', `Investimento Meta Ads ÷ ${fmtInt(sales.length)} registros de venda (todos os status). Para decisão de ads use o "CAC pago" da seção Aquisição`, 'var(--c-trafego)'),
+    kpiTile('Valor líquido', fmtCurrency(liquido), `Valor bruto vendido − ${fmtCurrency(brutoChurn)} de churn (valor CANCELAMENTO da planilha)`),
+    kpiTile('Churn', fmtInt(churnSales.length), `Linhas com status CHURN · ${sales.length>0?fmtPct(churnSales.length/sales.length*100):'—'} dos registros`, 'var(--critical)'),
   ].join('');
 
   const spendItems = orderedModalityKeys(metaAgg).map(m=>({label:m,value:metaAgg[m].spend,color:colorForModality(m)}));
   renderPieChart('homeChartSpend', spendItems, {formatter:fmtCurrency});
 
+  // "Retenção líquida" = registros do mês menos os que já churnaram no mesmo
+  // mês — não é retenção da base toda de alunos, só o saldo de vendas novas
+  // do período (inclui negociação em aberto, que ainda nem fechou).
   const retencaoLiquida = sales.length - churnSales.length;
   const funnelItems = [
-    {label:'Leads', value:leadsGerados, color:'#3987e5'},
-    {label:'MQL', value:mqlCount, color:'#199e70'},
-    {label:'SQL', value:sqlCount, color:'#c98500'},
-    {label:'Vendas', value:sales.length, color:'#d55181'},
-    {label:'Retenção líquida', value:retencaoLiquida, color:'#9085e9'},
+    {label:'Leads', value:leadsGerados, color:'#3987e5', hint:'Meta Ads no período'},
+    {label:'MQL', value:mqlCount, color:'#199e70', hint:'Leads do Kommo marcados MQL'},
+    {label:'SQL', value:sqlCount, color:'#c98500', hint:'Leads do Kommo marcados SQL'},
+    {label:'Vendas', value:sales.length, color:'#d55181', hint:'Todo registro do mês na planilha de Fechamento, qualquer status'},
+    {label:'Retenção líquida', value:retencaoLiquida, color:'#9085e9', hint:'Vendas do mês (todo status) − Churn do mês. Não mede a base de alunos antigos'},
   ];
   renderBarChart('homeFunnelChart', funnelItems, {
     formatter: v => leadsGerados>0 ? `${fmtInt(v)} (${fmtPct(v/leadsGerados*100)})` : fmtInt(v),
@@ -1717,7 +1730,12 @@ function renderFechamentoPage(){
     const first = channelTags[0], last = channelTags[channelTags.length-1];
     return { canal:last, migrou: first!==last ? `${first}->${last}` : null };
   }
-  const salesCanal = sales.map(s=>({ ...s, ...canalDeFechamento(s.fonte) }));
+  // "Canal de fechamento" é sobre venda que FECHOU — negociação em aberto e
+  // sem status não fecharam nada, então não entram aqui (mesma regra de
+  // "Vendas novas"). Sem esse filtro, uma negociação em aberto contava como
+  // "canal que fechou", o que não faz sentido.
+  const vendasFechadas = [...pago, ...aReceber, ...churn];
+  const salesCanal = vendasFechadas.map(s=>({ ...s, ...canalDeFechamento(s.fonte) }));
   const fechadoLigacao = salesCanal.filter(s=>s.canal==='ligacao').length;
   const fechadoWhatsapp = salesCanal.filter(s=>s.canal==='whatsapp').length;
   const fechadoPresencial = salesCanal.filter(s=>s.canal==='presencial').length;
@@ -1729,16 +1747,17 @@ function renderFechamentoPage(){
   const semCanalList = salesCanal.filter(s=>s.canal===null);
   const semCanal = semCanalList.length;
 
-  // O número grande de cada canal continua contando PAGO+A RECEBER+CHURN juntos
-  // (é uma métrica de "por qual canal a venda fechou", não de receita) — mas
-  // mostra embaixo quantos desses seguiram ativos x quantos churnaram, pra não
-  // esconder canal que fecha muito e não segura o aluno.
+  // O número grande de cada canal conta PAGO+A RECEBER+CHURN juntos (vendas
+  // FECHADAS — é métrica de "por qual canal a venda fechou", não de receita) —
+  // mas mostra embaixo quantos desses seguiram ativos x quantos churnaram, pra
+  // não esconder canal que fecha muito e não segura o aluno. % é sobre vendas
+  // fechadas (pago+a receber+churn), não sobre "Vendas no período".
   function canalSub(list){
     const total = list.length;
-    if(total===0) return sales.length>0 ? '0% das vendas' : '';
+    if(total===0) return vendasFechadas.length>0 ? '0% das vendas fechadas' : '';
     const churnCount = list.filter(s=>s.status==='CHURN').length;
     const ativos = total - churnCount;
-    const pct = sales.length>0 ? `${fmtPct(total/sales.length*100)} das vendas` : '';
+    const pct = vendasFechadas.length>0 ? `${fmtPct(total/vendasFechadas.length*100)} das vendas fechadas` : '';
     return `${pct}${pct?' · ':''}${fmtInt(ativos)} ativos, ${fmtInt(churnCount)} churn`;
   }
   const ligacaoList = salesCanal.filter(s=>s.canal==='ligacao');
@@ -1776,16 +1795,16 @@ function renderFechamentoPage(){
 
   document.getElementById('fechKpis').innerHTML = [
     kpiTile('Vendas no período', fmtInt(sales.length), `${fmtInt(pago.length)} pago · ${fmtInt(aReceber.length)} a receber · ${fmtInt(churn.length)} churn · ${fmtInt(negociacao.length + semStatus.length)} negociação/s‑status`),
-    kpiTile('Valor total de vendas', fmtCurrency(brutoVendido), 'Linha "Previsão" da planilha de Fechamento'),
-    kpiTile('Churn', fmtInt(churn.length), sales.length>0?fmtPct(churn.length/sales.length*100)+' das vendas':'', 'var(--critical)'),
-    kpiTile('Em negociação', fmtInt(negociacao.length), fmtCurrency(valorDe(negociacao))+' ainda não fechado', 'var(--warning)'),
-    kpiTile('Sem status na planilha', fmtInt(semStatus.length), 'Cadastrado mas sem status preenchido (conta no total)', 'var(--c-outro)'),
-    kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} vendas ainda não pagas`, 'var(--warning)'),
-    kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma da mensalidade de ${fmtInt(pago.length)} vendas pagas`),
-    kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `${fmtInt(aReceber.length)} vendas aguardando pagamento`, 'var(--warning)'),
+    kpiTile('Valor total de vendas', fmtCurrency(brutoVendido), 'Mensalidade + pós-pago da linha "Previsão" da planilha'),
+    kpiTile('Churn', fmtInt(churn.length), `Linhas com status CHURN · ${sales.length>0?fmtPct(churn.length/sales.length*100):'—'} dos ${fmtInt(sales.length)} registros do mês`, 'var(--critical)'),
+    kpiTile('Em negociação', fmtInt(negociacao.length), `Linhas com status NEGOCIAÇÃO · ${fmtCurrency(valorDe(negociacao))} ainda não fechado (não conta em nenhuma métrica de receita)`, 'var(--warning)'),
+    kpiTile('Sem status na planilha', fmtInt(semStatus.length), 'Registro com nome mas STATUS vazio (e que não herdou status de nenhuma linha acima) — conta em "Vendas no período", não conta como fechado', 'var(--c-outro)'),
+    kpiTileRing('% vendas a receber', pctCaidas, `${fmtInt(aReceber.length)} linhas com status A RECEBER ÷ ${fmtInt(sales.length)} registros do mês`, 'var(--warning)'),
+    kpiTile('Já está no caixa (Pago)', fmtCurrency(receitaReal), `Soma só da coluna MENSALIDADE de ${fmtInt(pago.length)} linhas com status PAGO (pós-pago/boleto pendente numa linha Pago não conta aqui)`),
+    kpiTile('Ainda vamos receber (A Receber)', fmtCurrency(posPagoPendente), `Soma de MENSALIDADE + PÓS-PAGO de ${fmtInt(aReceber.length)} linhas com status A RECEBER`, 'var(--warning)'),
     kpiTile('MRR novo (recorrente)', fmtCurrency(mrrNovo), `Receita recorrente contratada: ${fmtInt(mrrRows.length)} vendas Pago + A Receber com opção Anual ou Semestral. NÃO inclui churn, venda mensal (mês a mês), aula avulsa/diária, taxa de matrícula, avaliação ou pós-pago pontual (${fmtCurrency(mrrNaoRec)} desses ficaram de fora).`),
-    kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', null, 'var(--c-trafego)'),
-    kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', 'Investimento Meta Ads / vendas', 'var(--c-trafego)'),
+    kpiTile('Ticket médio', ticket!==null?fmtCurrency(ticket):'—', `Valor de TODOS os ${fmtInt(sales.length)} registros do mês (mensalidade+pós-pago, inclusive diária/avulso/negociação/churn) ÷ nº de registros — número bruto, não é ticket de venda fechada`, 'var(--c-trafego)'),
+    kpiTile('CAC', cac!==null?fmtCurrency(cac):'—', `Investimento Meta Ads ÷ ${fmtInt(sales.length)} registros do mês (todos os status). Use o "CAC pago" da seção Aquisição pra decisão de investimento`, 'var(--c-trafego)'),
     kpiTile('LTV/CAC', ltvCacGeral!==null?ltvCacGeral.toFixed(2)+'x':'—', 'LTV (ticket × tempo médio de permanência) ÷ CAC pago — igual ao "Geral (blended)" da seção Aquisição', 'var(--c-trafego)', 'topLtvCacValue'),
   ].join('');
 
@@ -1888,13 +1907,22 @@ function renderFechamentoPage(){
     .sort((a,b)=>b.value-a.value);
   renderPieChart('fechChartOrigem', origemItems, {formatter:fmtInt});
 
+  // ARR aqui é sempre "× 12" em cima do MRR NOVO/PERDIDO do mês — ou seja, uma
+  // projeção anualizada do que entrou/saiu de recorrente NESTE mês. NÃO é o ARR
+  // total da base de alunos (isso exigiria o total de mensalidades recorrentes
+  // ativas de todos os meses anteriores, que a planilha de Fechamento mensal
+  // não traz — só dá pra ver o que mudou mês a mês).
+  const arrNovo = mrrNovo*12;
+  const arrPerdido = brutoChurn*12;
   const healthRows = [
     ['Bruto vendido (linha "Previsão" da planilha)', fmtCurrency(brutoVendido)],
     ['Vendas validadas (pago + a receber)', fmtCurrency(validado)],
     ['Já está no caixa do Superação (status Pago)', fmtCurrency(receitaReal)],
     ['Ainda vamos receber (status A Receber)', fmtCurrency(posPagoPendente)],
     ['MRR novo recorrente (só Anual/Semestral — sem churn, mensal, avulso, taxa de matrícula ou avaliação)', fmtCurrency(mrrNovo)],
+    ['ARR novo (MRR novo × 12 — projeção anual só do recorrente ganho neste mês)', fmtCurrency(arrNovo)],
     ['MRR perdido (churn, valor CANCELAMENTO da planilha)', fmtCurrency(brutoChurn)],
+    ['ARR perdido (MRR perdido × 12 — projeção anual do churn deste mês)', fmtCurrency(arrPerdido)],
     ['Valor líquido (bruto - churn, inclui tudo)', fmtCurrency(liquido)],
   ];
   document.getElementById('fechHealthTable').innerHTML = `<tbody>${healthRows.map(r=>`<tr><td>${r[0]}</td><td class="strong" style="text-align:right;">${r[1]}</td></tr>`).join('')}</tbody>`;
