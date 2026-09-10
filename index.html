@@ -1222,8 +1222,14 @@ function fechSalesInPeriod(){
   const {start,end} = state.period;
   const startM = start.slice(0,7), endM = end.slice(0,7);
   return Object.values(state.fechamento.entries).filter(r=>{
-    // Se sabemos de qual aba/mês a linha veio, a aba manda — toda linha da aba
-    // "AGOSTO" é agosto, mesmo com a célula de data errada, vazia ou de outro mês.
+    // A data da PRÓPRIA linha manda sempre que ela é real (não foi chutada) —
+    // isso permite recorte fino (ex.: 01 a 15/08) dentro do mês. Só cai pro
+    // "mês inteiro da aba" quando a data da linha não deu pra confiar (vazia,
+    // quebrada) — daí o mínimo garantido é acertar o mês, não o dia exato.
+    // Antes disso comparava só o mês pra QUALQUER linha com srcMonthKey, então
+    // filtrar meio mês sempre devolvia o mês inteiro (Taxa de conversão batia
+    // errado contra os leads do Kommo, que são filtrados por dia certinho).
+    if(!r.dateGuessed) return r.date>=start && r.date<=end;
     if(r.srcMonthKey) return r.srcMonthKey>=startM && r.srcMonthKey<=endM;
     return r.date>=start && r.date<=end;
   });
