@@ -932,7 +932,13 @@ function metaEntriesInPeriod(){
   const {start,end} = state.period;
   return Object.values(state.meta.entries).filter(e=>{
     if(!e.active) return false;
-    if(!e.periodStart || !e.periodEnd) return true;
+    // Sem "Início/Encerramento dos relatórios" no CSV não dá pra saber se essa
+    // linha pertence ao período — antes isso incluía a linha em QUALQUER
+    // período (fail-open), o que trava o Investimento total/CPL/Leads no
+    // mesmo número pra sempre. Excluir é o modo seguro: mostra R$0,00 (sinal
+    // claro de que falta essa coluna no export) em vez de um total errado com
+    // cara de certo.
+    if(!e.periodStart || !e.periodEnd) return false;
     return e.periodStart <= end && e.periodEnd >= start;
   });
 }
