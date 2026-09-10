@@ -721,7 +721,7 @@ function defaultState(){
     period:{ start: isoDate(start), end: isoDate(end) },
     meta:{ entries:{}, mapping:{}, uploads:[] },
     kommo:{ entries:{}, uploads:[] },
-    fechamento:{ entries:{}, uploads:[] },
+    fechamento:{ entries:{}, uploads:[], previsaoPorMes:{} },
     settings:{ avgRetentionMonths: 7 },
   };
 }
@@ -1066,10 +1066,16 @@ function processFechRows(rows, sourceLabel){
       // planilha o cancelamento é marcado pela COR da linha e nem sempre o
       // status da linha chega a virar "CHURN".
       const cancelIdx = b.map(x=>(x||'').trim().toUpperCase()).indexOf('CANCELAMENTO');
-      state.fechamento.previsao = {
+      const previsaoEntry = {
         mensalidade: toFloatBR(mensalidade), pospago: toFloatBR(pospago),
         cancelamento: (cancelIdx>=0 && cancelIdx+1<b.length) ? toFloatBR(b[cancelIdx+1]) : null,
       };
+      // Guarda por mês (srcMonthKey da aba/arquivo) — com mais de um mês carregado
+      // ao mesmo tempo (ex.: Agosto + Setembro), cada um precisa da SUA linha
+      // Previsão, senão trocar o período no filtro não muda "Valor bruto vendido"
+      // nem o churn em R$ (ficavam travados na última planilha processada).
+      if(srcMonthKey) state.fechamento.previsaoPorMes[srcMonthKey] = previsaoEntry;
+      state.fechamento.previsao = previsaoEntry; // fallback quando não dá pra saber o mês do arquivo
       continue;
     }
     const alunoClean = (aluno||'').trim();
@@ -1219,6 +1225,32 @@ function fechSalesInPeriod(){
     if(r.srcMonthKey) return r.srcMonthKey>=startM && r.srcMonthKey<=endM;
     return r.date>=start && r.date<=end;
   });
+}
+
+// Soma a(s) linha(s) "Previsão" dos meses dentro do período selecionado — com
+// mais de um mês carregado (ex.: Agosto + Setembro), cada mês tem a SUA linha
+// Previsão, e trocar o filtro de período tem que trazer a linha certa (ou a
+// soma de todas, se o período cobrir mais de um mês). Retorna null quando
+// nenhum mês do período tem Previsão carregada (aí quem usa isso cai no
+// cálculo recalculado a partir das vendas).
+function previsaoParaPeriodo(){
+  const map = state.fechamento.previsaoPorMes || {};
+  const {start,end} = state.period;
+  const startM = start.slice(0,7), endM = end.slice(0,7);
+  let mensalidade=0, pospago=0, cancelamento=0, achou=false;
+  Object.keys(map).forEach(mk=>{
+    if(mk>=startM && mk<=endM){
+      achou = true;
+      mensalidade += map[mk].mensalidade;
+      pospago += map[mk].pospago;
+      cancelamento += (map[mk].cancelamento||0);
+    }
+  });
+  if(achou) return {mensalidade,pospago,cancelamento};
+  // Nenhuma linha Previsão tinha mês identificado (arquivo sem nome de mês
+  // reconhecível) — usa a última processada como fallback, igual ao
+  // comportamento antigo, melhor que nada.
+  return state.fechamento.previsao || null;
 }
 
 /* ============================================================
@@ -1453,14 +1485,15 @@ function renderHome(){
   // igual à página de Fechamento (ver comentário lá). "bruto"/"sales" agora somam
   // todos os registros do período, usados no CAC e Valor líquido abaixo.
   const totalEntriesHome = sales;
-  const brutoVendido = state.fechamento.previsao
-    ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
+  const previsaoPeriodo = previsaoParaPeriodo();   // já soma só os meses do período selecionado
+  const brutoVendido = previsaoPeriodo
+    ? previsaoPeriodo.mensalidade + previsaoPeriodo.pospago
     : totalEntriesHome.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   // Churn em R$ = valor CANCELAMENTO da linha "PREVISÃO" da planilha (fonte de
   // verdade — a planilha marca churn pela cor da linha, não só pelo status).
   // Só cai na soma das linhas com status CHURN se a planilha não trouxer esse total.
-  const brutoChurn = (state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null)
-    ? state.fechamento.previsao.cancelamento
+  const brutoChurn = (previsaoPeriodo && previsaoPeriodo.cancelamento!=null)
+    ? previsaoPeriodo.cancelamento
     : churnSales.reduce((s,r)=>s+r.mensalidade+r.pospago,0);
   const liquido = bruto - brutoChurn;
   const conversao = leadsGerados>0 ? (sales.length/leadsGerados*100) : null;
@@ -1682,16 +1715,17 @@ function renderFechamentoPage(){
   // Pós-pago do rodapé), lida direto do CSV — não recalculado a partir das vendas.
   // "bruto"/"sales" agora somam TODOS os registros do período (pago + a receber +
   // churn + negociação + sem status) — base do Ticket médio, CAC e Aquisição.
-  const brutoVendido = state.fechamento.previsao
-    ? state.fechamento.previsao.mensalidade + state.fechamento.previsao.pospago
+  const previsaoPeriodo = previsaoParaPeriodo();   // já soma só os meses do período selecionado
+  const brutoVendido = previsaoPeriodo
+    ? previsaoPeriodo.mensalidade + previsaoPeriodo.pospago
     : valorDe(totalEntries);
   // Churn em R$ = valor CANCELAMENTO da linha "PREVISÃO" da planilha. É a fonte
   // de verdade: a planilha marca churn pela COR da linha e nem sempre o status
   // vira "CHURN", então somar só as linhas com status CHURN fica abaixo do real.
   // churnLabeladoValor = o que as linhas status=CHURN somam (mostrado no detalhe).
   const churnLabeladoValor = valorDe(churn);
-  const brutoChurn = (state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null)
-    ? state.fechamento.previsao.cancelamento
+  const brutoChurn = (previsaoPeriodo && previsaoPeriodo.cancelamento!=null)
+    ? previsaoPeriodo.cancelamento
     : churnLabeladoValor;
   const validado = valorDe(pago) + valorDe(aReceber);
   // "Já está no caixa (Pago)" = soma SÓ da coluna MENSALIDADE das linhas com
@@ -1971,7 +2005,7 @@ function renderFechamentoPage(){
   }
   const churnNoteEl = document.getElementById('fechChurnNote');
   if(churnNoteEl){
-    const usouPlanilha = state.fechamento.previsao && state.fechamento.previsao.cancelamento!=null;
+    const usouPlanilha = previsaoPeriodo && previsaoPeriodo.cancelamento!=null;
     const diff = brutoChurn - churnLabeladoValor;
     if(usouPlanilha && Math.abs(diff) >= 0.5){
       churnNoteEl.textContent = `Total de churn: ${fmtCurrency(brutoChurn)} — vem do CANCELAMENTO da linha "Previsão" da planilha. As ${fmtInt(churn.length)} linhas abaixo têm status CHURN e somam ${fmtCurrency(churnLabeladoValor)}; a diferença de ${fmtCurrency(Math.abs(diff))} são cancelamentos marcados só pela cor da linha, sem o status atualizado.`;
