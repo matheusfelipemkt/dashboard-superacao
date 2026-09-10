@@ -879,7 +879,9 @@ function metaEntityName(row){
   return (row['Nome do conjunto de anúncios'] || row['Nome da campanha'] || '').trim();
 }
 function metaIsActive(row){
-  const v = (row['Veiculação do conjunto de anúncios'] || row['Veiculação da campanha'] || '').trim().toLowerCase();
+  // Nome da coluna muda conforme o nível do export: por conjunto de anúncios,
+  // por campanha, ou "Status de veiculação" nos exports por campanha/dia.
+  const v = (row['Veiculação do conjunto de anúncios'] || row['Veiculação da campanha'] || row['Status de veiculação'] || '').trim().toLowerCase();
   return v === 'active';
 }
 function processMetaObjs(objs, sourceLabel){
