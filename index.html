@@ -1074,8 +1074,10 @@ function processFechRows(rows, sourceLabel){
       // ao mesmo tempo (ex.: Agosto + Setembro), cada um precisa da SUA linha
       // Previsão, senão trocar o período no filtro não muda "Valor bruto vendido"
       // nem o churn em R$ (ficavam travados na última planilha processada).
+      // Sem srcMonthKey (nome do arquivo sem mês reconhecível), NÃO guarda em
+      // lugar nenhum — um fallback "global" aqui é o que causava o travamento;
+      // melhor deixar quem usa recalcular a partir das vendas do período.
       if(srcMonthKey) state.fechamento.previsaoPorMes[srcMonthKey] = previsaoEntry;
-      state.fechamento.previsao = previsaoEntry; // fallback quando não dá pra saber o mês do arquivo
       continue;
     }
     const alunoClean = (aluno||'').trim();
@@ -1247,10 +1249,14 @@ function previsaoParaPeriodo(){
     }
   });
   if(achou) return {mensalidade,pospago,cancelamento};
-  // Nenhuma linha Previsão tinha mês identificado (arquivo sem nome de mês
-  // reconhecível) — usa a última processada como fallback, igual ao
-  // comportamento antigo, melhor que nada.
-  return state.fechamento.previsao || null;
+  // Nenhuma linha Previsão tem mês identificado pro período selecionado (o
+  // arquivo não tinha nome de mês reconhecível no nome do arquivo). NÃO cai
+  // mais no último arquivo processado como fallback global — isso travava
+  // "Valor bruto vendido"/churn no mesmo número pra qualquer período
+  // selecionado. Sem certeza de qual mês é, é melhor recalcular a partir das
+  // vendas do período (próximo passo de quem chama esta função) do que
+  // mostrar um valor que não muda com o filtro.
+  return null;
 }
 
 /* ============================================================
