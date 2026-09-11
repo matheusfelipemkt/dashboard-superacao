@@ -1220,6 +1220,27 @@ async function autoLoadRepoData(){
   for(const path of manifest.meta||[]){
     await loadOne(path, (text,label)=> processMetaObjs(csvToObjects(text), label), 'meta');
   }
+
+  // Mapeamento de modalidade do Meta Ads (qual conjunto de anúncios é Personal/
+  // Natação/Hidro/Tráfego, e se conta lead por Formulário ou Mensagens) também
+  // vem do repositório — sem isso, uma aba nova (ex.: navegador do Giovane, ou
+  // anônima) fica com "Leads gerados" e "CPL médio" zerados mesmo com o
+  // investimento certo, porque esse mapeamento antes só existia salvo no
+  // localStorage de quem configurou manualmente. Só preenche o que ainda não
+  // foi mapeado nesse navegador — não sobrescreve um ajuste que o usuário já
+  // tenha feito na própria aba Meta Ads.
+  try{
+    const mapRes = await fetch('data/meta-mapping.json', {cache:'no-cache'});
+    if(mapRes.ok){
+      const defaults = await mapRes.json();
+      let filled = 0;
+      Object.entries(defaults).forEach(([name, cfg])=>{
+        if(!state.meta.mapping[name]){ state.meta.mapping[name] = cfg; filled++; }
+      });
+      if(filled>0) saveState();
+    }
+  }catch(err){ console.warn('[repo-data] erro lendo meta-mapping.json', err); }
+
   renderAll();
 
   const noteEl = document.getElementById('repoDataNote');

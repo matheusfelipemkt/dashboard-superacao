@@ -1,0 +1,22 @@
+{
+  "Personal | Lins 17 KM | 18+ a 55 | Homens e Mulheres": {
+    "modalidade": "Personal",
+    "tipo": "formulario"
+  },
+  "Natação | Lins 17 KM | 18 + | Homens e Mulheres": {
+    "modalidade": "Natação",
+    "tipo": "formulario"
+  },
+  "[LINS 17KM] [H-M]": {
+    "modalidade": "Tráfego ao Perfil",
+    "tipo": "trafego"
+  },
+  "LINS 17 KM | H-M | 18+": {
+    "modalidade": "Hidroginástica",
+    "tipo": "mensagens"
+  },
+  "Aberto - Lins 17km [18+][H-M] � V3": {
+    "modalidade": "Tráfego ao Perfil",
+    "tipo": "trafego"
+  }
+}
