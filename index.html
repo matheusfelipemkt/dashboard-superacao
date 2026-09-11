@@ -703,6 +703,7 @@
     </div>
     <div class="grid two" id="historicoMonthsGrid" style="margin-top:18px;"></div>
     <p class="empty-hint" id="historicoEmptyNote" style="margin-top:14px;"></p>
+    <div id="historicoReport" style="margin-top:28px;"></div>
   </section>
 
 </main>
@@ -2293,9 +2294,49 @@ function renderHistorico(){
       saveState();
       syncPeriodInputs();
       renderAll();
-      setActivePage('home');
+      renderHistoricoReport(btn.dataset.mk);
     });
   });
+}
+// Monta, na própria aba "Meses Anteriores", o relatório completo do mês
+// escolhido — Início + Meta Ads + Kommo + Fechamento juntos — pra não
+// precisar navegar por 4 abas separadas só pra ver um mês passado. Em vez de
+// recalcular tudo de novo (duplicando a lógica de cada página), clona o HTML
+// que renderAll() acabou de gerar nas próprias páginas — elas já ficam
+// atualizadas pro período escolhido a cada renderAll(), só ficam escondidas
+// pelo CSS enquanto a aba ativa é outra.
+function renderHistoricoReport(mk){
+  const report = document.getElementById('historicoReport');
+  const label = monthKeyLabel(mk);
+  function cloneSection(pageId, title, skipSelector){
+    const original = document.getElementById(pageId);
+    if(!original) return '';
+    const clone = original.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.classList.remove('active');
+    if(skipSelector){ const el = clone.querySelector(skipSelector); if(el) el.remove(); }
+    // Tira os cards de upload de CSV do clone — aqui é só leitura do
+    // histórico, não faz sentido oferecer pra subir arquivo dentro dele.
+    clone.querySelectorAll('.uploader, [id$="FileStatus"]').forEach(el=>el.remove());
+    // Campos como "meses de retenção" existem na página original com um
+    // listener próprio — a cópia não tem esse listener (cloneNode não copia
+    // eventos), então desabilita pra não parecer editável sem funcionar.
+    clone.querySelectorAll('input, select').forEach(el=>{ el.disabled = true; });
+    return `<div class="historico-report-block" style="margin-top:26px;padding-top:18px;border-top:1px solid var(--border-strong);">
+      <h2 style="color:var(--brand);margin-bottom:10px;">${title}</h2>
+      ${clone.innerHTML}
+    </div>`;
+  }
+  report.innerHTML = `
+    <div class="page-head" style="padding:0;margin-bottom:0;">
+      <h1 style="font-size:18px;">Relatório completo — ${label}</h1>
+    </div>
+    ${cloneSection('page-home', 'Início', '.sao-banner')}
+    ${cloneSection('page-meta', 'Meta Ads')}
+    ${cloneSection('page-kommo', 'Kommo')}
+    ${cloneSection('page-fechamento', 'Fechamento')}
+  `;
+  report.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function renderAll(){
   updatePeriodBadges();
