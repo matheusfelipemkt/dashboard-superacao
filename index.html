@@ -2215,9 +2215,24 @@ function monthKeyLabel(mk){
 }
 function monthKeyRange(mk){
   const [y,m] = mk.split('-').map(Number);
-  const start = `${y}-${String(m).padStart(2,'0')}-01`;
-  const end = isoDate(new Date(y, m, 0));
-  return {start, end};
+  const calStart = `${y}-${String(m).padStart(2,'0')}-01`;
+  const calEnd = isoDate(new Date(y, m, 0));
+  // Se o Meta Ads desse mês não cobre o mês inteiro (ex.: export só a partir
+  // do dia 22), usar o mês calendário inteiro aqui infla Vendas/Leads do
+  // Fechamento/Kommo contra um investimento que só existe pra parte do mês —
+  // CAC e conversão saem artificialmente melhores do que são. Em vez disso,
+  // usa a janela real coberta pelo Meta Ads desse mês (min/max das linhas).
+  // Sem dado de Meta Ads pro mês, cai no mês calendário inteiro mesmo.
+  let metaStart = null, metaEnd = null;
+  Object.values(state.meta.entries).forEach(e=>{
+    if(!e.periodStart || !e.periodEnd || e.periodStart.slice(0,7)!==mk) return;
+    if(metaStart===null || e.periodStart<metaStart) metaStart = e.periodStart;
+    if(metaEnd===null || e.periodEnd>metaEnd) metaEnd = e.periodEnd;
+  });
+  if(metaStart && metaEnd){
+    return { start: metaStart<calStart?calStart:metaStart, end: metaEnd>calEnd?calEnd:metaEnd };
+  }
+  return {start: calStart, end: calEnd};
 }
 // Junta todo mês que já apareceu em qualquer fonte carregada (Fechamento por
 // srcMonthKey, Meta Ads pelo período do relatório, Kommo pela data de criação
