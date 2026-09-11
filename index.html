@@ -441,6 +441,7 @@
     <button data-page="meta">Meta Ads</button>
     <button data-page="kommo">Kommo</button>
     <button data-page="fechamento">Fechamento</button>
+    <button data-page="historico">Meses Anteriores</button>
   </nav>
   <div class="period-picker">
     <label>Período</label>
@@ -692,6 +693,16 @@
       <div class="hint">Conta vendas com status Pago, A Receber ou Churn</div>
     </div>
     <div id="fechFileStatus"></div>
+  </section>
+
+  <!-- ============ MESES ANTERIORES ============ -->
+  <section class="page" id="page-historico">
+    <div class="page-head">
+      <h1>Meses anteriores</h1>
+      <p>Clique num mês pra já abrir o dashboard com o período dele preenchido — sem precisar digitar data. A lista mostra todo mês que já tem dado publicado no repositório (Fechamento, Kommo ou Meta Ads).</p>
+    </div>
+    <div class="grid two" id="historicoMonthsGrid" style="margin-top:18px;"></div>
+    <p class="empty-hint" id="historicoEmptyNote" style="margin-top:14px;"></p>
   </section>
 
 </main>
@@ -2197,12 +2208,66 @@ function updatePeriodBadges(){
   });
 }
 
+const MONTH_NAMES_PT = ['','Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+function monthKeyLabel(mk){
+  const [y,m] = mk.split('-').map(Number);
+  return `${MONTH_NAMES_PT[m]} de ${y}`;
+}
+function monthKeyRange(mk){
+  const [y,m] = mk.split('-').map(Number);
+  const start = `${y}-${String(m).padStart(2,'0')}-01`;
+  const end = isoDate(new Date(y, m, 0));
+  return {start, end};
+}
+// Junta todo mês que já apareceu em qualquer fonte carregada (Fechamento por
+// srcMonthKey, Meta Ads pelo período do relatório, Kommo pela data de criação
+// do lead) — assim a lista sempre reflete o que está realmente publicado,
+// sem precisar atualizar essa aba manualmente toda vez que sobe um mês novo.
+function collectAvailableMonths(){
+  const months = new Set();
+  Object.keys(state.fechamento.previsaoPorMes || {}).forEach(mk=>months.add(mk));
+  Object.values(state.fechamento.entries).forEach(r=>{ if(r.srcMonthKey) months.add(r.srcMonthKey); });
+  Object.values(state.meta.entries).forEach(e=>{ if(e.periodStart) months.add(e.periodStart.slice(0,7)); });
+  Object.values(state.kommo.entries).forEach(l=>{ if(l.created) months.add(l.created.slice(0,7)); });
+  return Array.from(months).filter(Boolean).sort().reverse();
+}
+function renderHistorico(){
+  const months = collectAvailableMonths();
+  const grid = document.getElementById('historicoMonthsGrid');
+  const emptyNote = document.getElementById('historicoEmptyNote');
+  if(!months.length){
+    grid.innerHTML = '';
+    emptyNote.textContent = 'Nenhum mês publicado ainda no repositório — assim que um CSV de Fechamento, Kommo ou Meta Ads com um mês reconhecível for carregado, ele aparece aqui.';
+    return;
+  }
+  emptyNote.textContent = '';
+  grid.innerHTML = months.map(mk=>{
+    const {start,end} = monthKeyRange(mk);
+    const isCurrent = start<=state.period.end && end>=state.period.start;
+    return `<button class="card historico-month-btn${isCurrent?' active':''}" data-mk="${mk}" style="text-align:left;cursor:pointer;width:100%;font:inherit;color:var(--text-primary);border:1px solid ${isCurrent?'var(--brand)':'var(--border-strong)'};">
+      <h3 style="margin-bottom:4px;">${monthKeyLabel(mk)}${isCurrent?' <span class="empty-hint" style="padding:0;">(selecionado)</span>':''}</h3>
+      <p class="empty-hint" style="padding:0;">${fmtDateBR(start)} — ${fmtDateBR(end)}</p>
+    </button>`;
+  }).join('');
+  grid.querySelectorAll('.historico-month-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const {start,end} = monthKeyRange(btn.dataset.mk);
+      state.period.start = start;
+      state.period.end = end;
+      saveState();
+      syncPeriodInputs();
+      renderAll();
+      setActivePage('home');
+    });
+  });
+}
 function renderAll(){
   updatePeriodBadges();
   renderHome();
   renderMetaPage();
   renderKommoPage();
   renderFechamentoPage();
+  renderHistorico();
 }
 
 /* ============================================================
