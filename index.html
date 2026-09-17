@@ -578,6 +578,13 @@
       <div class="table-scroll"><table class="data" id="kommoTable"></table></div>
     </div>
 
+    <div class="section-title">Descarte de Leads</div>
+    <div class="grid kpis" id="kommoDescarteKpis" style="margin-top:0;"></div>
+    <div class="card" style="margin-top:12px;">
+      <p class="empty-hint" id="kommoDescarteNote" style="text-align:left;padding:0 0 10px;margin:0;"></p>
+      <div class="table-scroll"><table class="data" id="kommoDescarteTable"></table></div>
+    </div>
+
     <div class="section-title">Enviar CSV do Kommo</div>
     <div class="uploader" id="kommoUploader">
       <input type="file" id="kommoFile" accept=".csv">
@@ -1005,6 +1012,10 @@ function processKommoObjs(objs, sourceLabel){
     state.kommo.entries[id] = {
       id, created,
       funil: (row['Funil de vendas']||'').trim(),
+      // "Etapa do lead" é onde o comercial registra o motivo do descarte
+      // (ex.: "Venda perdida (Outra cidade)", "Lead desqualificado") — só
+      // existe em exports do Kommo que trazem essa coluna.
+      etapa: (row['Etapa do lead']||'').trim(),
       modalidade: kommoModality(row['Tags']),
       mql: tagList.includes('MQL'),
       sql: tagList.includes('SQL'),
@@ -1744,6 +1755,37 @@ function renderKommoPage(){
   const kommoTableNoteEl = document.getElementById('kommoTableNote');
   if(kommoTableNoteEl){
     kommoTableNoteEl.textContent = 'CPMQL = investimento em Meta Ads daquela modalidade ÷ MQL daquela modalidade. Só existe pra quem tem verba mapeada na aba Meta Ads — Corrida, TotalPass e "Não identificado" ficam em "—".';
+  }
+
+  // Descarte de Leads: leads que o comercial classificou como não qualificados
+  // (outra cidade, clicou sem querer, sem interesse, etc.) — motivo real vem da
+  // coluna "Etapa do lead" do Kommo, que ainda não está no CSV publicado.
+  const descartados = leads.filter(l=>l.funil==='Descarte de Leads');
+  const pctDescarte = total>0 ? descartados.length/total*100 : 0;
+  document.getElementById('kommoDescarteKpis').innerHTML = [
+    kpiTile('Leads descartados', fmtInt(descartados.length), `${fmtPct(pctDescarte)} dos ${fmtInt(total)} leads do período caíram no funil "Descarte de Leads" — não qualificados por motivos como outra cidade, sem interesse ou clique sem querer.`, 'var(--c-outro)'),
+  ].join('');
+
+  const motivoCounts = {};
+  descartados.forEach(l=>{
+    const motivo = l.etapa || 'Sem motivo registrado';
+    motivoCounts[motivo] = (motivoCounts[motivo]||0) + 1;
+  });
+  const motivoKeys = Object.keys(motivoCounts).sort((a,b)=>motivoCounts[b]-motivoCounts[a]);
+  const temEtapaReal = descartados.some(l=>l.etapa);
+  const descarteRows = motivoKeys.map(m=>{
+    const c = motivoCounts[m];
+    const pct = descartados.length>0 ? c/descartados.length*100 : 0;
+    return `<tr><td class="strong">${escapeHtml(m)}</td><td>${fmtInt(c)}</td><td>${fmtPct(pct)}</td></tr>`;
+  }).join('');
+  document.getElementById('kommoDescarteTable').innerHTML = `
+    <thead><tr><th>Motivo do descarte</th><th>Leads</th><th>% dos descartes</th></tr></thead>
+    <tbody>${descarteRows || '<tr><td colspan="3" class="empty-hint">Sem leads descartados no período.</td></tr>'}</tbody>`;
+  const kommoDescarteNoteEl = document.getElementById('kommoDescarteNote');
+  if(kommoDescarteNoteEl){
+    kommoDescarteNoteEl.textContent = temEtapaReal
+      ? 'Motivo = coluna "Etapa do lead" do Kommo no momento do descarte.'
+      : 'O CSV do Kommo publicado ainda não traz a coluna "Etapa do lead", então os motivos aparecem como "Sem motivo registrado" — assim que reenviar o export com essa coluna, a tabela passa a mostrar os motivos reais (outra cidade, sem interesse, clique sem querer, etc.).';
   }
 }
 
