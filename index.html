@@ -1606,10 +1606,13 @@ function renderMetaPage(){
   // Natação, Hidroginástica) — Tráfego ao Perfil (branding) fica de fora de tudo
   // aqui, não só do total de leads. Mods sem "tipo" mapeado (nenhum) também ficam
   // fora, pra não poluir com ad set ainda não classificado no mapeamento.
+  // Exceção: "Novos seguidores" soma TODAS as modalidades, Tráfego ao Perfil
+  // incluído — é justamente a campanha de Visita ao Perfil que gera a maior
+  // parte dos seguidores novos, então excluí-la esvaziava a métrica.
   const leadMods = mods.filter(m=>agg[m].tipo==='formulario'||agg[m].tipo==='mensagens');
   const totalSpend = leadMods.reduce((s,m)=>s+agg[m].spend,0);
   const totalLeads = leadMods.reduce((s,m)=>s+agg[m].leads,0);
-  const totalFollowers = leadMods.reduce((s,m)=>s+agg[m].followers,0);
+  const totalFollowers = mods.reduce((s,m)=>s+agg[m].followers,0);
   const totalReach = leadMods.reduce((s,m)=>s+agg[m].reach,0);
   const totalClicks = leadMods.reduce((s,m)=>s+agg[m].clicks,0);
   const totalImpressions = leadMods.reduce((s,m)=>s+agg[m].impressions,0);
