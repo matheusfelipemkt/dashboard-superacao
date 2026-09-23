@@ -1,89 +1,100 @@
  ,,,,,,,,,,,,,,DUDA,,,,,,,,,,,,,,VENDAS SUPERAÇÃO,,,,,,,,,,,,
-DATA,PL. FINANCEIRO,ALUNO,FONTE/FECHAMENTO DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÃS PAGO,CONTATO/RESPONSAVEL,FORMA DE PAGAMENTO,DIA,STATUS,OBSERVAÇÃO,,DATA,PL. FINANCEIRO,ALUNO,FONTE/FECHAMENTO DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÃS PAGO,CONTATO/RESPONSAVEL,FORMA DE PAGAMENTO,DIA,STATUS,OBSERVAÇÃO,,DATA,PL. FINANCEIRO,ALUNO,FONTE DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÃS,CONTATO,PAGAMENTO,DIA,STATUS,OBSERVAÇÃO
-01/09/2026,OK,"Patricia da Conceição Costa","Trafego, L1",HIDRO 2x,ANUAL,"R$ 300,00",,14 99652-4471,RECORRENTE,11/09/2026,A RECEBER,"Mensalidade dela é 170 e a dele 130 porque ela fechou primeiro e pediu para ajudarmos com o investimento total de 300 por mês para fazerem juntos (caso ele cancele, considerar mensalidade de 150 que é a metade do investimento mensal do casal e o contrato dela foi assinado antes de cadastrar o cartão, considerar o mesmo para validar matricula.
+DATA,PL. FINANCEIRO,ALUNO,FONTE/FECHAMENTO DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÓS PAGO,CONTATO/RESPONSAVEL,FORMA DE PAGAMENTO,DIA,STATUS,OBSERVAÇÃO,,DATA,PL. FINANCEIRO,ALUNO,FONTE/FECHAMENTO DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÓS PAGO,CONTATO/RESPONSAVEL,FORMA DE PAGAMENTO,DIA,STATUS,OBSERVAÇÃO,,DATA,PL. FINANCEIRO,ALUNO,FONTE DO LEAD,PLANO,OPÇÃO,MENSALIDADE,PÓS,CONTATO,PAGAMENTO,DIA,STATUS,OBSERVAÇÃO
+01/09/2026,OK,"Patricia da Conceição Costa","Trafego, L1",HIDRO 2x,ANUAL,"R$ 300,00",,14 99652-4471,RECORRENTE,14/09/2026,PAGO,"Mensalidade dela é 170 e a dele 130 porque ela fechou primeiro e pediu para ajudarmos com o investimento total de 300 por mês para fazerem juntos (caso ele cancele, considerar mensalidade de 150 que é a metade do investimento mensal do casal e o contrato dela foi assinado antes de cadastrar o cartão, considerar o mesmo para validar matricula.
 
 
-- JA DEIXEI ALINAHDO NA PLANILHA!",,01/09/2026,OK,Hilane dos Santos Pereira,"Lead antigo, L3, L-FUP",HIDRO 2x,ANUAL,"R$ 100,00",,(14) 98177-7845,PIX+BOLETOS,20/09/2026,A RECEBER,"No primeiro mês foi dado o desconto para conseguir iniciar já por 100 reais e os demais será 159 (Não sei se irão considerar o valor mensal ou do desconto aqui no planilha/comissão da Duda) + FAZER 12 BOLETOS DE 227
+- JA DEIXEI ALINAHDO NA PLANILHA!",,01/09/2026,MES 10/PLANILHA,Hilane dos Santos Pereira,"Lead antigo, L3, L-FUP",HIDRO 2x,ANUAL,,"R$ 159,00",(14) 98177-7845,PIX+BOLETOS,20/10/2026,A RECEBER,"No primeiro mês foi dado o desconto para conseguir iniciar já por 100 reais (mas não pagou e pediu para segurar até dia 5) os demais será 159 para todo dia 20 inclusive no próprio mês que já terá os 159 para pagar dia 20 (Não sei se irão considerar o valor de 100 ou de 159 aqui no planilha/comissão da Duda) + FAZER 12 BOLETOS DE 227
 
 
 - JA DEIXEI ALINHADO NA PLANILHA",,02/09/2026,OK,Amanda Carolina Alves,UpSell,DIA ADICIONAL,ANUAL,"R$ 50,70",,(14) 99663-3140,PIX,26/09/2026,PAGO,"Bruno -
 
 ja fiz o cadastro do dia adicional, nem mandei para assinar pq falta 4 meses para acabar o termo."
-01/09/2026,OK,Marivaldo José da Costa,,,,,,,,,,,,01/09/2026,,"Laura Camila Rodrigues Andrade Alexandrino","Trafego, L1",SKY,ANUAL,"R$ 167,00",,(14) 92004-1868,RECORRENTE,04/09/2026,NEGOCIAÇÃO,LINK ENVIADO PARA CADASTRAR CARTÃO,,04/09/2026,OK,Natalia Rubia do Nascimento Amaral,Indicação,SKY,ANUAL,"R$ 127,00",,(14) 99146-1709,RECORRENTE,15/09/2026,A RECEBER,Murilo - esperando assinar o termo
-01/09/2026,,"Tatiana Oliveira de Souza","Trafego, L1",SKY,ANUAL,"R$ 167,00",,(14) 99791-7504,PIX+BOLETOS,10/09/2026,CHURN,"desistiu devido a valor real do contrato, diferente da oferta proposta em negociação",,02/09/2026,OK,Adriana Aparecida Almeida de Oliveira,"Trafego, Lead antigo, L-FUP",SKY,ANUAL,"R$ 167,00",,14 99615-1699,PIX+BOLETOS,20/09/2026,PAGO,"FAZER 12 BOLETOS DE 225
+01/09/2026,OK,Marivaldo José da Costa,,,,,,,,,,,,01/09/2026,,Laura Camila Rodrigues Andrade Alexandrino,"Trafego, L1",SKY,ANUAL,"R$ 167,00",,(14) 92004-1868,RECORRENTE,04/09/2026,NEGOCIAÇÃO,LINK ENVIADO PARA CADASTRAR CARTÃO,,04/09/2026,OK,Natalia Rubia do Nascimento Amaral,Indicação,SKY,ANUAL,"R$ 127,00",,(14) 99146-1709,RECORRENTE,15/09/2026,PAGO,Murilo - esperando assinar o termo
+01/09/2026,,"Tatiana Oliveira de Souza","Trafego, L1",SKY,ANUAL,"R$ 167,00",,(14) 99791-7504,PIX+BOLETOS,10/09/2026,CHURN,"desistiu devido a valor real do contrato, diferente da oferta proposta em negociação",,02/09/2026,OK,Adriana Aparecida Almeida de Oliveira,"Trafego, Lead antigo, L-FUP",SKY,ANUAL,"R$ 167,00",,14 99615-1699,PIX+BOLETOS,20/09/2026,PAGO,"FAZER 12 BOLETOS DE 225
 
-- ja deixei alinhado na planilha",,04/09/2026,OK,Marcio Leandro Assis do Amaral,Indicação,SKY,ANUAL,"R$ 127,00",,(14) 99140-9860,RECORRENTE,15/09/2026,A RECEBER,Murilo - esperando assinar o termo
+- ja deixei alinhado na planilha",,04/09/2026,OK,Marcio Leandro Assis do Amaral,Indicação,SKY,ANUAL,"R$ 127,00",,(14) 99140-9860,RECORRENTE,15/09/2026,PAGO,Murilo - esperando assinar o termo
 01/09/2026,OK,Hariel da SIlva Santos,"Indicação, WhatsApp, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,"Karla Fernanda Basso da Silva Santos /  14 98201-8762
 ",PIX+BOLETOS,02/09/2026,PAGO,"1° mês por pix e os demais na recorrencia que mãe irá cadastrar o cartão pessoalmente
 
 - vi que a negociação ficou no boleto+pix ja deixei alinhado na planilha, não fiz o boleto pois firmei a negociação de mandar por pix todo dia 05",,03/09/2026,OK,Lucineia Cristina da Silva Ferreira,"Trafego, Lead antigo, L3",SKY,ANUAL,"R$ 167,00",,14 99818-2586,PIX+BOLETOS,20/09/2026,A RECEBER,"FAZER 12 BOLETOS DE 225. OBS: Fechou 2x UP em Julho e nunca veio, nem respondeu + Agora se recuperou da depressão e fechou pra treinar Sky 3x na campanha de aniversário (CIENTE DO NÃO CUMPRIMENTO DA RESPONSABILIDADE DESSA VEZ)
 
-- JA DEIXEI ALINHADO NA PLANILHA",,09/09/2026,OK,Francisca Da Guarda Dos Santos,UpSell,DIA ADICIONAL,ANUAL,"R$ 50,00",,(14) 99812-9861,RECORRENTE,12/09/2026,A RECEBER,"Victor -
+- JA DEIXEI ALINHADO NA PLANILHA",,09/09/2026,OK,Francisca Da Guarda Dos Santos,UpSell,DIA ADICIONAL,ANUAL,"R$ 50,00",,(14) 99812-9861,RECORRENTE,12/09/2026,PAGO,"Victor - 
 
-ja esta alinhado na planilha com a obs, pagando a diferença ja deixei alinho na planilha, não tem termo!"
-01/09/2026,OK,Rael Silveira Joaquim,"Indicação, WhatsApp",NATAÇÃO 2x,ANUAL,"R$ 169,00",,Agnes Aparecida Silveira / 14 98177-7845,PIX+BOLETOS,10/09/2026,PAGO,"03/09 Ã s 17:00 RECEBER PIX
+ja esta alinhado na planilha com a obs, pagando a diferença ja deixei alinho na planilha, não tem termo!
+
+pediu para debitar no dia 11/09"
+01/09/2026,OK,Rael Silveira Joaquim,"Indicação, WhatsApp",NATAÇÃO 2x,ANUAL,"R$ 169,00",,Agnes Aparecida Silveira / 14 98177-7845,PIX+BOLETOS,10/09/2026,PAGO,"03/09 às 17:00 RECEBER PIX
 boleto 227
  - JA DEIXEI ALINHADO NA PLANILHA
 
- - GEREI 1 BOLETO PONTUAL PARA VALIDAR! ",,08/09/2026,OK,Jose Heitor Rodrigues Leite Gastardon Mesquita,"Trafego, L3",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Rafaela Rodrigues Leite / (14) 99862-9159,PIX+RECORRENTE,11/09/2026,PAGO,"VAI FAZER O PRIMEIRO POR PIX NA CONDIÇÃO DE CONTINUIDADE NO RECORRENTE, CASO A CRIANÃA SE ADAPTE A ESSE 1° MÃS
+ - GEREI 1 BOLETO PONTUAL PARA VALIDAR! ",,08/09/2026,OK,Jose Heitor Rodrigues Leite Gastardon Mesquita,"Trafego, L3",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Rafaela Rodrigues Leite / (14) 99862-9159,PIX+RECORRENTE,11/09/2026,PAGO,"VAI FAZER O PRIMEIRO POR PIX NA CONDIÇÃO DE CONTINUIDADE NO RECORRENTE, CASO A CRIANÇA SE ADAPTE A ESSE 1° MÊS
 
-- JA DEIXEI ALINHADO NA PLANILHA!
-- VERIFICAR SOBRE A FORMA DE PAGAMENTO PARA O MES 10",,09/09/2026,OK,Andreia Polasse,UpSell,DIA ADICIONAL,ANUAL,"R$ 50,00",,(14) 99899-4112,PIX,15/09/2026,A RECEBER,"Victor -
+- JA DEIXEI ALINHADO NA PLANILHA! 
+- VERIFICAR SOBRE A FORMA DE PAGAMENTO PARA O MES 10",,09/09/2026,OK,Andreia Polasse,UpSell,DIA ADICIONAL,ANUAL,"R$ 50,00",,(14) 99899-4112,PIX,15/09/2026,PAGO,"Victor - 
 
 ja esta alinhado na planilha com a obs, pagando a diferença ja deixei alinho na planilha, não tem termo!"
 01/09/2026,OK,Lhiandra de Oliveira Silva,"LinkBio, L1",SKY,ANUAL,"R$ 147,00",,(14) 99893-2771,PIX+BOLETOS,10/09/2026,PAGO,"FAZER 12 BOLETOS DE 225 CADA
-- ja deixei alinhado na planilha",,08/09/2026,OK,Silvana Vieira da Silva Souza,"Trafego, L3",SKY,ANUAL,"R$ 139,00",,14 99826-5211,PIX+BOLETOS,10/09/2026,PAGO,"PAGOU 125 NO PIX E PRECISA DE TROCO PARA 50,00 QUE IRÃ TRAZER NO DINHEIRO DIA 09/09 ÃS 7H30 + FAZER 11 BOLETOS DE 225
+- ja deixei alinhado na planilha",,08/09/2026,OK,Silvana Vieira da Silva Souza,"Trafego, L3",SKY,ANUAL,"R$ 139,00",,14 99826-5211,PIX+BOLETOS,10/09/2026,PAGO,"PAGOU 125 NO PIX E PRECISA DE TROCO PARA 50,00 QUE IRÁ TRAZER NO DINHEIRO DIA 09/09 ÀS 7H30 + FAZER 11 BOLETOS DE 225
 
-- JA DEIXEI ALINHADO NA PLANILHA, FIZ 1 BOLETO PONTUAL",,,,,,,,,,,,,,
-01/09/2026,OK,Maria Fernanda Santana Barbute,,,,"R$ 147,00",,(14) 99897-1561,,,,,,09/09/2026,OK,Davi Veloso da Silva,"Trafego, L2",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Vitoria Veleso Candido / (14) 99675-8673,PIX+BOLETOS,10/09/2026,PAGO,"FAZER 11 BOLETOS DE 187
+- JA DEIXEI ALINHADO NA PLANILHA, FIZ 1 BOLETO PONTUAL",,10/09/2026,,Rubia Marques Magioni,UpSell,DIA ADICIONAL,ANUAL,,"R$ 50,00",(14) 99693-5419,RECORRENTE,,NEGOCIAÇÃO,"Victor - 
 
-- JA DEIXEI ALINHADO NA PLANILHA!
-- GEREI 1 BOLETO PONTUAL PARA MES 10",,,,,,,,,,,,,,
+so vai dar incio no proximo mes, pois nessa proxima semana do dia 20 até 28 vai viajar! "
+01/09/2026,OK,Maria Fernanda Santana Barbute,,,,"R$ 147,00",,(14) 99897-1561,,,,,,09/09/2026,OK,Davi Veloso da Silva,"Trafego, L2",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Vitoria Veleso Candido / (14) 99675-8673 - Pai: Antônio Carlos da Silva (14) 981253336,PIX+BOLETOS,10/09/2026,PAGO,"FAZER 11 BOLETOS DE 187
+
+- JA DEIXEI ALINHADO NA PLANILHA! 
+- GEREI 1 BOLETO PONTUAL PARA MES 10",,11/09/2026,OK,Aurora Bueno de Almeida Amaral,Indicação,NATAÇÃO 1x,ANUAL,"R$ 149,00",,(14) 99834-7487,PIX,15/09/2026,PAGO,"Murilo -
+
+ja deixei alinhado na planilha"
 02/09/2026,OK,Maria Lucia de Oliveira Maciel,Presencial,HIDRO 2x,ANUAL,"R$ 197,00",,14 99805-1047,RECORRENTE,02/09/2026,PAGO,"contrato assinado antes do cadastro do cartão (filtrar cancelado)
 
-- JA ESTA ALINHADO NA PLANILHA!",,09/09/2026,,Irani Alves de Moraes,"Lead antigo, Trafego, L3",HIDRO 2x,ANUAL,"R$ 169,00",,14 99866-6795,PIX+BOLETOS,11/09/2026,NEGOCIAÇÃO,08:00 FINALIZAR,,,,,,,,,,,,,,
-02/09/2026,OK,Carla Cristina Fernandes,"Lead antigo, WhatsApp, L1",HIDRO 1x,ANUAL,"R$ 100,00",,14 99675-1428,PIX+BOLETOS,20/09/2026,A RECEBER,"FAZER 12 BOLETOS DE 177
+- JA ESTA ALINHADO NA PLANILHA!",,09/09/2026,,Irani Alves de Moraes,"Lead antigo, Trafego, L3",HIDRO 2x,ANUAL,"R$ 169,00",,14 99866-6795,PIX+BOLETOS,11/09/2026,CHURN,"não compareceu e após tentativas de contato, disse que não teria condição de pagar esse mês e nem interesse em manter na condição pós pago",,17/09/2026,OK,Leticia de Fátima Balancieri Siqueira,Aluno(a),PERSONAL RUNNER,ANUAL,"R$ 50,00",,(14) 99662-6595,RECORRENTE,17/09/2026,PAGO,Lucas - Coloquei as demais pro dia 14/10 e assim sucessivamente 
+02/09/2026,OK,Carla Cristina Fernandes,"Lead antigo, WhatsApp, L1",HIDRO 1x,ANUAL,"R$ 100,00",,14 99675-1428,PIX+BOLETOS,20/09/2026,PAGO,"FAZER 12 BOLETOS DE 177
 
-- JA DEIXEI ALINHDADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-02/09/2026,OK,Heloisa Rosario Moreti de Oliveira,"Indicação, WhatsApp, L1, EXP",NATAÇÃO 2x,ANUAL,"R$ 160,00",,Gabriela de Almeida Rosario / (14) 99659-9039,RECORRENTE,11/09/2026,A RECEBER,TUDO OK (contrato assinado no cadastro da mãe),,,,,,,,,,,,,,,,,,,,,,,,,,,,
-02/09/2026,,Maria Alice do Nascimento Bispo ,"LinkBio, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Rebeca Gabrielle do Nascimento Moretin / 14 99176-4795,,14/09/2026,NEGOCIAÇÃO,17:30 FINALIZAR,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-02/09/2026,OK,"Ester Guedes do Prado","Ex-aluno, WhatsApp",NATAÇÃO 2x,ANUAL,"R$ 177,00",,"Silene Tatiana Guedes do Prado / 14 99811-3903
+- JA DEIXEI ALINHDADO NA PLANILHA",,11/09/2026,,Debora Maria Leao da Cunha,"Lead antigo, Trafego, L2",SKY,ANUAL,"R$ 165,00",,14 99842-4768,RECORRENTE,,NEGOCIAÇÃO,LINK ENVIADO PARA CADASTRAR CARTÃO,,17/09/2026,MES 10/PLANILHA,Anna Carolina Castro Leão Cantanhede de Camargo,Aluno(a),AVALIAÇÃO,ANUAL,,"R$ 39,00",(14) 99138-1207,PIX,10/10/2026,A RECEBER,Murilo - esperando assinar o termo
+02/09/2026,OK,Heloisa Rosario Moreti de Oliveira,"Indicação, WhatsApp, L1, EXP",NATAÇÃO 2x,ANUAL,"R$ 160,00",,Gabriela de Almeida Rosario / (14) 99659-9039,RECORRENTE,11/09/2026,PAGO,TUDO OK (contrato assinado no cadastro da mãe),,12/09/2026,,Isabel Batista da Silvero,"Trafego, L1",HIDRO 1x,ANUAL,"R$ 147,00",,14 997083715,PIX+BOLETOS,20/09/2026,CHURN,"Ao receber boleto disse que gostaria de cancelar, disse que não teria condição de pagar esse mês e nem interesse em manter na condição pós pago com desconto concedido (desc. família)",,22/09/2026,MES 10/PLANILHA,Beatriz Graminha dos Anjos,Ex-aluno,START,ANUAL,,"R$ 287,00",(14) 99602-2125,RECORRENTE,08/10/2026,A RECEBER,Murilo - Tudo ok
+02/09/2026,,Maria Alice do Nascimento Bispo ,"LinkBio, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Rebeca Gabrielle do Nascimento Moretin / 14 99176-4795,,28/09/2026,NEGOCIAÇÃO,17:30 FINALIZAR,,14/09/2026,OK,Marcia Aparecida dos Santos,"Trafego, L3, FUP",HIDRO 2x,ANUAL,"R$ 197,00",,14 999222550,PIX+BOLETOS,20/09/2026,A RECEBER,"FAZER BOLETO DE 227,00
+
+- JA DEIXEI ALINHADO NA PLANILHA!",,23/09/2026,,Elaine Maria Pimentel Meglio,UpSell,DIA ADICIONAL,ANUAL,,"R$ 50,00",(14) 98219-0533,RECORRENTE,16/10/2026,A RECEBER,"Murilo - Editei os valores da parcela para o mes 10 - 247,00 (Colocar observação na planilha que tem que forçar o cartão todo dia 16"
+02/09/2026,OK,"Ester Guedes do Prado","Ex-aluno, WhatsApp",NATAÇÃO 2x,ANUAL,"R$ 177,00",,"Silene Tatiana Guedes do Prado / 14 99811-3903
 ",RECORRENTE,02/09/2026,PAGO,"TUDO OK
 
-- JA DEIXEI ALINHADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+- JA DEIXEI ALINHADO NA PLANILHA",,15/09/2026,,Pamela Oliveira,"Trafego, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,14 98807-1837,,,CHURN,pediu a vaga e parou de responder na hora de concluir a matricula,,,,,,,,,,,,,,
 03/09/2026,!,Aparecida Conceição Hortelã Domiciano,"Trafego, L2",HIDRO 2x,ANUAL,"R$ 197,00",,14 99864-1801,DINHEIRO+BOLETOS,08/09/2026,CHURN,"Foi uma senhora bem chucra de teconlogia, acho que não compensa fazer boletos porque ela nem mexe em aplicativo do banco, só recebe em cedulas no caixa e paga aqui no studio mesmo + vou ajudar ela após a primeria aula, assinar o termo.
 
-DESISTIU ANTES DE PRIMEIRA AULA DEVIDO A QUADRO DE DEPRESSÃO",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-03/09/2026,OK,"Noah Gael Silva de Godoy","Trafego, L-FUP, EXP, WhatsApp",NATAÇÃO 1x,ANUAL,"R$ 197,00",,"Ingrid Alexandra Silva de Godoy / (14) 99891-2865
-",PIX+BOLETOS,20/09/2026,A RECEBER,"FAZER 12 BOLETOS DE 247,00
+DESISTIU ANTES DE PRIMEIRA AULA DEVIDO A QUADRO DE DEPRESSÃO",,16/09/2026,OK,Julia Fernanda Perin da Silva,"Trafego, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Fernanda Aparecida Pontes Perin 14 998633540,PIX+BOLETOS,20/09/2026,PAGO,"FAZER BOLETO DE 187,00
 
-- JA ESTA ALINADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-03/09/2026,,"Lara Marcella Ferraz da Silva","Lead antigo, WhatsApp, L1",UP,ANUAL,"R$ 197,00",,14 99710-2739,RECORRENTE,08/09/2026,NEGOCIAÇÃO,19:00 FINALIZAR,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-03/09/2026,OK,Alessandra Fulquito Mello Tasso,"LinkBio, WhatsApp, L1",UP,ANUAL,"R$ 197,00",,(14) 99195-9110,PIX+BOLETOS,10/09/2026,A RECEBER,"FAZER 12 BOLETOS DE 225
+- ja deixei alinhado na planilha",,,,,,,,,,,,,,
+03/09/2026,OK,"Noah Gael Silva de Godoy","Trafego, L-FUP, EXP, WhatsApp",NATAÇÃO 1x,ANUAL,"R$ 197,00",,"Ingrid Alexandra Silva de Godoy / (14) 99891-2865
+",PIX+BOLETOS,20/09/2026,PAGO,"FAZER 12 BOLETOS DE 247,00 
 
-EST ALINHADO NA PLANILHA!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+- JA ESTA ALINADO NA PLANILHA",,16/09/2026,,Laura da Silvieira Pacheco,L-FUP,NATAÇÃO 1x,ANUAL,"R$ 129,00",,Leticia Silvieira 14 981093334,,,CHURN,,,,,,,,,,,,,,,
+03/09/2026,,"Lara Marcella Ferraz da Silva","Lead antigo, WhatsApp, L1",UP,ANUAL,"R$ 197,00",,14 99710-2739,RECORRENTE,08/09/2026,CHURN,19:00 FINALIZAR,,16/09/2026,,José Felipe Pacheco,L-FUP,NATAÇÃO 1x,ANUAL,"R$ 129,00",,,,,,,,,,,,,,,,,,,,
+03/09/2026,OK,Alessandra Fulquito Mello Tasso,"LinkBio, WhatsApp, L1",UP,ANUAL,"R$ 197,00",,(14) 99195-9110,PIX+BOLETOS,10/09/2026,PAGO,"FAZER 12 BOLETOS DE 225
+
+EST ALINHADO NA PLANILHA!",,17/09/2026,,Ana Flavia Rodrigues Rosa Dourado,L-FUP,SKY,ANUAL,"R$ 167,00",,14 997347643,BOLETO,20/09/2026,CHURN,,,,,,,,,,,,,,,
 04/09/2026,,"Maria Julia Telez de Menezes Boaventura
 ","Trafego, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,"Dheyniffer Nathalia Felisberto Boaventura / 14 99886-7665
-",PIX+BOLETOS,,CHURN,Disse que a filha não iria querer fazer mais,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-04/09/2026,OK,"Ana Elisa de Souza Delinelo","Trafego, WhatsApp, L1",HIDRO 2x,ANUAL,"R$ 169,00",,(14) 99715-9766,DINHEIRO+BOLETOS,08/09/2026,PAGO,"FAZER 11 BOLETOS DE 227 CADA
+",PIX+BOLETOS,,CHURN,Disse que a filha não iria querer fazer mais,,18/09/2026,OK,Bernardo França da Silva ,"Trafego, Lead antigo, L3",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Hellen Cristine França de Sousa 14 99174-2529,PIX+BOLETOS,25/09/2026,PAGO,"FAZER 12 BOLETOS 187,00
+
+- ja deixei alinhado na planilha e fiz 1 boleto pontual",,,,,,,,,,,,,,
+04/09/2026,OK,"Ana Elisa de Souza Delinelo","Trafego, WhatsApp, L1",HIDRO 2x,ANUAL,"R$ 169,00",,(14) 99715-9766,DINHEIRO+BOLETOS,08/09/2026,PAGO,"FAZER 11 BOLETOS DE 227 CADA 
 
 - JA DEIXEI ALINHADO NA PLANILHA, NÃO GEREI NENHUM BOLETO PQ NÃO TEM NEM EMAIL",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 04/09/2026,OK,Zilda de Souza Belimelo,"Indicação, L-FUP",,,"R$ 169,00",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-04/09/2026,OK,Andreia Paranhos Batista,Orgânico/Wpp,HIDRO 1x,ANUAL,"R$ 129,00",, 14 99652-1297,RECORRENTE,10/09/2026,PAGO,"TUDO OK
+04/09/2026,OK,Andreia Paranhos Batista,WhatsApp,HIDRO 1x,ANUAL,"R$ 129,00",, 14 99652-1297,RECORRENTE,10/09/2026,PAGO,"TUDO OK
 
 - JA ESTA ALINHADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-04/09/2026,,Eduardo Kubo,"Trafego, L1, EXP, WhatsApp",HIDRO 2x,ANUAL,"R$ 197,00",,17 99277-9425,RECORRENTE,,CHURN,FINALIZAR COM A ESPOSA POR SER QUEM PROCUROU POR NÃS E LIBERAR O VALOR MENSAL APÃS TER FEITO EXP E GOSTADO + não dará continuidade devido a querer mais atividades (estão atrás de um club),,,,,,,,,,,,,,,,,,,,,,,,,,,,
+04/09/2026,,Eduardo Kubo,"Trafego, L1, EXP, WhatsApp",HIDRO 2x,ANUAL,"R$ 197,00",,17 99277-9425,RECORRENTE,,CHURN,FINALIZAR COM A ESPOSA POR SER QUEM PROCUROU POR NÓS E LIBERAR O VALOR MENSAL APÓS TER FEITO EXP E GOSTADO + não dará continuidade devido a querer mais atividades (estão atrás de um club),,,,,,,,,,,,,,,,,,,,,,,,,,,,
 05/09/2026,OK,Davi Fernandes Gonçalves,"Trafego, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 259,00",,"Eva Luana dos Santos Fernandes
 14 98126-2611",PIX+BOLETOS,10/09/2026,PAGO,"FAZER 11 BOLETOS DE 187  CADA
 - JA DEIXEI ALINHADA NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 05/09/2026,OK,Miguel Felipe Fernandes Gonçalves,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 05/09/2026,OK,Ana Clara Del Ciampo Oliveira,"Trafego, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 194,00",,"Miriam Honorio da Silva
-(14) 99900-1138",PIX+BOLETOS,11/09/2026,A RECEBER,FAZER 12 BOLETOS DE 187 CADA ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+(14) 99900-1138",PIX+BOLETOS,11/09/2026,PAGO,FAZER 12 BOLETOS DE 187 CADA ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 05/09/2026,OK,Maria Luiza Del Ciampo Oliveira,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-08/09/2026,,Andresa Peixoto Lima Bolzan,"Trafego, L1",UP,ANUAL,"R$ 197,00",,14 99151-3505,RECORRENTE,11/09/2026,NEGOCIAÇÃO,"CARTÃO PENDENTE DE AUTORIZAÇÃO DO BANCO + SE NÃO CONSEGUIR RESOLVER SOZINHA ATÃ A DATA PROGRAMADA, VOU AJUDAR APÃS A 1ª AULA 15/09 ÃS 10H",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-08/09/2026,,Sueli dos Santos,"Trafego, L1",UP,ANUAL,"R$ 197,00",,14 99105-5291,RECORRENTE,14/09/2026,NEGOCIAÇÃO,10:00 FINALIZAR,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-08/09/2026,,"Angela Maria Moreira","Trafego, L1",UP,ANUAL,"R$ 197,00",,(14) 99198-2927,PIX+BOLETOS,01/10/2026,CHURN,"Após a matrícula, relatou indicação do cardiologista para aguardar exames",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-09/09/2026,OK,Paula Cristina Da Rocha Gomes,"LinkBio, WhatsApp, AULA AVULSA",UP,DIÃRIA,"R$ 29,90",, 14 99154-1530,PIX,09/09/2026,PAGO,11/09 ÃS 07:00 FINALIZAR SOBRE CONTINUIDADE,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+08/09/2026,,Andresa Peixoto Lima Bolzan,"Trafego, L1",UP,ANUAL,"R$ 197,00",,14 99151-3505,RECORRENTE,11/09/2026,CHURN,Enrolou muito e no final disse que médico só liberou caminhada,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+08/09/2026,,Sueli dos Santos,"Trafego, L1",UP,ANUAL,"R$ 197,00",,14 99105-5291,RECORRENTE,23/09/2026,NEGOCIAÇÃO,10:00 FINALIZAR,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+08/09/2026,,"Angela Maria Moreira","Trafego, L1",UP,ANUAL,"R$ 197,00",,(14) 99198-2927,PIX+BOLETOS,01/10/2026,CHURN,"Após a matrícula, relatou indicação do cardiologista para aguardar exames",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 09/09/2026,OK,Valentein Matheus Aoyama Rosa,"Trafego, L-FUP",NATAÇÃO 2x,ANUAL,"R$ 197,00",,"Brenda Leitica Aoyama de Godoi / 14 99836-4049
 
 ",PIX+BOLETOS,10/09/2026,PAGO," FAZER 11 BOLETOS DE 247
@@ -91,15 +102,84 @@ EST ALINHADO NA PLANILHA!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 - ja deixei alinhado na planilha
 
 - GEREI 1 BOLETO PARA O MES 10",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-09/09/2026,,"João Lucas Mendes Ferreira","LinkBio, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,"Isabela Rejane Ferreira Rodrigues / 14 99179-1536
+09/09/2026,OK,João Lucas Mendes Ferreira,"LinkBio, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,"Isabela Rejane Ferreira Rodrigues / 14 99179-1536
 
-",PIX+BOLETOS,10/09/2026,NEGOCIAÇÃO,FINALIZAR COM A MÃE DELA QUE Ã NOSSA ALUNA E IRÃ PAGAR (PATRICIA REJANE),,,,,,,,,,,,,,,,,,,,,,,,,,,,
+",PIX+BOLETOS,15/09/2026,PAGO,"A MÃE DELA É A PATRICIA REJANE, NOSSA ALUNA QUE PAGA MENSALMENTE POR PIX E IRÁ PAGAR A NATAÇÃO TAMBÉM
+
+- JA DEXEI ALINHADO NA PLANILHA COM A OBS, NÃO GEREI BOLETO",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 09/09/2026,,"Nicolas Duarte Bonfin
-","Trafego, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Nicolly Yasmim Duarte / 14 99732-9476,PIX+BOLETOS,10/09/2026,NEGOCIAÇÃO,"1° PIX, DEPOIS FAZER 11 BOLETOS DE 187",,,,,,,,,,,,,,,,,,,,,,,,,,,,
-10/09/2026,,"Beijamin Andrade das Neves Lima
-","Trafego, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Lurrieli Camila das Neves Lima,,15/09/2026,NEGOCIAÇÃO,19:00 FINALIZAR PÃS AULA,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-10/09/2026,OK,Leticia Dara Camargo,"Trafego, WhatsApp, AULA AVULSA",HIDRO 1x,DIÃRIA,"R$ 29,90",,14 99847-6872,PIX,10/09/2026,PAGO,14/09 ÃS 8H FINALIZAR,,PREVISÃO,,,,,,"R$ 1.203,00","R$ 0,00",CANCELAMENTO,,TOTAL,"R$ 1.203,00",,,PREVISÃO,,,,,,"R$ 404,70","R$ 0,00",CANCELAMENTO,,TOTAL,,"R$ 404,70"
-10/09/2026,,Edina Ferreira Santos,"Trafego, L-FUP",HIDRO 2x,ANUAL,"R$ 197,00",,Erica Ferreira Santos / (14) 99837-5985 FILHA QUEM FEZ MATRICULA PARA ELA,,11/09/2026,NEGOCIAÇÃO,20H FINALIZAR COM A MÃE MESMO SOBRE FORMA DE PAGAMENTO,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+","Trafego, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Nicolly Yasmim Duarte / 14 99732-9476,PIX+BOLETOS,10/09/2026,CHURN,A mãe dela quem iria pagar + quando viu o compromisso do contrato desistiu e nem aceitou mais nenhuma forma,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,!,Beijamin Andrade das Neves Lima,"Trafego, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 150,00",,Lurrieli Camila das Neves Lima / 14 99777-7156,PIX,15/09/2026,PAGO,"SÓ VAI CONSEGUIR VIM 22/09 ÀS 19:00 PARA FINALIZAR FORMA DE PAGAMENTO E TERMO PARA CONTINUIDADE + JÁ DEIXOU 1 MÊS PAGO PARA NÃO PERDER A VAGA ATÉ LÁ
+
+- JA DEIXEI ALINHADO NA PLANILHA COM A OBS ACIMA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,OK,Leticia Dara Camargo,"Trafego, WhatsApp, AULA AVULSA",HIDRO 1x,DIÁRIA,"R$ 29,90",,14 99847-6872,PIX,10/09/2026,PAGO,28/09 ÀS 8H FINALIZAR,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,,Edina Ferreira Santos,"Trafego, L-FUP",HIDRO 2x,ANUAL,"R$ 197,00",,Erica Ferreira Santos / (14) 99837-5985 FILHA QUEM FEZ MATRICULA PARA ELA,,11/09/2026,CHURN,"matriculou a mãe, não vieram e nem responde/atende mais",,PREVISÃO,,,,,,"R$ 2.478,00","R$ 159,00",CANCELAMENTO,"R$ 1.220,00",TOTAL,"R$ 1.417,00",,,PREVISÃO,,,,,,"R$ 603,70","R$ 426,00",CANCELAMENTO,,TOTAL,,"R$ 1.029,70"
+10/09/2026,OK,Paula Cristina Da Rocha Gomes,"LinkBio, WhatsApp, AULA AVULSA",UP,DIÁRIA,"R$ 30,00",,14 99154-1530,PIX,10/09/2026,PAGO,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,,Mayara Silvia Santos Pagliuso,"Trafego, WhatsApp",NATAÇÃO 2x,ANUAL,"R$ 197,00",,Mayara Silvia Santos Pagliuso / 14 99657-3582,RECORRENTE,12/09/2026,CHURN,"familiar de aluna nossa, pediu exceção em cobrar multa de cancelamento + depois não fechou mesmo que abrimos essa exceção ",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,OK,Andreza Cristina de Oliveira,WhatsApp,UP,ANUAL,"R$ 177,00",,14 99815-9047,PIX+BOLETOS,20/09/2026,A RECEBER,"FAZER 12 BOLETOS DE 247
+
+- JA DEIXEI ALINHADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,OK,Pedro de Lira Coutinho ,"Lead antigo, WhatsApp",NATAÇÃO 1x,ANUAL,"R$ 129,00",,"Tamyres de Lira Silva Coutinho
+14 98184-6354",RECORRENTE,11/09/2026,PAGO,"TUDO OK (Cobrei 2x no cadastro da Sara e estornei porque já tinha cobrado na matrícula do Pedro e confundi na hora do cadastro)
+
+
+- JA DEIXEI ALINHADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10/09/2026,OK,Sara de Lira Coutinho,"Lead antigo, WhatsApp",,,"R$ 129,00",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+11/09/2026,OK,Paula Cristina da Rocha Gomes,"LinkBio, WhatsApp, AULA AVULSA",UP,ANUAL,"R$ 197,00",,14 99154-1530,PIX+BOLETOS,09/09/2026,PAGO,"FAZER 11 BOLETOS DE 247
+
+- ja deixei alinhado na planilha",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+11/09/2026,,Martha Brandão Matta de Aruajo,"Trafego, L1",HIDRO 2x,ANUAL,"R$ 197,00",,61 92385-841,,15/09/2026,CHURN,não veio e disse que vai deixar para rever em Outubro devido a estar na correria de mudança recente para a cidade,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+11/09/2026,OK,Theo Henrique Silva Sanches,"Trafego, L-FUP",NATAÇÃO 1x,DIÁRIA,"R$ 30,00",,14 99784‑0946 (Fátima Sanches),PIX,11/09/2026,PAGO,"12/09 ÀS 9H30 FINALIZAR
+
+- coloquei na planilha como diaria",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+12/09/2026,OK,"Livia Rodrigues Freire de Oliveira","Trafego, L-FUP",NATAÇÃO 2x,ANUAL,"R$ 197,00",,Camila Aparecida Rodrigues / (14) 98840-1744,RECORRENTE,23/09/2026,PAGO,"Tudo ok (cadastrado para debitar na data solicitada)
+
+- ja deixei alinhado na planilha",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,,Maria Joana Vieira Lagoeiro,"Trafego, L1",HIDRO 2x,ANUAL,"R$ 169,00",,14 98100-2402,RECORRENTE,16/09/2026,CHURN,não veio e disse que filho de 3 lagoas veio buscar ela para passar no médico lá,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,MES 10/PLANILHA,Eleni Batista de Souza Arrothéia,"Trafego, L1",HIDRO 2x,ANUAL,,"R$ 197,00",14 99688-0661,PIX+BOLETOS,10/10/2026,A RECEBER,"FAZER 12 BOLETOS DE 227 (negociação alerada de recorrente para boleto, marido não deixou manter cartão cadastradp)",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,,Rafaela de Lima Piovesan,"Trafego, L1, EXP",UP,ANUAL,"R$ 247,00",,14 99725-9712,,15/09/2026,CHURN,não veio e disse sobre marido ter feito cirurgia + não respondeu as possibilidades de iniciar,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,OK,Luzia Basso Kato,"Trafego, L1",HIDRO 2x,ANUAL,"R$ 169,00",,14 98152-2151,RECORRENTE,15/09/2026,PAGO,"Termo assinado, cadastrei no recorrente 
+
+- JA DEIXEI ALINHADO NA PLANILHA",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,OK,Ana Elizabete da Silva Baldessin,"WhatsApp, AULA AVULSA",NATAÇÃO 1x,DIÁRIA,"R$ 29,90",,"Ester Baldessin
+14 99808-3078",PIX,14/09/2026,PAGO,"19/09 às 10:00 FINALIZAR (cobrei apenas por uma criança, devido a outra ter possibilidade de não continuidade devido a grau de autismo)",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,OK,Victor da Silva Baldessin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+14/09/2026,OK,Rebeca Vitoria de Souza,"Trafego, L-FUP",NATAÇÃO 1x,DIÁRIA,"R$ 29,90",,Mariane Felix Guimarães / 14 98225-6187,PIX,15/09/2026,PAGO,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+15/09/2026,OK,Olivia Maria Vieria Nogueira,"LinkBio, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Daisi Priscila Vieira Nogueira / (14) 99744-2479,RECORRENTE,17/09/2026,PAGO,"TUDO OK
+
+- JA DEIXEI ALINHADO NA PLANILHA!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+15/09/2026,OK,Osvaldo Pereira dos Santos junior,"Trafego, WhatsApp",HIDRO 2x,ANUAL,"R$ 197,00",,14 99893-8980,PIX+BOLETOS,15/09/2026,PAGO,"FAZER 11 BOLETOS DE 227
+
+- ja deixei alinhado na planilha!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+16/09/2026,MES 10/PLANILHA,Tania Cristina Carneiro Ortega,"Trafego, L1",HIDRO 3x,ANUAL,,"R$ 247,00",(14) 99772-1795,PIX+BOLETOS,08/10/2026,A RECEBER,"FAZER 12 BOLETOS DE 277
+
+- FIZ 1° BOLETO PONTUAL!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+16/09/2026,MES 10/PLANILHA,"Ana Luiza Barbosa Takada","LinkBio, L-FUP",NATAÇÃO 2x,ANUAL,,"R$ 197,00",Mariane dos Santos Barbosa,RECORRENTE,02/10/2026,A RECEBER,"TUDO OK
+
+- MES 10 ATT AQUI NA PLANILHA!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+17/09/2026,OK,Cristian Junor Paez Bonade,"Trafego, L1",NATAÇÃO 1x,ANUAL,"R$ 147,00",,Sandra Patricia Culma / (14) 93300-4274,PIX+BOLETOS,20/09/2026,PAGO,"FAZER 12 BOLETOS DE 187
+
+- ja deixei alinhado na planilha!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+17/09/2026,MES 10/PLANILHA,Silvia Helena Danzi,"Trafego, L1",HIDRO 1x,ANUAL,,"R$ 147,00",(14) 98822-6334,PIX+BOLETOS,10/10/2026,A RECEBER,FAZER 12 BOLETOS DE 177,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+18/09/2026,,Stephanie Silva Faustino ,"LinkBio, WhatsApp",UP,ANUAL,"R$ 299,00",,14 99120-2772,,23/09/2026,NEGOCIAÇÃO,TALVEZ MIGRE PARA O TOTALPASS + ADICIONAL,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+18/09/2026,,,,HIDRO 1x,,,,,,23/09/2026,,FINALIZAR APÓS 1ª AULA PARA SABER DA CONTINUIDADE,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+19/09/2026,OK,Roseli Aparecida,"Indicação, L1",HIDRO 1x,ANUAL,"R$ 147,00",,11 96665-6363,PIX+BOLETOS,20/09/2026,PAGO,"FAZER 11 BOLETOS DE 177
+
+- fiz 1 pontual para o mes 10 
+- ja esta alinhado na planilha",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+21/09/2026,MES 10/PLANILHA,Silvia Renata Morgado,"Trafego, L1",SKY,ANUAL,,"R$ 167,00",14 99669-6835,PIX+BOLETOS,08/10/2026,A RECEBER,"FAZER 12 BOLETOS DE 225
+
+- FIZ 1° BOLETO PONTUAL!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
+21/09/2026,,Marcilene Almeida,"Trafego, L2, EXP",SKY,ANUAL,"R$ 167,00",,(11) 95367-3821,,23/09/2026,NEGOCIAÇÃO,13:30 Finalizar se será up ou sky pelo horário,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+21/09/2026,,"Helena Martins da Silva","LinkBio, L-FUP",NATAÇÃO 1x,ANUAL,"R$ 129,00",,"Lucas Gabriel da Silva / 
+(14) 99650-3809",PIX+BOLETOS,26/09/2026,NEGOCIAÇÃO,9h30 finalizar,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+21/09/2026,,"Cecilia Martins da Silva",,NATAÇÃO 1x,ANUAL,"R$ 129,00",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+22/09/2026,,"Isac Nathan Nobre de Lima","Trafego, L-FUP, WhatsApp",NATAÇÃO 1x,ANUAL,"R$ 100,00",,"Jhenifer Manoela Carvalho Nobre
+ 14 98807-5020
+",RECORRENTE,,A RECEBER,link enviado + renegociação para marido não cancelar (de 116 por 100 cada),,,,,,,,,,,,,,,,,,,,,,,,,,,,
+22/09/2026,,"Gael Benificio Nobre de Lima",,,,"R$ 100,00",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+22/09/2026,,"Enzo Emanuel Carvalo de Campos",,,,"R$ 100,00",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+22/09/2026,,Elaine Cristina de Oliveira,"Trafego, L-FUP",SKY,ANUAL,,"R$ 167,00",(14) 99798-8633,PIX+BOLETOS,05/10/2026,A RECEBER,FAZER 12 BOLETOS DE 225,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
@@ -113,7 +193,4 @@ EST ALINHADO NA PLANILHA!",,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-PREVISÃO,,,,,,"R$ 5.395,80","R$ 0,00",CANCELAMENTO,"R$ 905,00",TOTAL,"R$ 5.693,80",,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+PREVISÃO,,,,,,"R$ 8.958,70","R$ 1.122,00",CANCELAMENTO,"R$ 3.673,00",TOTAL,"R$ 9.044,70",,,,,,,,,,,,,,,,,,,,,,,,,,,,,

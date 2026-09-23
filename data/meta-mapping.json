@@ -15,8 +15,20 @@
     "modalidade": "Hidroginástica",
     "tipo": "mensagens"
   },
-  "Aberto - Lins 17km [18+][H-M] � V3": {
+  "Aberto - Lins 17km [18+][H-M] — V3": {
     "modalidade": "Tráfego ao Perfil",
     "tipo": "trafego"
+  },
+  "Aberto - Lins 17km [18+][H-M] — V2": {
+    "modalidade": "Tráfego ao Perfil",
+    "tipo": "trafego"
+  },
+  "Hidro | WhatsApp | Lins 17 KM | 18+ | Homens e Mulheres": {
+    "modalidade": "Hidroginástica",
+    "tipo": "mensagens"
+  },
+  "Personal | Lins 17 KM | 18 + | Homens e Mulheres": {
+    "modalidade": "Personal",
+    "tipo": "formulario"
   }
 }

@@ -1,5 +1,5 @@
 {
   "fechamento": ["fechamento/2026-07-julho.csv", "fechamento/2026-08-agosto.csv", "fechamento/2026-09-setembro.csv"],
-  "kommo": ["kommo/2026-jul-set-leads.csv"],
-  "meta": ["meta/2026-adsets-diario.csv"]
+  "kommo": ["kommo/2026-jun-set-leads.csv"],
+  "meta": ["meta/2026-jun-set-adsets-diario.csv"]
 }
