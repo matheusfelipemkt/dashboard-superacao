@@ -1,89 +1,175 @@
 ID,Criado em,Tags,Funil de vendas,Etapa do lead
+10340891,06.10.2026 10:28:39,"int.nat, MetaAds, fb1818718986247881",Funil Ligação,1ªLIGAÇÃO
+10339699,06.10.2026 09:43:11,,Funil WhatsApp,WHATSAPP
+10337671,06.10.2026 08:15:28,,Funil WhatsApp,WHATSAPP
+10337535,06.10.2026 08:07:23,"int.hidro, MetaAds",Funil Ligação,1ªLIGAÇÃO
+10337261,06.10.2026 07:46:00,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
+10337089,06.10.2026 07:29:26,"MetaAds, Int.Pers, fb1376972394242430",Funil Ligação,1ªLIGAÇÃO
+10336941,06.10.2026 07:16:07,,Funil WhatsApp,WHATSAPP
+10333307,05.10.2026 22:47:26,"MetaAds, Int.Pers, fb1376972394242430",Funil Ligação,1ªLIGAÇÃO
+10332925,05.10.2026 22:26:22,"MetaAds, Int.Pers, fb1376972394242430",Funil Ligação,1ªLIGAÇÃO
+10331535,05.10.2026 21:10:47,,Funil WhatsApp,WHATSAPP
+10331197,05.10.2026 20:51:54,,Funil WhatsApp,WHATSAPP
+10330975,05.10.2026 20:41:41,"int.nat, MetaAds, fb1818718986247881",Funil Ligação,1ªLIGAÇÃO
+10328293,05.10.2026 18:27:39,duplicado,Funil WhatsApp,WHATSAPP
+10328283,05.10.2026 18:27:24,"MetaAds, Int.Pers",Funil Ligação,2ªLIGAÇÃO
+10325753,05.10.2026 16:37:22,"int.nat, status wpp, ex-aluno(a), MQL, SQL",Funil WhatsApp,Closed - won
+10325155,05.10.2026 16:11:37,"int.hidro, MetaAds, MQL",Funil Ligação,2ªLIGAÇÃO
+10322889,05.10.2026 15:25:59,"int.hidro, MetaAds, Int.Pers, MQL",Funil Ligação,2ªLIGAÇÃO
+10320791,05.10.2026 14:17:16,"int.hidro, MetaAds, MQL",Funil Ligação,2ªLIGAÇÃO
+10318015,05.10.2026 12:40:30,"int.nat, MetaAds, MQL",Funil Duda,priorizar
+10317387,05.10.2026 12:13:55,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
+10317365,05.10.2026 12:13:00,"int.hidro, indicação",Funil Ligação,2ªLIGAÇÃO
+10315725,05.10.2026 11:07:16,,Funil WhatsApp,WHATSAPP
+10314961,05.10.2026 10:38:18,,Funil WhatsApp,WHATSAPP
+10313727,05.10.2026 09:49:38,,Funil WhatsApp,WHATSAPP
+10313305,05.10.2026 09:36:16,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
+10312467,05.10.2026 08:43:52,,Funil WhatsApp,WHATSAPP
+10312437,05.10.2026 08:42:18,"MetaAds, Int.Pers, MQL",Descarte de Leads,Venda perdida (Outra cidade)
+10311763,05.10.2026 07:52:30,"int.nat, MQL, LINKBIO",Funil Duda,1ª LIGAÇÃO
+10311645,05.10.2026 07:40:35,"int.nat, MQL, SQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
+10311293,05.10.2026 07:03:39,"MetaAds, Int.Pers",Funil Ligação,2ªLIGAÇÃO
+10311199,05.10.2026 06:48:21,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
+10310331,05.10.2026 02:32:36,"MetaAds, Int.Pers",Funil Ligação,2ªLIGAÇÃO
+10308675,04.10.2026 23:20:16,"MetaAds, Int.Pers",Funil Ligação,2ªLIGAÇÃO
+10308315,04.10.2026 22:53:49,"int.nat, MetaAds",Funil Duda,1ª LIGAÇÃO
+10308197,04.10.2026 22:46:30,"MetaAds, Int.Pers, MQL",Descarte de Leads,Venda perdida (Outra cidade)
+10307291,04.10.2026 21:46:26,"int.hidro, MetaAds, MQL",Funil Duda,priorizar
+10307021,04.10.2026 21:30:02,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+10305687,04.10.2026 20:02:24,"int.nat, MetaAds, MQL",VAGA PARA LEAD FECHAR,TURMA DE BEBE
+10305419,04.10.2026 19:44:38,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+10301515,04.10.2026 15:08:13,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+10301273,04.10.2026 14:51:56,"int.nat, MetaAds, MQL",Funil Duda,priorizar
+10299049,04.10.2026 12:01:59,"int.nat, MetaAds, SQL, ALUNO",Funil Ligação,Venda ganha
+10299029,04.10.2026 12:00:45,,Funil WhatsApp,WHATSAPP
+10298171,04.10.2026 10:58:28,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+10294585,04.10.2026 00:16:09,"int.nat, int.hidro, MetaAds",Funil Duda,1ª LIGAÇÃO
+10293665,03.10.2026 22:48:37,,Funil WhatsApp,WHATSAPP
+10293661,03.10.2026 22:48:30,"int.nat, MetaAds",Funil Ligação,1ªLIGAÇÃO
+10293179,03.10.2026 22:10:10,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
+10292867,03.10.2026 21:49:39,"int.nat, MetaAds, MQL",VAGA PARA LEAD FECHAR,TURMA DE BEBE
+10288527,03.10.2026 17:33:56,"int.nat, MQL, LINKBIO",VAGA PARA LEAD FECHAR,TURMA DE BEBE
+10286675,03.10.2026 16:36:53,"int.nat, MetaAds, MQL",Funil Duda,priorizar
+10283585,03.10.2026 14:05:22,"int.hidro, MetaAds, MQL",Funil de Transmissão,INT.HIDRO
+10283337,03.10.2026 13:53:03,"int.hidro, MetaAds, MQL",Funil Duda,FOLLOWUP
+10282665,03.10.2026 13:22:14,"int.nat, MQL, LINKBIO",Funil Duda,priorizar
+10282199,03.10.2026 13:01:13,,Funil WhatsApp,WHATSAPP
+10278271,03.10.2026 10:07:22,"int.hidro, MetaAds",Funil Duda,2ª LIGAÇÃO
+10278001,03.10.2026 09:53:20,"int.nat, MetaAds, MQL",Funil Duda,2ª LIGAÇÃO
+10277575,03.10.2026 09:29:14,"int.nat, MetaAds, MQL, LEAD REATIVADO",Funil Duda,2ª LIGAÇÃO
+10276089,03.10.2026 08:35:56,"int.nat, MQL, LINKBIO",VAGA PARA LEAD FECHAR,TURMA DE BEBE
+10275945,03.10.2026 08:26:39,,Alunos/Ex-alunos,Atual aluno Nat
+10275785,03.10.2026 08:13:43,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Outra cidade)
+10275547,03.10.2026 07:55:38,"int.nat, ex-aluno(a)",Funil WhatsApp,WHATSAPP
+10275493,03.10.2026 07:50:37,"MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
+10275145,03.10.2026 07:11:52,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
+10274861,03.10.2026 06:20:59,"int.nat, MetaAds, fb1818718986247881",Alunos/Ex-alunos,Atual aluno Nat
+10274031,03.10.2026 02:11:04,"MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
+10268025,02.10.2026 23:07:51,,Funil WhatsApp,WHATSAPP
+10264343,02.10.2026 19:51:48,"int.nat, MetaAds",Funil Ligação,FOLLOW-UP
+10264037,02.10.2026 19:36:26,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Outra cidade)
+10263187,02.10.2026 18:56:50,"int.nat, MetaAds, fb1818718986247881",LEAD BASE/FRIO,HIDRO
+10262717,02.10.2026 18:34:41,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
+10260815,02.10.2026 17:14:21,"int.hidro, MetaAds",Funil Duda,2ª LIGAÇÃO
+10249861,02.10.2026 12:19:53,"int.hidro, LINKBIO",Funil Ligação,FOLLOW-UP
+10246545,02.10.2026 10:36:21,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Outra cidade)
+10244659,02.10.2026 09:26:49,"int.nat, MetaAds, MQL",Funil Duda,priorizar
+10243917,02.10.2026 08:57:02,,Funil WhatsApp,WHATSAPP
+10243913,02.10.2026 08:57:01,"MetaAds, Int.Pers",Funil Duda,3ª LIGAÇÃO
+10243507,02.10.2026 08:40:27,"MetaAds, Int.Pers, fb1092851853698659",Descarte de Leads,Venda perdida (Outra cidade)
+10241775,02.10.2026 06:56:50,,Funil WhatsApp,WHATSAPP
+10235735,01.10.2026 21:54:50,"int.hidro, MetaAds",Funil Ligação,FOLLOW-UP
+10235507,01.10.2026 21:47:30,"int.nat, MetaAds, MQL",LEAD BASE/FRIO,NATAÇÃO
+10232923,01.10.2026 20:23:58,"int.nat, MQL, SQL, LINKBIO, ALUNO",Funil WhatsApp,Closed - won
+10227167,01.10.2026 17:34:51,"int.nat, MetaAds, fb813568528359015",Descarte de Leads,Venda perdida (Lead desqualificado)
+10225295,01.10.2026 16:47:31,"int.nat, LINKBIO",Funil WhatsApp,WHATSAPP
+10224459,01.10.2026 16:28:49,"int.nat, MetaAds",Funil Ligação,FOLLOW-UP
+10218471,01.10.2026 14:26:59,"MetaAds, Int.Pers",Funil Duda,priorizar
+10216717,01.10.2026 13:55:25,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
+10214277,01.10.2026 13:15:57,"int.nat, MetaAds",Funil Ligação,FOLLOW-UP
+10209009,01.10.2026 11:56:45,"int.nat, MetaAds",Funil Duda,4ª LIGAÇÃO
+10204933,01.10.2026 10:34:18,"int.nat, MetaAds",Descarte de Leads,Venda perdida (Lead desqualificado)
 10201153,01.10.2026 09:21:56,,Funil WhatsApp,WHATSAPP
-10200149,01.10.2026 09:03:03,"int.hidro, MetaAds",Funil Ligação,1ªLIGAÇÃO
+10200149,01.10.2026 09:03:03,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 10199447,01.10.2026 08:49:33,,Funil WhatsApp,WHATSAPP
 10198993,01.10.2026 08:40:40,,Funil WhatsApp,WHATSAPP
-10198431,01.10.2026 08:28:39,"MetaAds, Int.Pers, fb1376972394242430",Funil Ligação,1ªLIGAÇÃO
-10198009,01.10.2026 08:18:35,"Int.Pers, LINKBIO",Funil Ligação,1ªLIGAÇÃO
-10195285,01.10.2026 06:45:59,"int.nat, MetaAds, fb1818718986247881",Funil Ligação,1ªLIGAÇÃO
-10193547,01.10.2026 02:19:54,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
-10192101,01.10.2026 00:08:20,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
-10189045,30.09.2026 21:54:16,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
-10188445,30.09.2026 21:34:57,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
-10187951,30.09.2026 21:24:51,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,1ªLIGAÇÃO
-10187405,30.09.2026 21:08:23,"int.nat, MetaAds, fb1818718986247881",Funil Ligação,1ªLIGAÇÃO
+10198009,01.10.2026 08:18:35,"Int.Pers, MQL, LINKBIO",LEAD BASE/FRIO,PERSONAL
+10195285,01.10.2026 06:45:59,"int.nat, MetaAds, fb1818718986247881",LEAD BASE/FRIO,NATAÇÃO
+10193547,01.10.2026 02:19:54,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
+10189045,30.09.2026 21:54:16,"MetaAds, Int.Pers, MQL",Funil de Transmissão,INT.PERS
+10188445,30.09.2026 21:34:57,"MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
+10187951,30.09.2026 21:24:51,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
+10187405,30.09.2026 21:08:23,"int.nat, MetaAds, MQL",Funil Duda,priorizar
 10187031,30.09.2026 20:56:55,,Funil WhatsApp,WHATSAPP
-10186399,30.09.2026 20:37:59,"int.nat, LINKBIO",Funil Ligação,2ªLIGAÇÃO
-10185677,30.09.2026 20:16:13,,Funil WhatsApp,WHATSAPP
+10186399,30.09.2026 20:37:59,"int.nat, MQL, LINKBIO",VAGA PARA LEAD FECHAR,TURMA DE BEBE
+10185677,30.09.2026 20:16:13,"MQL, SQL, orgânico, ALUNO",Funil Ligação,Venda ganha
 10185157,30.09.2026 19:59:06,"Int.Pers, MQL, orgânico",Funil Duda,priorizar
-10185003,30.09.2026 19:54:09,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,2ªLIGAÇÃO
-10184903,30.09.2026 19:50:55,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,2ªLIGAÇÃO
-10182341,30.09.2026 18:32:57,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,2ªLIGAÇÃO
-10181215,30.09.2026 17:59:37,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,2ªLIGAÇÃO
+10185003,30.09.2026 19:54:09,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+10184903,30.09.2026 19:50:55,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,FOLLOW-UP
+10182341,30.09.2026 18:32:57,"MetaAds, Int.Pers, MQL",Funil Duda,priorizar
+10181215,30.09.2026 17:59:37,"MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 10177225,30.09.2026 16:52:37,"int.nat, LINKBIO",Funil WhatsApp,WHATSAPP
 10173507,30.09.2026 15:21:57,"int.hidro, MetaAds",Funil de Transmissão,trans.30/09 MI
 10173165,30.09.2026 15:13:18,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 10173051,30.09.2026 15:10:17,"int.nat, LINKBIO",Funil de Transmissão,trans.30/09 MI
 10171955,30.09.2026 14:41:58,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 10167001,30.09.2026 12:51:04,"MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
-10164535,30.09.2026 12:20:41,"MetaAds, Int.Pers, fb1376972394242430",Funil Duda,1ª LIGAÇÃO
-10164371,30.09.2026 12:15:33,"int.hidro, MetaAds",Funil Duda,1ª LIGAÇÃO
-10163453,30.09.2026 11:56:50,"MetaAds, Int.Pers, fb1376972394242430",Funil Duda,1ª LIGAÇÃO
+10164535,30.09.2026 12:20:41,"MetaAds, Int.Pers, SQL, ALUNO",Funil Duda,Venda ganha
+10164371,30.09.2026 12:15:33,"int.hidro, MetaAds, MQL",Funil de Transmissão,INT.HIDRO
+10163453,30.09.2026 11:56:50,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 10157181,30.09.2026 09:53:56,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
-10153871,30.09.2026 08:36:01,,Funil Duda,1ª LIGAÇÃO
-10152769,30.09.2026 08:08:14,"int.nat, MetaAds, fb1818718986247881",Funil Duda,1ª LIGAÇÃO
+10153871,30.09.2026 08:36:01,"int.nat, ex-aluno(a), orgânico",LEAD BASE/FRIO,NATAÇÃO
+10152769,30.09.2026 08:08:14,"int.nat, int.hidro, MetaAds, Int.Pers",Funil Duda,priorizar
 10152053,30.09.2026 07:47:42,,Funil de Transmissão,trans.30/09 MI
 10149009,30.09.2026 03:13:49,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 10146085,29.09.2026 22:57:34,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
 10142765,29.09.2026 20:20:07,,Funil de Transmissão,trans.30/09 MI
 10142549,29.09.2026 20:08:21,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 10139185,29.09.2026 19:10:53,"int.nat, MQL, SQL, orgânico, ALUNO",Funil WhatsApp,Closed - won
-10137091,29.09.2026 17:34:31,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+10137091,29.09.2026 17:34:31,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
 10135717,29.09.2026 16:58:03,,Funil de Transmissão,trans.30/09 MI
 10134961,29.09.2026 16:28:25,"int.hidro, MetaAds",Funil Ligação,Venda perdida (Lead desqualificado)
 10134551,29.09.2026 16:11:46,"int.hidro, MetaAds",Funil Duda,1ª LIGAÇÃO
 10132845,29.09.2026 15:49:20,"Int.Pers, MQL, SQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
 10130295,29.09.2026 15:13:56,"int.nat, MetaAds, MQL, fb1818718986247881",Funil de Transmissão,trans.30/09 MI
-10123177,29.09.2026 11:51:41,"int.nat, MQL, orgânico",Funil Duda,1ª LIGAÇÃO
+10123177,29.09.2026 11:51:41,"int.nat, ex-aluno(a), MQL, SQL, orgânico, ALUNO",Funil Duda,Venda ganha
 10120497,29.09.2026 10:15:11,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 10119085,26.09.2026 14:22:46,"int.nat, MetaAds",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 10118597,29.09.2026 08:55:43,,Funil de Transmissão,trans.30/09 MI
 10115445,29.09.2026 01:28:15,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
-10113569,28.09.2026 22:57:36,"int.hidro, MetaAds, MQL",Funil Duda,2ª LIGAÇÃO
+10113569,28.09.2026 22:57:36,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 10113543,28.09.2026 22:56:16,"MetaAds, Int.Pers, MQL, fb1376972394242430",Funil de Transmissão,trans.30/09 GI
-10113191,28.09.2026 22:30:40,"int.hidro, MetaAds, MQL",Funil Duda,priorizar
-10113117,28.09.2026 22:25:32,"int.hidro, MetaAds",Funil Duda,3ª LIGAÇÃO
+10113191,28.09.2026 22:30:40,"int.hidro, MetaAds, MQL",Funil de Transmissão,INT.HIDRO
+10113117,28.09.2026 22:25:32,"int.hidro, MetaAds",Funil Duda,5ª LIGAÇÃO
 10112233,28.09.2026 21:34:56,"int.nat, MQL, LINKBIO",Funil Duda,priorizar
 10111911,28.09.2026 21:17:18,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
 10109411,28.09.2026 18:52:38,"Int.Pers, LINKBIO",Funil de Transmissão,trans.30/09 MI
 10108837,28.09.2026 18:21:20,"int.hidro, MetaAds",Funil de Transmissão,trans.30/09 MI
 10107011,28.09.2026 17:22:52,,Funil de Transmissão,trans.30/09 MI
 10106441,28.09.2026 17:01:04,,Funil de Transmissão,trans.30/09 MI
-10104511,28.09.2026 15:48:38,"int.nat, MQL, LINKBIO",Funil Duda,3ª LIGAÇÃO
-10104491,28.09.2026 15:48:08,"MetaAds, Int.Pers, MQL",Funil Duda,3ª LIGAÇÃO
+10104511,28.09.2026 15:48:38,"int.nat, MQL, LINKBIO",Funil Duda,5ª LIGAÇÃO
+10104491,28.09.2026 15:48:08,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
 10104227,26.09.2026 09:54:32,"int.nat, MetaAds, MQL",Funil de Transmissão,trans.30/09 MI
-10101645,28.09.2026 14:10:10,"MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
+10101645,28.09.2026 14:10:10,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
 10100895,28.09.2026 13:37:26,"MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 10099159,28.09.2026 12:24:45,"int.nat, Int.Pers, MQL, SQL, orgânico, ALUNO",Funil Ligação,Venda ganha
 10099145,28.09.2026 12:24:25,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
 10098791,28.09.2026 12:11:00,"int.nat, indicação, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 10094979,28.09.2026 11:26:18,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
-10094349,28.09.2026 11:14:30,"int.nat, MetaAds, MQL",Funil Duda,priorizar
+10094349,28.09.2026 11:14:30,"int.nat, MetaAds, MQL",Funil de Transmissão,INT.NAT
 10094043,28.09.2026 11:02:09,,Funil de Transmissão,trans.30/09 MI
-10093427,28.09.2026 10:39:07,"int.nat, MQL, LINKBIO",Funil Duda,priorizar
-10093231,28.09.2026 10:32:16,"int.nat, MetaAds, fb1818718986247881",Funil de Transmissão,trans.30/09 MI
-10093211,28.09.2026 10:31:28,,Funil de Transmissão,trans.30/09 MI
+10093427,28.09.2026 10:39:07,"int.nat, MQL, LINKBIO",Funil Duda,5ª LIGAÇÃO
+10093231,28.09.2026 10:31:28,"int.nat, MetaAds, fb1818718986247881",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 10092955,28.09.2026 10:22:34,,Funil de Transmissão,trans.30/09 MI
-10091785,28.09.2026 09:33:39,,Funil Duda,1ª LIGAÇÃO
+10091785,28.09.2026 09:33:39,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil Duda,Venda ganha
 10091479,28.09.2026 09:20:22,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
-10088835,28.09.2026 07:45:03,"int.nat, MetaAds, MQL",Funil Duda,3ª LIGAÇÃO
+10088835,28.09.2026 07:45:03,"int.nat, MetaAds, MQL",VAGA PARA LEAD FECHAR,7 A 9
 10088805,28.09.2026 07:42:58,"int.nat, MetaAds, MQL, SQL, ALUNO, fb1818718986247881",Funil Ligação,Venda ganha
 10088379,28.09.2026 07:02:19,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 10088125,28.09.2026 06:22:23,"MetaAds, Int.Pers, fb1092851853698659",Descarte de Leads,Venda perdida (Lead desqualificado)
-10087519,28.09.2026 03:23:35,"int.hidro, MetaAds, MQL",Funil Duda,3ª LIGAÇÃO
 10087031,28.09.2026 01:34:52,,Funil de Transmissão,trans.30/09 MI
 10086707,28.09.2026 00:53:37,"int.nat, MetaAds, fb1818718986247881",Funil de Transmissão,trans.30/09 GI
-10085651,27.09.2026 23:29:47,,Funil Duda,1ª LIGAÇÃO
+10085651,27.09.2026 23:29:47,"int.nat, MQL, orgânico",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 10084833,27.09.2026 22:37:03,,Funil de Transmissão,trans.30/09 MI
 10084831,27.09.2026 22:37:00,"MetaAds, Int.Pers, fb1092851853698659",Funil Ligação,Venda perdida (Lead desqualificado)
 10084709,27.09.2026 22:28:55,"int.hidro, MetaAds, MQL",Funil Duda,FOLLOWUP
@@ -97,10 +183,10 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 10080201,27.09.2026 17:55:11,"int.nat, MetaAds, MQL, SQL, ALUNO, fb1818718986247881",Funil Ligação,Venda ganha
 10076705,27.09.2026 14:39:00,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 10074531,27.09.2026 12:33:42,"int.nat, MetaAds, MQL, fb1818718986247881",VAGA PARA LEAD FECHAR,TURMA DE BEBE
-10072017,27.09.2026 10:43:15,"int.hidro, MetaAds",Funil Duda,3ª LIGAÇÃO
+10072017,27.09.2026 10:43:15,"int.hidro, MetaAds",Funil Duda,5ª LIGAÇÃO
 10071303,27.09.2026 10:01:42,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
 10071247,27.09.2026 09:57:37,"int.nat, MetaAds, MQL, fb1818718986247881",Funil de Transmissão,trans.30/09 GI
-10070519,27.09.2026 09:20:47,"int.nat, MetaAds",Funil Duda,3ª LIGAÇÃO
+10070519,27.09.2026 09:20:47,"int.nat, MetaAds, MQL",Funil Duda,priorizar
 10067403,27.09.2026 00:27:27,,Funil de Transmissão,trans.30/09 MI
 10067401,27.09.2026 00:27:15,"MetaAds, Int.Pers",Descarte de Leads,Lead desqualificado
 10066359,26.09.2026 23:06:14,"MetaAds, Int.Pers",Descarte de Leads,Lead desqualificado
@@ -108,36 +194,36 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 10063993,26.09.2026 20:38:54,"MetaAds, Int.Pers, MQL",Funil Duda,priorizar
 10059995,26.09.2026 17:04:21,"int.nat, MQL, LINKBIO",Funil Duda,EXP
 10059833,26.09.2026 16:58:11,"MetaAds, Int.Pers, MQL",Descarte de Leads,Venda perdida (Outra cidade)
-10059705,26.09.2026 16:52:03,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
+10059705,26.09.2026 16:52:03,"MetaAds, Int.Pers, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 10058529,26.09.2026 15:51:09,permuta,Alunos/Ex-alunos,Atual aluno Nat
-10058405,26.09.2026 15:45:21,"int.nat, MQL, orgânico",Funil Duda,3ª LIGAÇÃO
+10058405,26.09.2026 15:45:21,"int.nat, MQL, orgânico",Funil Duda,5ª LIGAÇÃO
 10057341,26.09.2026 14:45:58,"int.nat, MetaAds, MQL, fb1818718986247881",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 10056447,26.09.2026 13:55:30,"MetaAds, Int.Pers, MQL",Funil Duda,priorizar
 10054965,26.09.2026 12:31:28,"Int.Pers, LINKBIO",Funil de Transmissão,trans.30/09 MI
-10054281,26.09.2026 11:55:50,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
-10053305,26.09.2026 11:16:48,"MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
+10054281,26.09.2026 11:55:50,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
+10053305,26.09.2026 11:16:48,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
 10050841,26.09.2026 10:07:55,"MetaAds, Int.Pers, MQL",Funil Duda,priorizar
 10048959,26.09.2026 08:06:58,orgânico,Descarte de Leads,Venda perdida (Lead desqualificado)
 10048941,26.09.2026 08:05:03,"int.hidro, MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,HIDRO
-10048633,26.09.2026 07:31:27,"int.hidro, MetaAds, MQL",Funil Duda,4ª LIGAÇÃO
+10048633,26.09.2026 07:31:27,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 10048475,26.09.2026 07:07:54,"int.nat, int.hidro, MetaAds, Int.Pers, MQL",Descarte de Leads,Lead desqualificado
-10048311,26.09.2026 06:23:33,"int.nat, MetaAds",Funil Duda,2ª LIGAÇÃO
-10048139,26.09.2026 05:36:30,"int.nat, MetaAds",Funil Duda,3ª LIGAÇÃO
+10048311,26.09.2026 06:23:33,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
+10048139,26.09.2026 05:36:30,"int.nat, MetaAds",Funil Duda,4ª LIGAÇÃO
 10034815,25.09.2026 23:52:55,"int.nat, MetaAds",Funil Duda,3ª LIGAÇÃO
-10034813,25.09.2026 23:52:53,"int.nat, MetaAds",Funil Duda,2ª LIGAÇÃO
+10034813,25.09.2026 23:52:53,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 10033955,25.09.2026 22:41:01,"int.nat, MetaAds, SQL, ALUNO",Funil Duda,Venda ganha
 10033569,25.09.2026 22:15:55,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 10033447,25.09.2026 22:06:12,"int.nat, MetaAds, SQL, ALUNO",Funil Duda,Venda ganha
 10033105,25.09.2026 21:40:20,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
-10032929,25.09.2026 21:28:20,"int.hidro, MetaAds, MQL",Funil Duda,EXP
+10032929,25.09.2026 21:28:20,"int.hidro, MetaAds, MQL",Funil Duda,FALTOU
 10029139,25.09.2026 19:19:08,"Int.Pers, LINKBIO",Descarte de Leads,Venda perdida (Lead desqualificado)
 10018411,25.09.2026 12:31:50,,Descarte de Leads,Venda perdida (Bug)
 10017635,25.09.2026 11:55:45,"int.nat, MQL, LINKBIO",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 10017455,25.09.2026 11:47:40,"Int.Pers, SQL, orgânico",Funil de Transmissão,trans.30/09 MI
 10016975,25.09.2026 11:27:36,"Int.Pers, MQL, LINKBIO",Funil de Transmissão,trans.30/09 MI
 10009595,25.09.2026 00:26:36,"MetaAds, Int.Pers, fb1092851853698659",Descarte de Leads,Venda perdida (Lead desqualificado)
-10009007,24.09.2026 23:34:48,"MetaAds, Int.Pers, MQL",Funil Duda,1ª LIGAÇÃO
-10004557,24.09.2026 19:26:09,"MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
+10009007,24.09.2026 23:34:48,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
+10004557,24.09.2026 19:26:09,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 10003097,24.09.2026 18:17:16,,Funil de Transmissão,trans.30/09 MI
 10003059,24.09.2026 18:16:04,"int.nat, MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Duda,Venda ganha
 10002813,24.09.2026 18:02:14,,Funil de Transmissão,trans.30/09 MI
@@ -147,37 +233,37 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 10001223,24.09.2026 16:47:16,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil WhatsApp,Closed - won
 10000147,24.09.2026 16:22:25,"MetaAds, Int.Pers",Descarte de Leads,Lead desqualificado
 9999041,24.09.2026 15:37:10,"int.nat, MetaAds, MQL",Funil Duda,priorizar
-9998205,24.09.2026 15:00:08,"int.nat, MQL, orgânico",Funil Duda,1ª LIGAÇÃO
+9998205,24.09.2026 15:00:08,"int.nat, MQL, orgânico",Funil Duda,FOLLOWUP
 9996985,24.09.2026 14:12:21,"int.nat, MQL, LINKBIO",LEAD BASE/FRIO,NATAÇÃO
-9994673,24.09.2026 12:34:50,"int.nat, MQL, orgânico",Descarte de Leads,Venda perdida (Lead desqualificado)
-9994059,24.09.2026 12:08:44,"int.hidro, MetaAds, MQL",Funil Duda,4ª LIGAÇÃO
-9989173,24.09.2026 08:51:04,"MetaAds, Int.Pers, MQL",Funil Duda,3ª LIGAÇÃO
+9994673,24.09.2026 12:34:50,"int.nat, MQL, SQL, orgânico, ALUNO",Funil WhatsApp,Closed - won
+9994059,24.09.2026 12:08:44,"int.hidro, MetaAds, MQL",Funil Duda,6ª LIGAÇÃO
+9989173,24.09.2026 08:51:04,"MetaAds, Int.Pers, MQL",Funil Duda,Venda perdida (Fechou no concorrente)
 9987851,24.09.2026 06:37:37,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
 9981845,23.09.2026 20:30:18,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
-9980489,23.09.2026 19:15:43,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+9980489,23.09.2026 19:15:43,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9975189,23.09.2026 16:42:24,"int.nat.adulto, orgânico",Funil de Transmissão,trans.30/09 MI
 9972875,23.09.2026 15:26:05,,Funil de Transmissão,trans.30/09 MI
-9969459,23.09.2026 13:15:20,"int.nat, MQL, orgânico",Funil Duda,4ª LIGAÇÃO
+9969459,23.09.2026 13:15:20,"int.nat, MQL, orgânico",Funil Duda,6ª LIGAÇÃO
 9967731,23.09.2026 12:20:44,"Int.Pers, MQL, orgânico",Funil de Transmissão,trans.30/09 MI
 9967441,23.09.2026 12:09:48,"int.hidro, MetaAds, MQL",LEAD BASE/FRIO,HIDRO
 9967021,23.09.2026 11:55:47,"MetaAds, Int.Pers, fb1376972394242430",Funil Ligação,Venda perdida (Lead desqualificado)
 9964647,23.09.2026 10:35:40,"Int.Pers, MQL, orgânico",Funil de Transmissão,trans.30/09 GI
-9964621,23.09.2026 10:35:04,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+9964621,23.09.2026 10:35:04,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9964141,23.09.2026 10:16:06,"MetaAds, Int.Pers, SQL, duplicado, ALUNO",Funil Duda,Venda ganha
 9964121,23.09.2026 10:15:34,duplicado,Funil de Transmissão,trans.30/09 MI
 9964027,23.09.2026 10:12:43,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9962725,23.09.2026 09:23:51,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
 9962539,23.09.2026 09:16:03,"Int.Pers, MQL, SQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
 9961955,23.09.2026 09:11:56,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
-9961535,23.09.2026 08:53:36,"MetaAds, Int.Pers, MQL",Funil Duda,2ª LIGAÇÃO
+9961535,23.09.2026 08:53:36,"MetaAds, Int.Pers, MQL",Funil Duda,6ª LIGAÇÃO
 9961369,23.09.2026 08:45:56,"int.nat, MQL, orgânico",Funil Ligação,Venda ganha
 9961061,23.09.2026 08:32:39,"MetaAds, Int.Pers, MQL, SQL",Funil de Transmissão,trans.30/09 MI
 9959727,23.09.2026 06:50:58,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 9957863,23.09.2026 00:39:38,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9955515,22.09.2026 21:48:15,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
-9955013,22.09.2026 21:16:22,"int.nat, int.hidro, MetaAds, MQL",Funil Duda,3ª LIGAÇÃO
+9955013,22.09.2026 21:16:22,"int.nat, int.hidro, MetaAds, MQL",Funil Duda,priorizar
 9954253,22.09.2026 20:39:05,"Int.Pers, MQL, LINKBIO",Funil de Transmissão,trans.30/09 MI
-9953943,22.09.2026 20:24:00,"int.hidro, MetaAds, MQL",Funil Duda,3ª LIGAÇÃO
+9953943,22.09.2026 20:24:00,"int.hidro, MetaAds, MQL",LEAD BASE/FRIO,HIDRO
 9953813,22.09.2026 20:17:43,"MetaAds, Int.Pers, MQL, SQL, fb1376972394242430, ALUNO",Funil Ligação,Venda ganha
 9953663,22.09.2026 20:10:04,"MetaAds, Int.Pers, MQL",Funil de Transmissão,trans.30/09 GI
 9952655,22.09.2026 19:52:21,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
@@ -188,17 +274,17 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9946183,22.09.2026 15:36:07,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
 9944617,22.09.2026 14:41:43,"int.nat, MetaAds, MQL",Funil de Transmissão,trans.30/09 MI
 9941501,22.09.2026 13:49:41,"int.hidro, MetaAds, MQL",Descarte de Leads,Venda perdida (Outra cidade)
-9941059,22.09.2026 13:31:59,"int.nat, MQL, LINKBIO",Funil Duda,4ª LIGAÇÃO
+9941059,22.09.2026 13:31:59,"int.nat, MQL, LINKBIO",Funil Duda,6ª LIGAÇÃO
 9940765,22.09.2026 13:20:45,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9940263,22.09.2026 13:00:53,"int.nat, MQL, orgânico",Funil de Transmissão,trans.30/09 MI
 9939557,22.09.2026 12:35:38,"MetaAds, Int.Pers",Descarte de Leads,Lead desqualificado
 9938955,22.09.2026 12:12:53,"int.hidro, MetaAds",Funil Ligação,Venda perdida (Lead desqualificado)
 9937311,22.09.2026 11:36:16,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
-9934801,22.09.2026 10:46:37,"int.nat, MetaAds, TRANS26/06",Funil Duda,1ª LIGAÇÃO
+9934801,22.09.2026 10:46:37,"int.nat, MetaAds, TRANS26/06",Funil Duda,2ª LIGAÇÃO
 9926243,22.09.2026 09:36:11,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9924837,22.09.2026 08:35:00,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 9924453,22.09.2026 08:16:10,,Descarte de Leads,Venda perdida (Bug)
-9911329,21.09.2026 19:41:55,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Duda,Venda ganha
+9911329,21.09.2026 19:41:55,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Duda,priorizar
 9908341,21.09.2026 18:38:21,"MetaAds, Int.Pers, fb1376972394242430",Funil de Transmissão,trans.30/09 GI
 9907015,21.09.2026 18:09:07,"int.nat, MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9905197,21.09.2026 17:33:16,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
@@ -209,20 +295,20 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9900459,21.09.2026 15:56:16,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 9897401,21.09.2026 14:53:42,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
 9886673,21.09.2026 11:55:35,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
-9885933,21.09.2026 11:38:45,"MetaAds, Int.Pers",Funil Ligação,LEAD TRANSMISSÃO
+9885933,21.09.2026 11:38:45,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
 9875045,20.09.2026 23:02:58,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 9875019,20.09.2026 23:01:27,"int.hidro, MetaAds",Funil de Transmissão,trans.30/09 MI
-9874873,20.09.2026 22:54:12,"MetaAds, Int.Pers, MQL",Funil Duda,5ª LIGAÇÃO
+9874873,20.09.2026 22:54:12,"MetaAds, Int.Pers, MQL",Funil Duda,6ª LIGAÇÃO
 9874111,20.09.2026 22:13:37,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Outra cidade)
 9873873,20.09.2026 21:58:07,"MetaAds, Int.Pers, MQL, SQL, ALUNO, fb1092851853698659",Funil Ligação,Venda ganha
 9873843,20.09.2026 21:56:10,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 9872633,20.09.2026 20:45:00,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
-9872459,20.09.2026 20:35:11,"int.nat, MQL, LINKBIO",Funil Duda,5ª LIGAÇÃO
-9867681,20.09.2026 17:51:56,"int.nat, MetaAds",Funil Duda,5ª LIGAÇÃO
+9872459,20.09.2026 20:35:11,"int.nat, MQL, LINKBIO",Funil Duda,6ª LIGAÇÃO
+9867681,20.09.2026 17:51:56,"int.nat, MetaAds",Funil Duda,6ª LIGAÇÃO
 9867445,20.09.2026 17:38:28,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 9866549,20.09.2026 16:50:16,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
 9866009,20.09.2026 16:17:28,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
-9863863,20.09.2026 14:06:07,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+9863863,20.09.2026 14:06:07,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9862601,20.09.2026 12:53:27,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9858681,20.09.2026 08:48:37,"int.nat, MetaAds, fb1818718986247881",Funil Ligação,Venda perdida (Lead desqualificado)
 9858661,20.09.2026 08:45:55,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
@@ -239,9 +325,9 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9827205,19.09.2026 07:46:51,"MetaAds, Int.Pers, fb1092851853698659",Funil de Transmissão,trans.30/09 MI
 9826613,19.09.2026 06:21:44,"MetaAds, Int.Pers, MQL, SQL, fb1376972394242430, ALUNO",Funil Ligação,Venda ganha
 9826563,19.09.2026 06:12:07,"int.nat, MQL, orgânico",Funil de Transmissão,trans.30/09 MI
-9826259,19.09.2026 04:38:16,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+9826259,19.09.2026 04:38:16,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9824765,19.09.2026 00:38:41,"int.nat, MQL, SQL, LINKBIO",Funil Ligação,Venda ganha
-9816981,18.09.2026 19:57:44,"int.nat, MetaAds",Funil Duda,5ª LIGAÇÃO
+9816981,18.09.2026 19:57:44,"int.nat, MetaAds",Funil Duda,6ª LIGAÇÃO
 9816817,18.09.2026 19:47:52,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 9815259,18.09.2026 18:30:09,"Int.Pers, MQL, orgânico",Funil de Transmissão,trans.30/09 MI
 9812563,18.09.2026 18:01:08,,Alunos/Ex-alunos,Atual aluno Pers
@@ -273,7 +359,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9760789,17.09.2026 13:50:33,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 9756477,17.09.2026 11:18:07,"int.nat, MetaAds, MQL, SQL, ALUNO, fb1818718986247881",Funil Ligação,Venda ganha
 9753901,17.09.2026 09:56:04,"int.hidro, MetaAds, MQL",Funil de Transmissão,trans.30/09 GI
-9751499,17.09.2026 07:44:24,"int.hidro, MetaAds",Funil Duda,5ª LIGAÇÃO
+9751499,17.09.2026 07:44:24,"int.hidro, MetaAds, MQL",Funil Duda,6ª LIGAÇÃO
 9751311,17.09.2026 07:27:14,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
 9750551,17.09.2026 05:05:14,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
 9750515,17.09.2026 04:52:09,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Outra cidade)
@@ -310,13 +396,13 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9690555,15.09.2026 14:22:46,"int.nat, MQL, SQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
 9689435,15.09.2026 13:44:08,"MetaAds, Int.Pers",Funil Duda,Venda perdida (Outra cidade)
 9689013,15.09.2026 13:29:42,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Lead desqualificado)
-9683537,15.09.2026 12:23:25,"int.hidro, MetaAds, MQL",Funil Duda,5ª LIGAÇÃO
+9683537,15.09.2026 12:23:25,"int.hidro, MetaAds, MQL",Funil Duda,6ª LIGAÇÃO
 9679059,15.09.2026 09:49:31,"int.nat, MQL, orgânico",Funil de Transmissão,trans.30/09 MI
 9678189,15.09.2026 09:35:39,"MetaAds, Int.Pers, MQL",Funil de Transmissão,trans.30/09 MI
 9675643,15.09.2026 08:08:55,"int.nat, MetaAds, fb1818718986247881",Descarte de Leads,Venda perdida (Outra cidade)
 9675557,15.09.2026 08:05:48,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
 9674339,15.09.2026 07:22:30,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
-9668135,14.09.2026 22:18:39,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
+9668135,14.09.2026 22:18:39,"MetaAds, Int.Pers",Funil Duda,7ª LIGAÇÃO
 9667127,14.09.2026 21:34:46,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
 9665609,14.09.2026 20:37:56,"int.nat, MetaAds",Funil Duda,6ª LIGAÇÃO
 9664927,14.09.2026 20:10:44,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
@@ -332,7 +418,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9567735,13.09.2026 23:59:06,"int.hidro, MetaAds, MQL, SQL",Funil Duda,priorizar
 9565577,13.09.2026 21:58:12,"MetaAds, Int.Pers, fb1092851853698659",Descarte de Leads,Venda perdida (Lead desqualificado)
 9564453,13.09.2026 20:57:15,"int.hidro, MetaAds, Int.Pers, MQL, fb1376972394242430",LEAD BASE/FRIO,HIDRO
-9564253,13.09.2026 20:46:14,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
+9564253,13.09.2026 20:46:14,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
 9563539,13.09.2026 20:03:24,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
 9562619,13.09.2026 19:10:07,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 9561931,13.09.2026 18:24:44,"int.nat, MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
@@ -351,7 +437,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9552515,13.09.2026 07:12:32,"MetaAds, Int.Pers, MQL, fb1376972394242430",Funil de Transmissão,trans.30/09 GI
 9550513,13.09.2026 00:28:05,"MetaAds, Int.Pers, MQL",Funil de Transmissão,trans.30/09 MI
 9548149,12.09.2026 21:18:44,"int.nat, int.hidro, MetaAds, Int.Pers, MQL",Funil Duda,FOLLOWUP
-9548067,12.09.2026 21:12:22,"int.hidro, MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
+9548067,12.09.2026 21:12:22,"int.hidro, MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
 9546863,12.09.2026 19:48:05,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 9541743,12.09.2026 17:26:18,"MetaAds, Int.Pers",Funil Duda,FOLLOWUP
 9541189,12.09.2026 16:57:45,"int.hidro, MetaAds",Funil Duda,6ª LIGAÇÃO
@@ -365,7 +451,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9527439,12.09.2026 07:12:41,"int.nat, MetaAds, MQL, SQL",Funil Ligação,Venda ganha
 9526183,12.09.2026 03:37:01,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 9525865,12.09.2026 02:42:39,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
-9523097,11.09.2026 22:15:15,"MetaAds, Int.Pers",Funil Duda,5ª LIGAÇÃO
+9523097,11.09.2026 22:15:15,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
 9523019,11.09.2026 22:09:48,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
 9517305,11.09.2026 19:29:19,"int.hidro, MetaAds",LEAD BASE/FRIO,HIDRO
 9512125,11.09.2026 18:46:18,"int.hidro, MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
@@ -425,7 +511,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9334089,08.09.2026 11:20:50,"int.nat, MetaAds, Int.Pers",Funil Duda,7ª LIGAÇÃO
 9334055,08.09.2026 11:19:12,"MetaAds, Int.Pers",Funil Duda,Venda perdida (Outra cidade)
 9333979,08.09.2026 11:16:15,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Lead desqualificado)
-9333959,08.09.2026 11:15:44,"int.nat, MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+9333959,08.09.2026 11:15:44,"int.nat, MetaAds, Int.Pers",Funil Duda,4ª LIGAÇÃO
 9333935,08.09.2026 11:15:01,"MetaAds, Int.Pers",Funil de Transmissão,trans.30/09 MI
 9333921,08.09.2026 11:14:25,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Lead desqualificado)
 9333881,08.09.2026 11:13:10,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Condição do Studio)
@@ -435,7 +521,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 9333745,08.09.2026 11:08:06,"MetaAds, Int.Pers",Funil de Transmissão,trans.30/09 GI
 9333677,08.09.2026 11:06:17,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Bug)
 9333623,08.09.2026 11:04:31,"MetaAds, Int.Pers",LEAD BASE/FRIO,HIDRO
-9333601,08.09.2026 11:03:41,"MetaAds, Int.Pers",Funil Duda,6ª LIGAÇÃO
+9333601,08.09.2026 11:03:41,"MetaAds, Int.Pers",Funil Duda,7ª LIGAÇÃO
 9333417,08.09.2026 10:58:00,"int.nat, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 9333397,08.09.2026 10:57:24,"int.nat, int.hidro, MetaAds, Int.Pers",Funil Ligação,Venda perdida
 9333371,08.09.2026 10:56:39,"int.nat, MetaAds",Descarte de Leads,Lead desqualificado
@@ -505,19 +591,19 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8988155,31.08.2026 20:01:33,"Int.Pers, LINKBIO",Funil de Transmissão,INT.PERS
 8987615,31.08.2026 19:38:51,"int.nat, orgânico",Descarte de Leads,Venda perdida (Bug)
 8985627,31.08.2026 18:11:59,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Lead desqualificado
-8985569,31.08.2026 18:09:18,,Funil WhatsApp,WHATSAPP
+8985569,31.08.2026 18:09:18,,Descarte de Leads,Venda perdida (Bug)
 8984581,31.08.2026 17:33:38,"MetaAds, Int.Pers, SQL, TRANS26/06, ALUNO",Funil Duda,Venda ganha
 8983701,31.08.2026 16:59:09,"int.nat, indicação, SQL, ALUNO",Funil WhatsApp,Closed - won
 8982597,31.08.2026 16:16:59,"int.nat, MetaAds",Funil de Transmissão,INT.NAT
 8978957,31.08.2026 15:07:09,"int.nat, MetaAds, MQL",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 8978905,31.08.2026 15:05:25,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 8977687,31.08.2026 14:24:34,"int.nat, MetaAds, MQL",Funil WhatsApp,WHATSAPP
-8977339,31.08.2026 14:13:51,"int.nat, orgânico",LEAD BASE/FRIO,NATAÇÃO
+8977339,31.08.2026 14:13:51,"int.nat, MQL, SQL, ALUNO, transmissão",Funil WhatsApp,Closed - won
 8974969,31.08.2026 12:53:51,"MetaAds, Int.Pers",Funil Duda,SABOR LEAD NOVO (BASE WPP)
-8974823,31.08.2026 12:48:08,"Int.Pers, LINKBIO",Funil Duda,priorizar
+8974823,31.08.2026 12:48:08,"Int.Pers, MQL, LINKBIO",LEAD BASE/FRIO,PERSONAL
 8973931,31.08.2026 12:17:59,"MetaAds, Int.Pers, MQL, SQL, fb1376972394242430, ALUNO",Funil Duda,Venda ganha
 8972787,31.08.2026 11:39:36,"int.nat, MetaAds, MQL",LEAD BASE/FRIO,NATAÇÃO
-8972485,31.08.2026 11:28:46,,Funil WhatsApp,WHATSAPP
+8972485,31.08.2026 11:28:46,,Descarte de Leads,Venda perdida (Bug)
 8971841,31.08.2026 11:08:33,"int.nat, MetaAds",Funil WhatsApp,WHATSAPP
 8969225,31.08.2026 10:36:00,,Funil WhatsApp,WHATSAPP
 8968319,31.08.2026 10:04:11,"Int.Pers, MQL, SQL, orgânico",LEAD BASE/FRIO,PERSONAL
@@ -549,7 +635,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8917131,29.08.2026 10:09:12,"Int.Pers, SQL, LINKBIO",Funil WhatsApp,WHATSAPP
 8914983,29.08.2026 08:16:50,"int.nat, MetaAds, MQL",LEAD BASE/FRIO,NATAÇÃO
 8913977,29.08.2026 05:58:31,"int.nat, MetaAds",Funil WhatsApp,WHATSAPP
-8913749,29.08.2026 05:03:25,"MetaAds, Int.Pers, fb1376972394242430",Funil Duda,1ª LIGAÇÃO
+8913749,29.08.2026 05:03:25,"MetaAds, Int.Pers",Descarte de Leads,Lead desqualificado
 8911843,29.08.2026 01:02:58,"MetaAds, Int.Pers, fb1376972394242430",Funil WhatsApp,WHATSAPP
 8909173,28.08.2026 22:23:22,"MetaAds, Int.Pers, fb1376972394242430",Funil WhatsApp,Closed - lost (Outra cidade)
 8908419,28.08.2026 21:36:45,"MetaAds, Int.Pers, fb1376972394242430",Funil WhatsApp,WHATSAPP
@@ -566,7 +652,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8887227,28.08.2026 09:02:30,"int.nat, MQL, SQL, orgânico",Funil Duda,7ª LIGAÇÃO
 8885765,28.08.2026 07:44:42,"int.nat, SQL, orgânico, ALUNO",Funil WhatsApp,Closed - won
 8885341,28.08.2026 07:03:51,"int.hidro, MetaAds, MQL",LEAD BASE/FRIO,HIDRO
-8877269,27.08.2026 21:43:17,"Int.Pers, LINKBIO",Funil Duda,1ª LIGAÇÃO
+8877269,27.08.2026 21:43:17,"Int.Pers, LINKBIO",LEAD BASE/FRIO,PERSONAL
 8877017,27.08.2026 21:32:10,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
 8873799,27.08.2026 19:17:03,,Alunos/Ex-alunos,Ex-alunos Nat
 8873611,27.08.2026 19:09:33,"int.hidro, SQL, ALUNO",Funil Duda,Venda ganha
@@ -630,7 +716,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8696157,23.08.2026 16:17:13,"int.nat, MetaAds, MQL",LEAD BASE/FRIO,NATAÇÃO
 8695821,23.08.2026 15:56:12,"int.hidro, MetaAds",Funil Ligação,Venda perdida (Bug)
 8685003,23.08.2026 11:15:19,"int.hidro, MetaAds",Funil Ligação,Venda ganha
-8684999,23.08.2026 11:14:53,"int.hidro, MetaAds, MQL",Funil Duda,1ª LIGAÇÃO
+8684999,23.08.2026 11:14:53,"int.hidro, MetaAds, MQL",Funil Duda,6ª LIGAÇÃO
 8684357,23.08.2026 10:38:10,"int.hidro, MetaAds",Funil WhatsApp,WHATSAPP
 8684135,23.08.2026 10:26:55,"int.hidro, MetaAds, MQL, SQL",Funil Duda,SABOR LEAD NOVO (BASE WPP)
 8682845,23.08.2026 09:15:58,"int.nat, MetaAds, MQL, SQL, fb813568528359015, ALUNO",Funil Ligação,Venda ganha
@@ -638,7 +724,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8677045,22.08.2026 21:18:48,"int.nat, MetaAds, fb813568528359015",Descarte de Leads,Venda perdida (Outra cidade)
 8675659,22.08.2026 19:41:12,"int.nat, MetaAds",Descarte de Leads,Venda perdida (Condição do Studio)
 8672323,22.08.2026 16:16:59,"MetaAds, Int.Pers, fb1376972394242430",Funil WhatsApp,WHATSAPP
-8671243,22.08.2026 15:13:48,,Funil WhatsApp,WHATSAPP
+8671243,22.08.2026 15:13:48,,Alunos/Ex-alunos,Atual aluno Pers
 8671153,22.08.2026 15:09:53,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Lead desqualificado)
 8670481,22.08.2026 14:31:42,,Funil WhatsApp,WHATSAPP
 8666083,22.08.2026 11:15:50,"int.nat, MQL, orgânico",Funil WhatsApp,WHATSAPP
@@ -655,7 +741,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8653097,21.08.2026 17:07:20,"int.hidro, MetaAds, MQL",Funil WhatsApp,WHATSAPP
 8652377,21.08.2026 16:37:53,"int.hidro, MetaAds, MQL",LEAD BASE/FRIO,HIDRO
 8648893,21.08.2026 14:36:04,"int.nat, MQL, LINKBIO",Funil WhatsApp,WHATSAPP
-8648479,21.08.2026 14:20:29,"int.nat, MQL, orgânico",Funil Duda,2ª LIGAÇÃO
+8648479,21.08.2026 14:20:29,"int.nat, MQL, orgânico",Funil Duda,6ª LIGAÇÃO
 8647925,21.08.2026 14:00:39,"int.hidro, MetaAds, MQL",Funil WhatsApp,WHATSAPP
 8646977,21.08.2026 13:28:08,"MetaAds, Int.Pers, MQL, SQL",Funil WhatsApp,WHATSAPP
 8645129,21.08.2026 12:26:41,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Lead desqualificado)
@@ -699,7 +785,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8584047,19.08.2026 12:18:43,,Descarte de Leads,Venda perdida (Bug)
 8582563,19.08.2026 11:29:03,"int.nat, MQL, orgânico",Funil WhatsApp,WHATSAPP
 8581685,19.08.2026 11:06:54,"int.hidro, MetaAds, MQL",Funil Duda,SABOR LEAD NOVO (BASE WPP)
-8580223,19.08.2026 10:23:39,"MetaAds, Int.Pers",Funil Duda,1ª LIGAÇÃO
+8580223,19.08.2026 10:23:39,"MetaAds, Int.Pers",Funil Duda,2ª LIGAÇÃO
 8579957,19.08.2026 10:14:34,duplicado,Funil WhatsApp,WHATSAPP
 8579573,19.08.2026 09:59:31,"int.hidro, MQL, LINKBIO",Funil WhatsApp,WHATSAPP
 8576635,19.08.2026 08:45:20,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
@@ -730,7 +816,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8509815,17.08.2026 13:29:13,"int.hidro, MetaAds, MQL",Funil WhatsApp,WHATSAPP
 8506661,17.08.2026 11:34:58,"int.hidro, MetaAds",Funil WhatsApp,WHATSAPP
 8502459,17.08.2026 09:01:05,"int.hidro, MetaAds",Funil WhatsApp,WHATSAPP
-8502159,17.08.2026 08:44:47,"int.nat, MetaAds, fb813568528359015",Funil Duda,1ª LIGAÇÃO
+8502159,17.08.2026 08:44:47,"int.nat, MetaAds, MQL",VAGA PARA LEAD FECHAR,TURMA DE BEBE
 8495005,16.08.2026 21:03:30,"int.nat, MetaAds, MQL",Funil WhatsApp,WHATSAPP
 8491793,16.08.2026 18:06:27,,Funil WhatsApp,WHATSAPP
 8491577,16.08.2026 17:56:20,"MetaAds, Int.Pers",Funil WhatsApp,WHATSAPP
@@ -756,9 +842,9 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8416551,14.08.2026 10:26:50,"Int.Pers, MQL, SQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
 8413833,14.08.2026 09:25:08,"int.nat, LINKBIO",Funil WhatsApp,WHATSAPP
 8413021,14.08.2026 08:49:17,,Funil WhatsApp,WHATSAPP
-8412213,14.08.2026 08:05:32,,Funil WhatsApp,WHATSAPP
+8412213,14.08.2026 08:05:32,,Descarte de Leads,Venda perdida (Bug)
 8411615,14.08.2026 07:13:26,"int.nat, MetaAds, ex-aluno(a), MQL, SQL",Alunos/Ex-alunos,Atual aluno Nat
-8400419,13.08.2026 21:28:25,,Funil WhatsApp,WHATSAPP
+8400419,13.08.2026 21:28:25,,Descarte de Leads,Venda perdida (Condição do Studio)
 8399961,13.08.2026 21:01:06,"MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
 8399109,13.08.2026 20:22:20,"MetaAds, Int.Pers",Funil WhatsApp,WHATSAPP
 8396673,13.08.2026 18:26:29,,Alunos/Ex-alunos,Atual aluno Pers
@@ -772,14 +858,14 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8390973,13.08.2026 15:07:24,"int.nat, int.hidro, MetaAds, orgânico",Funil Duda,SABOR LEAD NOVO (BASE WPP)
 8389357,13.08.2026 14:10:27,"int.hidro, MetaAds",Funil WhatsApp,WHATSAPP
 8388817,13.08.2026 13:54:47,"int.nat, LINKBIO",Funil WhatsApp,WHATSAPP
-8386291,13.08.2026 12:18:30,,Funil WhatsApp,WHATSAPP
+8386291,13.08.2026 12:18:30,,Descarte de Leads,Venda perdida (Bug)
 8386281,13.08.2026 12:18:00,"int.nat, MetaAds",Funil WhatsApp,WHATSAPP
 8380619,13.08.2026 08:42:07,"MetaAds, Int.Pers",Descarte de Leads,Venda perdida (Outra cidade)
 8378597,13.08.2026 04:53:50,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
 8377071,13.08.2026 00:26:56,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Bug)
 8374241,12.08.2026 21:33:23,"MetaAds, Int.Pers",Funil Duda,SABOR LEAD NOVO (BASE WPP)
 8373803,12.08.2026 21:12:27,"int.hidro, MetaAds, MQL, SQL, ALUNO",Funil Ligação,Venda ganha
-8373791,12.08.2026 21:11:57,"MetaAds, Int.Pers, MQL",Funil Duda,2ª LIGAÇÃO
+8373791,12.08.2026 21:11:57,"MetaAds, Int.Pers, MQL",LEAD BASE/FRIO,PERSONAL
 8372069,12.08.2026 19:45:00,"int.hidro, MetaAds, int.totalpass",Descarte de Leads,Venda perdida (Outra cidade)
 8369981,12.08.2026 17:52:22,"int.hidro, orgânico",Funil WhatsApp,WHATSAPP
 8369539,12.08.2026 17:32:03,,Funil WhatsApp,WHATSAPP
@@ -868,7 +954,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8138597,05.08.2026 16:20:57,"int.nat, int.hidro, MetaAds",Funil WhatsApp,WHATSAPP
 8138501,05.08.2026 16:17:29,"MetaAds, Int.Pers, SQL, ALUNO",Funil WhatsApp,Closed - won
 8138035,05.08.2026 16:00:46,"int.nat, MQL, LINKBIO, ALUNO",Funil Ligação,Venda ganha
-8136733,05.08.2026 15:17:35,"int.nat, MQL, LINKBIO",Funil Duda,1ª LIGAÇÃO
+8136733,05.08.2026 15:17:35,"int.nat, MQL, LINKBIO",Funil Duda,priorizar
 8134321,05.08.2026 13:56:33,"Int.Pers, MQL, LINKBIO",Funil Duda,SABOR LEAD NOVO (BASE WPP)
 8134079,05.08.2026 13:49:00,"int.hidro, MetaAds",Funil Duda,SABOR LEAD NOVO (BASE WPP)
 8128673,05.08.2026 12:25:16,"MetaAds, Int.Pers, fb1376972394242430",Funil WhatsApp,WHATSAPP
@@ -888,7 +974,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 8100575,04.08.2026 17:16:02,,Alunos/Ex-alunos,Atual aluno Nat
 8100161,04.08.2026 17:01:16,"int.hidro, MetaAds",Descarte de Leads,Venda perdida (Bug)
 8100023,04.08.2026 16:57:28,,Funil WhatsApp,WHATSAPP
-8099205,04.08.2026 16:36:34,"int.nat, orgânico",Funil WhatsApp,WHATSAPP
+8099205,04.08.2026 16:36:34,"int.nat, orgânico",LEAD BASE/FRIO,NATAÇÃO
 8097519,04.08.2026 16:21:28,"int.hidro, MetaAds",LEAD BASE/FRIO,PERSONAL
 8097065,04.08.2026 16:15:58,"int.hidro, indicação, SQL",Funil WhatsApp,Closed - won
 8095891,04.08.2026 15:34:55,"int.hidro, MetaAds",Funil Duda,SABOR LEAD NOVO (BASE WPP)
@@ -953,7 +1039,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 7917015,30.07.2026 01:02:38,"MetaAds, Int.Pers, duplicado",LEAD BASE/FRIO,PERSONAL
 7917011,30.07.2026 01:02:34,"MetaAds, Int.Pers, fb1376972394242430",Descarte de Leads,Venda perdida (Bug)
 7908171,29.07.2026 19:44:18,"Int.Pers, LINKBIO",Funil WhatsApp,WHATSAPP
-7904369,29.07.2026 18:59:30,"MetaAds, Int.Pers",Funil Duda,FOLLOWUP
+7904369,29.07.2026 18:59:30,"int.nat, MetaAds, Int.Pers, MQL, SQL, ALUNO",Funil WhatsApp,Closed - won
 7902771,29.07.2026 18:03:51,"int.nat, orgânico",Descarte de Leads,Lead desqualificado
 7901379,29.07.2026 17:13:44,"Int.Pers, SQL, LINKBIO, sql",Funil Ligação,Venda ganha
 7900769,29.07.2026 16:51:27,"Int.Pers, MQL, LINKBIO",LEAD BASE/FRIO,PERSONAL
@@ -1327,7 +1413,6 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 6869189,28.06.2026 21:35:50,"MetaAds, Int.Pers",Funil Duda,Venda perdida (Lead desqualificado)
 6867633,28.06.2026 20:38:19,"MetaAds, Int.Pers",LEAD BASE/FRIO,PERSONAL
 6857135,28.06.2026 17:24:08,"int.hidro, MetaAds",Funil de Transmissão,INT.HIDRO
-6849627,28.06.2026 12:12:20,"MetaAds, Int.Pers",Funil de Transmissão,INT.PERS
 6826219,27.08.2026 16:33:44,"int.hidro, MetaAds, MQL",Funil de Transmissão,INT.HIDRO
 6817645,27.06.2026 10:56:39,"int.hidro, MetaAds, MQL, SQL",LEAD BASE/FRIO,HIDRO
 6814795,27.06.2026 09:28:47,"int.hidro, MetaAds",Funil Duda,Venda perdida (Fechou no concorrente)
@@ -1367,7 +1452,7 @@ ID,Criado em,Tags,Funil de vendas,Etapa do lead
 6585381,22.06.2026 21:58:58,"MetaAds, Int.Pers",Funil de Transmissão,INT.PERS
 6580689,22.06.2026 19:13:30,int.nat,Descarte de Leads,Venda perdida (Lead desqualificado)
 6580325,22.06.2026 19:00:59,"MetaAds, Int.Pers",Funil de Transmissão,INT.PERS
-6580085,22.06.2026 18:51:55,int.hidro,Funil WhatsApp,Closed - won
+6580085,22.06.2026 18:51:55,"int.hidro, MQL, SQL, ALUNO",Alunos/Ex-alunos,Atual aluno Hidro
 6577097,22.06.2026 17:08:37,,Alunos/Ex-alunos,Atual aluno Nat
 6576547,22.06.2026 16:52:14,,LEAD BASE/FRIO,Venda perdida (Bug)
 6568705,22.06.2026 16:10:07,"MetaAds, Int.Pers, SQL",Funil Ligação,Venda ganha
